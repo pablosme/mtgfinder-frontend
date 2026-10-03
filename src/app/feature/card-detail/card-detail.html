@@ -34,52 +34,54 @@
                     </figure>
                 }
 
-                <section class="printings-panel" aria-labelledby="prints-heading">
-                    <h2 id="prints-heading">Prints</h2>
-                    @if (card.prints?.length) {
-                        <ul class="print-list">
-                            @for (print of card.prints ?? []; track print.id) {
-                                <li class="print-item">
-                                    <button
-                                        class="print-choice"
-                                        type="button"
-                                        [class.print-choice--selected]="
-                                            currentPrintId() === print.id
-                                        "
-                                        [attr.aria-pressed]="currentPrintId() === print.id"
-                                        (click)="selectPrint(print)"
-                                    >
-                                        @if (printImageUrl(print); as imageUrl) {
-                                            <img
-                                                class="print-thumbnail"
-                                                [src]="imageUrl"
-                                                [alt]="card.name + ' — ' + print.set_name"
-                                            />
-                                        }
-                                        <span class="print-choice-details">
-                                            <span class="print-choice-name">{{
-                                                print.set_name
-                                            }}</span>
-                                            <span
-                                                >{{ print.set_code }} · #{{
-                                                    print.collector_number
-                                                }}</span
-                                            >
-                                            <span
-                                                >{{ print.rarity }}
-                                                @if (print.released_at) {
-                                                    · {{ print.released_at }}
-                                                }
+                <div class="printings-space">
+                    <section class="printings-panel" aria-labelledby="prints-heading">
+                        <h2 id="prints-heading">Prints</h2>
+                        @if (card.prints?.length) {
+                            <ul class="print-list">
+                                @for (print of card.prints; track print.id) {
+                                    <li class="print-item">
+                                        <button
+                                            class="print-choice"
+                                            type="button"
+                                            [class.print-choice--selected]="
+                                                currentPrintId() === print.id
+                                            "
+                                            [attr.aria-pressed]="currentPrintId() === print.id"
+                                            (click)="selectPrint(print)"
+                                        >
+                                            @if (printImageUrl(print); as imageUrl) {
+                                                <img
+                                                    class="print-thumbnail"
+                                                    [src]="imageUrl"
+                                                    [alt]="card.name + ' — ' + print.set_name"
+                                                />
+                                            }
+                                            <span class="print-choice-details">
+                                                <span class="print-choice-name">{{
+                                                    print.set_name
+                                                }}</span>
+                                                <span
+                                                    >{{ print.set_code }} · #{{
+                                                        print.collector_number
+                                                    }}</span
+                                                >
+                                                <span
+                                                    >{{ print.rarity }}
+                                                    @if (print.released_at) {
+                                                        · {{ print.released_at }}
+                                                    }
+                                                </span>
                                             </span>
-                                        </span>
-                                    </button>
-                                </li>
-                            }
-                        </ul>
-                    } @else {
-                        <p>No printings are available.</p>
-                    }
-                </section>
+                                        </button>
+                                    </li>
+                                }
+                            </ul>
+                        } @else {
+                            <p>No printings are available.</p>
+                        }
+                    </section>
+                </div>
             </section>
 
             <section class="information-column" aria-label="Card information">
@@ -97,19 +99,17 @@
                             }
                         </div>
 
-                        <div class="mana-summary" aria-label="Mana cost and value">
-                            <span class="field-label">Mana cost</span>
-                            <strong>
-                                @if (card.mana_cost) {
-                                    <app-mana-text [text]="card.mana_cost" />
-                                } @else {
-                                    None
+                        @if (card.mana_cost; as manaCost) {
+                            <div class="mana-summary" aria-label="Mana cost and value">
+                                <span class="field-label">Mana cost</span>
+                                <strong>
+                                    <app-mana-text [text]="manaCost" />
+                                </strong>
+                                @if (card.cmc !== null) {
+                                    <span>Mana value: {{ card.cmc }}</span>
                                 }
-                            </strong>
-                            @if (card.cmc !== null) {
-                                <span>Mana value: {{ card.cmc }}</span>
-                            }
-                        </div>
+                            </div>
+                        }
                     </div>
 
                     <div class="card-facts">

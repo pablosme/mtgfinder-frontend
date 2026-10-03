@@ -402,6 +402,40 @@
     text-transform: capitalize;
 }
 
+@media (min-width: 901px) {
+    .visual-column {
+        align-self: stretch;
+    }
+
+    .featured-print {
+        flex-shrink: 0;
+    }
+
+    .printings-space {
+        position: relative;
+        flex: 1;
+        height: 0;
+        min-height: 0;
+    }
+
+    .printings-panel {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        min-height: 0;
+        max-height: 100%;
+        flex-direction: column;
+        box-sizing: border-box;
+    }
+
+    .print-list {
+        flex: 1;
+        min-height: 0;
+        max-height: none;
+        align-content: start;
+    }
+}
+
 @media (max-width: 900px) {
     .card-detail {
         padding-right: 1.25rem;
@@ -421,6 +455,20 @@
 
     .featured-print {
         width: 100%;
+    }
+
+    .printings-space {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .print-list {
+        max-height: none;
+        grid-template-columns: none;
+        grid-auto-flow: column;
+        grid-auto-columns: clamp(8rem, 42%, 12rem);
+        overflow-x: auto;
+        overflow-y: hidden;
     }
 }
 

@@ -156,7 +156,8 @@ export class CardSearchInput {
                     const filters = this.filters();
                     return name && !this.parsedQuery().error
                         ? timer(250).pipe(
-                              switchMap(() => this.cardSearch.searchByName(name, filters)),
+                              //   switchMap(() => this.cardSearch.searchByName(name, filters)),
+                              switchMap(() => this.cardSearch.searchByPrompt(name, filters)),
                               map((response) => ({
                                   cards: response.data.filter((card) => card.oracle_id !== null),
                                   error: '',
