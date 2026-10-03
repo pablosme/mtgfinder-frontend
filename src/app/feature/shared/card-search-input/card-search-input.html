@@ -1,0 +1,109 @@
+<div class="card-search">
+    <label [for]="inputId()">Search for a card</label>
+    <div class="search-field">
+        <input
+            #searchInput
+            [id]="inputId()"
+            type="search"
+            autocomplete="off"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-haspopup="listbox"
+            [attr.aria-controls]="expanded() ? listId() : null"
+            [attr.aria-expanded]="expanded()"
+            [attr.aria-activedescendant]="activeOptionId()"
+            [attr.aria-describedby]="inputId() + '-help ' + inputId() + '-status'"
+            [attr.aria-invalid]="parsedQuery().error && !pickingFilter() ? true : null"
+            [value]="query()"
+            (input)="onInput($event)"
+            (focus)="updateCaret(); open.set(true)"
+            (click)="updateCaret(); open.set(true)"
+            (select)="updateCaret()"
+            (keyup)="updateCaret()"
+            (compositionend)="onInput($event)"
+            (blur)="open.set(false); activeIndex.set(-1)"
+            (keydown)="onKeydown($event)"
+            placeholder="Card name or / to add a filter"
+        />
+
+        <button
+            class="filter-picker"
+            type="button"
+            aria-label="Add a search filter"
+            [attr.aria-controls]="expanded() && pickingFilter() ? listId() : null"
+            (pointerdown)="$event.preventDefault()"
+            (click)="openFilterSuggestions()"
+        >
+            /
+        </button>
+
+        @if (expanded()) {
+            <ul
+                [id]="listId()"
+                class="suggestions"
+                role="listbox"
+                [attr.aria-label]="pickingFilter() ? 'Search filters' : 'Card search results'"
+            >
+                @if (pickingFilter()) {
+                    @for (field of matchingFilters(); track field.key; let index = $index) {
+                        <li role="presentation">
+                            <button
+                                #option
+                                type="button"
+                                role="option"
+                                tabindex="-1"
+                                [id]="listId() + '-' + index"
+                                [attr.aria-selected]="activeIndex() === index"
+                                [class.active]="activeIndex() === index"
+                                [title]="field.hint ?? field.placeholder"
+                                (pointerdown)="$event.preventDefault()"
+                                (click)="addFilter(field)"
+                            >
+                                <span class="filter-option">
+                                    <span
+                                        >{{ field.label }}
+                                        <code>/{{ field.alias ?? field.key }}=</code></span
+                                    >
+                                    <small>{{ field.placeholder }}</small>
+                                </span>
+                            </button>
+                        </li>
+                    }
+                } @else {
+                    @for (card of cards(); track card.id; let index = $index) {
+                        <li role="presentation">
+                            <button
+                                #option
+                                type="button"
+                                role="option"
+                                tabindex="-1"
+                                [id]="listId() + '-' + index"
+                                [attr.aria-selected]="activeIndex() === index"
+                                [class.active]="activeIndex() === index"
+                                (pointerdown)="$event.preventDefault()"
+                                (click)="selectCard(card)"
+                            >
+                                <div style="display: flex; flex-direction: column; width: 100%">
+                                    <div style="display: flex; justify-content: space-between">
+                                        <span class="suggestion-name">{{ card.name }}</span>
+                                        @if (card.mana_cost) {
+                                            <app-mana-text
+                                                class="suggestion-cost"
+                                                [text]="card.mana_cost"
+                                            />
+                                        }
+                                    </div>
+                                    <span class="suggestion-type">{{ card.type_line }}</span>
+                                </div>
+                            </button>
+                        </li>
+                    }
+                }
+            </ul>
+        }
+    </div>
+
+    <p class="search-status" [id]="inputId() + '-status'" role="status" aria-live="polite">
+        {{ status() }}
+    </p>
+</div>

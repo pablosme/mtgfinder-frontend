@@ -1,0 +1,12 @@
+@for (token of tokens(); track $index) {
+    @if (token.classes) {
+        <span
+            [class]="token.classes"
+            role="img"
+            [attr.aria-label]="token.label"
+            [attr.title]="token.text"
+        ></span>
+    } @else {
+        {{ token.text }}
+    }
+}

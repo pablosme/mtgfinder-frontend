@@ -1,0 +1,41 @@
+.site-header {
+    display: flex;
+    min-height: 4.5rem;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.75rem clamp(1rem, 4vw, 2.5rem);
+    border-bottom: 1px solid #a5978b;
+    background: #fcf2e5;
+}
+
+.brand {
+    flex: 0 0 auto;
+    color: #3f1513;
+    text-decoration: none;
+}
+
+.brand h1 {
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.5rem;
+    white-space: nowrap;
+}
+
+.header-search {
+    flex: 1 1 20rem;
+    max-width: 34rem;
+    margin-left: auto;
+}
+
+@media (max-width: 600px) {
+    .site-header {
+        flex-wrap: wrap;
+        gap: 0.75rem 1rem;
+    }
+
+    .header-search {
+        flex-basis: 100%;
+        max-width: none;
+        margin-left: 0;
+    }
+}

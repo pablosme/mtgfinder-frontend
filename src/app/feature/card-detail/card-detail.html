@@ -1,0 +1,250 @@
+@if (loading()) {
+    <p class="detail-message" role="status">Loading card…</p>
+} @else if (error()) {
+    <p class="detail-message detail-message--error" role="alert">{{ error() }}</p>
+} @else if (card(); as card) {
+    <main class="card-detail">
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a routerLink="/">Card search</a>
+            <span aria-hidden="true">›</span>
+            <span aria-current="page">{{ card.name }}</span>
+        </nav>
+
+        <div class="detail-grid">
+            <section class="visual-column" aria-label="Card image and prints">
+                @if (currentPrint(); as print) {
+                    <figure class="featured-print">
+                        @if (printImageUrl(print); as imageUrl) {
+                            <img [src]="imageUrl" [alt]="card.name + ' from ' + print.set_name" />
+                        } @else {
+                            <div
+                                class="image-placeholder"
+                                role="img"
+                                [attr.aria-label]="'No image available for ' + card.name"
+                            >
+                                {{ card.name }}
+                            </div>
+                        }
+                        <figcaption>
+                            {{ print.set_name }}
+                            @if (print.released_at) {
+                                · {{ print.released_at }}
+                            }
+                        </figcaption>
+                    </figure>
+                }
+
+                <section class="printings-panel" aria-labelledby="prints-heading">
+                    <h2 id="prints-heading">Prints</h2>
+                    @if (card.prints?.length) {
+                        <ul class="print-list">
+                            @for (print of card.prints ?? []; track print.id) {
+                                <li class="print-item">
+                                    <button
+                                        class="print-choice"
+                                        type="button"
+                                        [class.print-choice--selected]="
+                                            currentPrintId() === print.id
+                                        "
+                                        [attr.aria-pressed]="currentPrintId() === print.id"
+                                        (click)="selectPrint(print)"
+                                    >
+                                        @if (printImageUrl(print); as imageUrl) {
+                                            <img
+                                                class="print-thumbnail"
+                                                [src]="imageUrl"
+                                                [alt]="card.name + ' — ' + print.set_name"
+                                            />
+                                        }
+                                        <span class="print-choice-details">
+                                            <span class="print-choice-name">{{
+                                                print.set_name
+                                            }}</span>
+                                            <span
+                                                >{{ print.set_code }} · #{{
+                                                    print.collector_number
+                                                }}</span
+                                            >
+                                            <span
+                                                >{{ print.rarity }}
+                                                @if (print.released_at) {
+                                                    · {{ print.released_at }}
+                                                }
+                                            </span>
+                                        </span>
+                                    </button>
+                                </li>
+                            }
+                        </ul>
+                    } @else {
+                        <p>No printings are available.</p>
+                    }
+                </section>
+            </section>
+
+            <section class="information-column" aria-label="Card information">
+                <section class="overview-panel" aria-labelledby="card-title">
+                    <div class="overview-heading">
+                        <div>
+                            <h1 id="card-title">{{ card.name }}</h1>
+                            @if (currentPrint(); as print) {
+                                @if (print.printed_name && print.printed_name !== card.name) {
+                                    <p class="printed-name">{{ print.printed_name }}</p>
+                                }
+                            }
+                            @if (card.type_line) {
+                                <p class="type-line">{{ card.type_line }}</p>
+                            }
+                        </div>
+
+                        <div class="mana-summary" aria-label="Mana cost and value">
+                            <span class="field-label">Mana cost</span>
+                            <strong>
+                                @if (card.mana_cost) {
+                                    <app-mana-text [text]="card.mana_cost" />
+                                } @else {
+                                    None
+                                }
+                            </strong>
+                            @if (card.cmc !== null) {
+                                <span>Mana value: {{ card.cmc }}</span>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="card-facts">
+                        @if (card.colors; as colors) {
+                            @if (colors.length) {
+                                <p>
+                                    <span class="field-label">Colors</span>
+                                    @for (color of colors; track $index) {
+                                        <app-mana-text [text]="'{' + color + '}'" />
+                                    }
+                                </p>
+                            }
+                        }
+                        @if (card.keywords; as keywords) {
+                            @if (keywords.length) {
+                                <p>
+                                    <span class="field-label">Keywords</span
+                                    >{{ keywords.join(', ') }}
+                                </p>
+                            }
+                        }
+                        @if (card.power !== null || card.toughness !== null) {
+                            <p>
+                                <span class="field-label">Power / Toughness</span
+                                >{{ card.power || '—' }} / {{ card.toughness || '—' }}
+                            </p>
+                        }
+                        @if (card.loyalty) {
+                            <p><span class="field-label">Loyalty</span>{{ card.loyalty }}</p>
+                        }
+                        @if (card.defense) {
+                            <p><span class="field-label">Defense</span>{{ card.defense }}</p>
+                        }
+                        <p class="reserved-status">
+                            <span class="field-label">Reserved List</span>
+                            {{ card.reserved ? 'Yes' : 'No' }}
+                        </p>
+                    </div>
+                </section>
+
+                <section class="oracle-panel" aria-labelledby="oracle-heading">
+                    <div class="section-heading">
+                        <h2 id="oracle-heading">Text</h2>
+                        <span>Oracle rules text</span>
+                    </div>
+                    <div class="oracle-text">
+                        @if (card.oracle_text) {
+                            <p><app-mana-text [text]="card.oracle_text" /></p>
+                        } @else {
+                            <p>No oracle text.</p>
+                        }
+                    </div>
+                    @if (currentPrint(); as print) {
+                        @if (print.flavor_text) {
+                            <blockquote>{{ print.flavor_text }}</blockquote>
+                        }
+                    }
+                </section>
+
+                <section class="metadata-panel" aria-labelledby="metadata-heading">
+                    <h2 id="metadata-heading">Collection</h2>
+                    <dl class="metadata-grid">
+                        @if (currentPrint(); as print) {
+                            <div>
+                                <dt>Set</dt>
+                                <dd>{{ print.set_name }}</dd>
+                            </div>
+                            <div>
+                                <dt>Collector number</dt>
+                                <dd>{{ print.collector_number }}</dd>
+                            </div>
+                            <div>
+                                <dt>Artist</dt>
+                                <dd>{{ print.artist || 'Unavailable' }}</dd>
+                            </div>
+                            <div>
+                                <dt>Release date</dt>
+                                <dd>{{ print.released_at || 'Unavailable' }}</dd>
+                            </div>
+                            <div>
+                                <dt>Rarity</dt>
+                                <dd>{{ print.rarity }}</dd>
+                            </div>
+                        } @else {
+                            <div>
+                                <dt>Set</dt>
+                                <dd>Unavailable</dd>
+                            </div>
+                            <div>
+                                <dt>Collector number</dt>
+                                <dd>Unavailable</dd>
+                            </div>
+                            <div>
+                                <dt>Artist</dt>
+                                <dd>Unavailable</dd>
+                            </div>
+                            <div>
+                                <dt>Release date</dt>
+                                <dd>Unavailable</dd>
+                            </div>
+                            <div>
+                                <dt>Rarity</dt>
+                                <dd>Unavailable</dd>
+                            </div>
+                        }
+                        <div>
+                            <dt>Oracle ID</dt>
+                            <dd>{{ card.oracle_id || 'Unavailable' }}</dd>
+                        </div>
+                    </dl>
+                </section>
+
+                <section class="legality-panel" aria-labelledby="legality-heading">
+                    <div class="section-heading">
+                        <h2 id="legality-heading">Format legality</h2>
+                        <span>Official formats</span>
+                    </div>
+                    @if (card.legalities; as legalities) {
+                        <ul class="legality-grid">
+                            @for (legality of legalities | keyvalue; track legality.key) {
+                                <li>
+                                    <span>{{ legality.key }}</span>
+                                    <strong>
+                                        {{
+                                            legality.value === 'legal' ? 'Legal' : 'Not Legal'
+                                        }}</strong
+                                    >
+                                </li>
+                            }
+                        </ul>
+                    } @else {
+                        <p>No legality information is available.</p>
+                    }
+                </section>
+            </section>
+        </div>
+    </main>
+}

@@ -1,0 +1,144 @@
+:host {
+    display: block;
+    width: min(100%, 38rem);
+}
+
+.card-search {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.search-field {
+    position: relative;
+}
+
+label {
+    font-weight: 600;
+}
+
+input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.85rem 5rem 0.85rem 1rem;
+    border: 1px solid #9ca3af;
+    border-radius: 0.5rem;
+    font: inherit;
+}
+
+input:focus-visible,
+.filter-picker:focus-visible,
+.clear-filters:focus-visible,
+.suggestions button:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: 2px;
+}
+
+.suggestions {
+    position: absolute;
+    z-index: 1;
+    top: calc(100% + 0.25rem);
+    right: 0;
+    left: 0;
+    max-height: 18rem;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0.25rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    background: #fff;
+    box-shadow: 0 0.5rem 1.25rem rgb(0 0 0 / 12%);
+    list-style: none;
+}
+
+.suggestions button {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem 0.75rem;
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    border: 0;
+    border-radius: 0.25rem;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.suggestions button:hover,
+.suggestions button.active {
+    background: #f3f4f6;
+}
+
+.search-status {
+    min-height: 2.4em;
+    margin: 0;
+    color: #4b5563;
+    font-size: 0.9rem;
+    line-height: 1.2;
+}
+
+.suggestion-name {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.suggestion-type {
+    font-size: 0.8rem;
+}
+
+.suggestion-cost {
+    font-size: 0.9rem;
+}
+
+.filter-picker {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    width: 3.75rem;
+    box-sizing: border-box;
+    padding: 0 0.65rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.35rem;
+    background: #f3f4f6;
+    justify-content: center;
+    color: inherit;
+    font: inherit;
+    font-size: 1.15rem;
+    cursor: pointer;
+}
+
+.filter-option {
+    display: grid;
+    gap: 0.15rem;
+}
+
+.filter-option code {
+    margin-left: 0.4rem;
+    font-size: 0.8rem;
+}
+
+.search-help,
+.filter-option small {
+    margin: 0;
+    color: #4b5563;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.clear-filters {
+    justify-self: start;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #9ca3af;
+    border-radius: 0.35rem;
+    background: #f3f4f6;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}

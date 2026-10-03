@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+html,
+body {
+    @include mat.theme(
+        (
+            color: mat.$azure-palette,
+            typography: Arial,
+            density: 0,
+        )
+    );
+
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+app-root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}

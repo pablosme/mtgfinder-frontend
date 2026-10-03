@@ -1,0 +1,13 @@
+<header class="site-header">
+    <a class="brand" routerLink="/" aria-label="MTG Finder home">
+        <h1><span class="ms ms-planeswalker" aria-hidden="true"></span> MTG Finder</h1>
+    </a>
+
+    @if (!isHome()) {
+        <app-card-search-input
+            class="header-search"
+            inputId="header-card-search"
+            (cardSelected)="selectCard($event)"
+        />
+    }
+</header>
