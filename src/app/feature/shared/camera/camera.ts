@@ -506,9 +506,83 @@ export class Camera {
         if (!result || !name || this.processing()) return;
         this.dialogRef.close({ ...result, name });
     }
+    private async requestCameraStream(): Promise<MediaStream> {
+        const preferredConstraints: MediaStreamConstraints = {
+            audio: false,
+            video: {
+                facingMode: { ideal: 'environment' },
+                width: { min: 1280, ideal: 3840 },
+                height: { min: 720, ideal: 2160 },
+                frameRate: { ideal: 30 },
+                // resizeMode: 'none',
+            },
+        };
+
+        try {
+            return await navigator.mediaDevices.getUserMedia(preferredConstraints);
+        } catch (error: unknown) {
+            /*
+             * Some browsers/cameras reject mandatory min constraints even though
+             * they can still provide a useful stream. Fall back to negotiable
+             * high-resolution preferences instead of failing the scanner.
+             */
+            if (!(error instanceof DOMException) || error.name !== 'OverconstrainedError') {
+                throw error;
+            }
+
+            return navigator.mediaDevices.getUserMedia({
+                audio: false,
+                video: {
+                    facingMode: { ideal: 'environment' },
+                    width: { ideal: 3840 },
+                    height: { ideal: 2160 },
+                    frameRate: { ideal: 30 },
+                    // resizeMode: 'none',
+                },
+            });
+        }
+    }
+
+    private async maximizeCameraResolution(track: MediaStreamTrack): Promise<void> {
+        if (!track.getCapabilities) return;
+
+        try {
+            const capabilities = track.getCapabilities();
+            const supported = navigator.mediaDevices.getSupportedConstraints();
+
+            const width = capabilities.width?.max;
+            const height = capabilities.height?.max;
+
+            if (!width && !height) return;
+
+            const constraints: MediaTrackConstraints = {};
+
+            if (width) {
+                constraints.width = { ideal: width };
+            }
+
+            if (height) {
+                constraints.height = { ideal: height };
+            }
+
+            // if (supported.resizeMode) {
+            //     constraints.resizeMode = 'none';
+            // }
+
+            await track.applyConstraints(constraints);
+        } catch {
+            /*
+             * Maximum-resolution negotiation is an optimization only. Keep the
+             * already-working stream if this browser/driver rejects it.
+             */
+        }
+    }
+
     private async startCamera(): Promise<void> {
         const video = this.video()?.nativeElement;
+
         if (this.closed || !video) return;
+
         if (!navigator.mediaDevices?.getUserMedia) {
             this.error.set(
                 'Camera access is unavailable. Use a supported browser on HTTPS or localhost.',
@@ -516,23 +590,31 @@ export class Camera {
             this.loading.set(false);
             return;
         }
+
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({
-                audio: false,
-                video: {
-                    facingMode: { ideal: 'environment' },
-                    width: { ideal: 3840 },
-                    height: { ideal: 2160 },
-                },
-            });
+            const stream = await this.requestCameraStream();
+
             if (this.closed) {
                 stream.getTracks().forEach((track) => track.stop());
                 return;
             }
+
+            const track = stream.getVideoTracks()[0];
+
+            if (track) {
+                await this.maximizeCameraResolution(track);
+            }
+
+            if (this.closed) {
+                stream.getTracks().forEach((currentTrack) => currentTrack.stop());
+                return;
+            }
+
             this.stream = stream;
             video.removeAttribute('poster');
             video.srcObject = stream;
             await video.play();
+
             if (!this.closed) {
                 this.loading.set(false);
                 this.progress.set('Position the whole card inside the camera.');
@@ -540,11 +622,22 @@ export class Camera {
                 this.lastDetection = null;
                 this.lastDetectionAt = 0;
                 this.missedCardFrames = 0;
+
+                /*
+                 * Start Tesseract while the user is positioning the card so the
+                 * first OCR pass does not also pay worker/model startup latency.
+                 */
+                void this.ocr.warmUpCardOcr(this.language()).catch(() => {
+                    // recognizeCard() will surface the OCR error if OCR is needed.
+                });
+
                 this.scheduleCardDetection();
             }
         } catch (error: unknown) {
             if (this.closed) return;
+
             const name = error instanceof DOMException ? error.name : '';
+
             switch (name) {
                 case 'NotAllowedError':
                 case 'SecurityError':
@@ -552,17 +645,27 @@ export class Camera {
                         'Camera access was denied. Allow camera access in your browser settings, then reopen this dialog.',
                     );
                     break;
+
                 case 'NotFoundError':
                     this.error.set('No camera was found. Connect a camera and reopen this dialog.');
                     break;
+
                 case 'NotReadableError':
                     this.error.set(
                         'The camera could not be started. Close other apps using it and reopen this dialog.',
                     );
                     break;
+
+                case 'OverconstrainedError':
+                    this.error.set(
+                        'The camera could not provide a compatible video mode. Close this dialog and try again.',
+                    );
+                    break;
+
                 default:
                     this.error.set('Unable to show the camera. Close this dialog and try again.');
             }
+
             this.loading.set(false);
             this.stopCamera();
         }
