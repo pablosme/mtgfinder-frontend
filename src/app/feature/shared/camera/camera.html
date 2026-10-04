@@ -4,6 +4,23 @@
 </header>
 
 <mat-dialog-content class="camera-content">
+    @if (false) {
+        <label class="camera-selector">
+            <span>Camera</span>
+            <select
+                [value]="selectedCameraId()"
+                [disabled]="loading() || processing()"
+                (change)="selectCamera($event)"
+            >
+                @for (camera of cameras(); track camera.deviceId) {
+                    <option [value]="camera.deviceId">
+                        {{ camera.label }}
+                    </option>
+                }
+            </select>
+        </label>
+    }
+
     <div class="preview" [hidden]="result() !== null" [attr.aria-busy]="loading() || processing()">
         <video #video autoplay muted playsinline aria-label="Live camera preview"></video>
 
