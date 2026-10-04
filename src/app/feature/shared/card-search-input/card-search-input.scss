@@ -8,8 +8,36 @@
     gap: 0.5rem;
 }
 
+.search-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
 .search-field {
     position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+.camera-button {
+    display: grid;
+    place-items: center;
+    flex: 0 0 3rem;
+    padding: 0.65rem;
+    border: 1px solid #9ca3af;
+    border-radius: 0.5rem;
+    background: #f3f4f6;
+    color: inherit;
+    cursor: pointer;
+}
+
+.camera-button:hover {
+    background: #e5e7eb;
+}
+
+.camera-button svg {
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 label {
@@ -26,6 +54,7 @@ input {
 }
 
 input:focus-visible,
+.camera-button:focus-visible,
 .filter-picker:focus-visible,
 .clear-filters:focus-visible,
 .suggestions button:focus-visible {

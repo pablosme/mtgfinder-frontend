@@ -27,6 +27,26 @@
                             {
                                 "glob": "**/*",
                                 "input": "public"
+                            },
+                            {
+                                "glob": "opencv.js",
+                                "input": "node_modules/@techstark/opencv-js/dist",
+                                "output": "assets/opencv"
+                            },
+                            {
+                                "glob": "worker.min.js*",
+                                "input": "node_modules/tesseract.js/dist",
+                                "output": "assets/tesseract"
+                            },
+                            {
+                                "glob": "*.wasm*",
+                                "input": "node_modules/tesseract.js-core",
+                                "output": "assets/tesseract/core"
+                            },
+                            {
+                                "glob": "*/4.0.0_best_int/*.traineddata.gz",
+                                "input": "node_modules/@tesseract.js-data",
+                                "output": "assets/tesseract/languages"
                             }
                         ],
                         "styles": ["node_modules/mana-font/css/mana.css", "src/styles.scss"],
@@ -78,7 +98,8 @@
                     "builder": "@angular/build:dev-server",
                     "configurations": {
                         "local": {
-                            "buildTarget": "mtgfinder-frontend:build:local"
+                            "buildTarget": "mtgfinder-frontend:build:local",
+                            "allowedHosts": ["*"]
                         },
                         "production": {
                             "buildTarget": "mtgfinder-frontend:build:production"

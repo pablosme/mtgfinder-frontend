@@ -1,0 +1,40 @@
+<header class="camera-header">
+    <h2 mat-dialog-title>Scan a card</h2>
+    <button type="button" mat-dialog-close>Close</button>
+</header>
+
+<mat-dialog-content class="camera-content">
+    <div class="preview" [hidden]="result() !== null" [attr.aria-busy]="loading() || processing()">
+        <video #video autoplay muted playsinline aria-label="Live camera preview"></video>
+
+        @if (outlinePoints() && !loading() && !error()) {
+            <svg
+                class="card-outline"
+                [class.ready]="previewDetection()?.detected"
+                [attr.viewBox]="outlineViewBox()"
+                preserveAspectRatio="xMidYMid meet"
+                aria-hidden="true"
+            >
+                <polygon [attr.points]="outlinePoints()" />
+            </svg>
+        }
+
+        @if (loading()) {
+            <p class="preview-message" role="status">Waiting for camera access…</p>
+        }
+
+        @if (error()) {
+            <p class="preview-message" role="alert">{{ error() }}</p>
+        }
+    </div>
+
+    @if (result(); as card) {
+        <div class="scan-result">
+            <img [src]="card.normalizedImage" alt="Your captured card, straightened and cropped" />
+        </div>
+    }
+
+    <p class="scan-status" role="status" aria-live="polite">
+        {{ progress() || 'Keep all four corners visible. Scanning is automatic.' }}
+    </p>
+</mat-dialog-content>

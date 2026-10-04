@@ -1,6 +1,7 @@
 import {
     ChangeDetectionStrategy,
     Component,
+    DestroyRef,
     ElementRef,
     computed,
     inject,
@@ -11,9 +12,12 @@ import {
     viewChildren,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatDialog } from '@angular/material/dialog';
 import { catchError, map, of, Subject, switchMap, timer } from 'rxjs';
 
 import { CardSearchService } from '../card-search.service';
+import { Camera } from '../camera/camera';
+import { CardScanResult } from '../interface/card-scan-result.interface';
 import { ManaText } from '../mana-text/mana-text';
 import { OracleCard } from '../interface/card-search.interface';
 import { formatCardSearchFilters, parseCardSearchQuery } from '../card-search-query';
@@ -28,6 +32,8 @@ import { CardSearchFilterField } from '../interface/card-search-filter-field.int
 })
 export class CardSearchInput {
     private readonly cardSearch = inject(CardSearchService);
+    private readonly dialog = inject(MatDialog);
+    private readonly destroyRef = inject(DestroyRef);
 
     readonly filters = this.cardSearch.filters;
     readonly filterFields: readonly CardSearchFilterField[] = [
@@ -77,6 +83,8 @@ export class CardSearchInput {
     ];
     readonly inputId = input.required<string>();
     readonly cardSelected = output<OracleCard>();
+    readonly cardScanned = output<CardScanResult>();
+    readonly scannedCard = signal<CardScanResult | null>(null);
     readonly cards = signal<OracleCard[]>([]);
     readonly query = signal(formatCardSearchFilters(this.filters(), this.filterFields));
     readonly parsedQuery = computed(() => parseCardSearchQuery(this.query(), this.filterFields));
@@ -156,8 +164,8 @@ export class CardSearchInput {
                     const filters = this.filters();
                     return name && !this.parsedQuery().error
                         ? timer(250).pipe(
-                              //   switchMap(() => this.cardSearch.searchByName(name, filters)),
-                              switchMap(() => this.cardSearch.searchByPrompt(name, filters)),
+                              switchMap(() => this.cardSearch.searchByName(name, filters)),
+                              //   switchMap(() => this.cardSearch.searchByPrompt(name, filters)),
                               map((response) => ({
                                   cards: response.data.filter((card) => card.oracle_id !== null),
                                   error: '',
@@ -178,6 +186,33 @@ export class CardSearchInput {
                 this.cards.set(cards);
                 this.error.set(error);
                 this.loading.set(false);
+            });
+    }
+
+    openCamera(): void {
+        this.open.set(false);
+        this.activeIndex.set(-1);
+        this.dialog
+            .open<Camera, undefined, CardScanResult>(Camera, {
+                width: '72rem',
+                maxWidth: 'calc(100vw - 1rem)',
+                height: '92dvh',
+                maxHeight: 'calc(100dvh - 1rem)',
+                ariaModal: true,
+            })
+            .afterClosed()
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe((result) => {
+                if (!result) return;
+                this.scannedCard.set(result);
+                const filters = formatCardSearchFilters(this.filters(), this.filterFields);
+                this.updateQuery(filters ? `${filters} ${result.name}` : result.name);
+                this.caret.set(this.query().length);
+                const input = this.searchInput().nativeElement;
+                input.value = this.query();
+                input.focus();
+                input.setSelectionRange(this.caret(), this.caret());
+                this.cardScanned.emit(result);
             });
     }
 
