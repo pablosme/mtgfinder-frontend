@@ -14,21 +14,61 @@
             <section class="visual-column" aria-label="Card image and prints">
                 @if (currentPrint(); as print) {
                     <figure class="featured-print">
-                        @if (printImageUrl(print); as imageUrl) {
-                            <img [src]="imageUrl" [alt]="card.name + ' from ' + print.set_name" />
-                        } @else {
-                            <div
-                                class="image-placeholder"
-                                role="img"
-                                [attr.aria-label]="'No image available for ' + card.name"
-                            >
-                                {{ card.name }}
-                            </div>
-                        }
+                        <div class="featured-image">
+                            @if (printImageUrl(print, currentFace()); as imageUrl) {
+                                <img
+                                    [src]="imageUrl"
+                                    [alt]="
+                                        (currentFace()?.name || card.name) +
+                                        ' from ' +
+                                        print.set_name
+                                    "
+                                />
+                            } @else {
+                                <div
+                                    class="image-placeholder"
+                                    role="img"
+                                    [attr.aria-label]="
+                                        'No image available for ' +
+                                        (currentFace()?.name || card.name)
+                                    "
+                                >
+                                    {{ currentFace()?.name || card.name }}
+                                </div>
+                            }
+                        </div>
                         <figcaption>
-                            {{ print.set_name }}
-                            @if (print.released_at) {
-                                · {{ print.released_at }}
+                            <span class="print-caption">
+                                @if (canSwitchFaces()) {
+                                    <span class="face-caption" aria-live="polite" aria-atomic="true"
+                                        >{{ currentFace()?.name }} · {{ currentFaceIndex() + 1 }} /
+                                        {{ facesWithImages().length }}</span
+                                    >
+                                }
+                                {{ print.set_name }}
+                                @if (print.released_at) {
+                                    · {{ print.released_at }}
+                                }
+                            </span>
+                            @if (canSwitchFaces()) {
+                                <button
+                                    class="switch-side"
+                                    type="button"
+                                    aria-label="Switch side"
+                                    title="Switch side"
+                                    (click)="switchFace()"
+                                >
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        aria-hidden="true"
+                                        focusable="false"
+                                    >
+                                        <path d="M4 7h15m-4-4 4 4-4 4M20 17H5m4-4-4 4 4 4" />
+                                    </svg>
+                                </button>
                             }
                         </figcaption>
                     </figure>
@@ -155,16 +195,86 @@
                         <h2 id="oracle-heading">Text</h2>
                         <span>Oracle rules text</span>
                     </div>
-                    <div class="oracle-text">
-                        @if (card.oracle_text) {
-                            <p><app-mana-text [text]="card.oracle_text" /></p>
-                        } @else {
-                            <p>No oracle text.</p>
+                    @if (hasMultipleFaces()) {
+                        @for (face of faces(); track face.face_index) {
+                            <section
+                                class="face-text"
+                                [attr.aria-labelledby]="'face-heading-' + face.face_index"
+                            >
+                                <div class="face-heading">
+                                    <h3 [id]="'face-heading-' + face.face_index">
+                                        {{ face.name }}
+                                    </h3>
+                                    @if (face.mana_cost) {
+                                        <span aria-label="Mana cost"
+                                            ><app-mana-text [text]="face.mana_cost"
+                                        /></span>
+                                    }
+                                </div>
+                                @if (face.printed_name && face.printed_name !== face.name) {
+                                    <p class="printed-name">{{ face.printed_name }}</p>
+                                }
+                                @if (face.type_line) {
+                                    <p class="type-line">{{ face.type_line }}</p>
+                                }
+                                <div class="oracle-text">
+                                    <p>
+                                        <app-mana-text
+                                            [text]="face.oracle_text || 'No oracle text.'"
+                                        />
+                                    </p>
+                                </div>
+                                @if (face.printed_text && face.printed_text !== face.oracle_text) {
+                                    <div class="oracle-text printed-text">
+                                        <span class="field-label">Printed text</span>
+                                        <p><app-mana-text [text]="face.printed_text" /></p>
+                                    </div>
+                                }
+                                @if (
+                                    face.power != null ||
+                                    face.toughness != null ||
+                                    face.loyalty != null ||
+                                    face.defense != null
+                                ) {
+                                    <div class="card-facts">
+                                        @if (face.power != null || face.toughness != null) {
+                                            <p>
+                                                <span class="field-label">Power / Toughness</span
+                                                >{{ face.power ?? '—' }} /
+                                                {{ face.toughness ?? '—' }}
+                                            </p>
+                                        }
+                                        @if (face.loyalty != null) {
+                                            <p>
+                                                <span class="field-label">Loyalty</span
+                                                >{{ face.loyalty }}
+                                            </p>
+                                        }
+                                        @if (face.defense != null) {
+                                            <p>
+                                                <span class="field-label">Defense</span
+                                                >{{ face.defense }}
+                                            </p>
+                                        }
+                                    </div>
+                                }
+                                @if (face.flavor_text) {
+                                    <blockquote>{{ face.flavor_text }}</blockquote>
+                                }
+                            </section>
                         }
-                    </div>
-                    @if (currentPrint(); as print) {
-                        @if (print.flavor_text) {
-                            <blockquote>{{ print.flavor_text }}</blockquote>
+                    } @else {
+                        <div class="oracle-text">
+                            @if (card.oracle_text) {
+                                <p><app-mana-text [text]="card.oracle_text" /></p>
+                            } @else {
+                                <p>No oracle text.</p>
+                            }
+                        </div>
+                        @if (currentPrint(); as print) {
+                            @if (print.flavor_text) {
+                                <blockquote>{{ print.flavor_text }}</blockquote>
+                            }
                         }
                     }
                 </section>

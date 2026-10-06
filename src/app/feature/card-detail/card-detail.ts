@@ -6,7 +6,7 @@ import { catchError, distinctUntilChanged, finalize, map, of, switchMap } from '
 
 import { CardSearchService } from '../shared/card-search.service';
 import { ManaText } from '../shared/mana-text/mana-text';
-import { CardPrint, OracleCard } from '../shared/interface/card-search.interface';
+import { CardFace, CardPrint, OracleCard } from '../shared/interface/card-search.interface';
 
 @Component({
     selector: 'app-card-detail',
@@ -21,8 +21,26 @@ export class CardDetail {
     readonly error = signal('');
     readonly currentPrintId = signal<string | null>(null);
     readonly currentPrint = computed(() => {
-        return (this.card()?.prints ?? []).find((print) => print.id === this.currentPrintId()) ?? null;
+        return (
+            (this.card()?.prints ?? []).find((print) => print.id === this.currentPrintId()) ?? null
+        );
     });
+    readonly faces = computed(() =>
+        [...(this.currentPrint()?.faces ?? [])].sort((a, b) => a.face_index - b.face_index),
+    );
+    readonly facesWithImages = computed(() =>
+        this.faces().filter((face) => this.imageUrl(face.image_uris) !== null),
+    );
+    readonly currentFaceIndex = signal(0);
+    readonly currentFace = computed<CardFace | null>(() =>
+        this.imageUrl(this.currentPrint()?.image_uris)
+            ? null
+            : (this.facesWithImages()[this.currentFaceIndex()] ?? null),
+    );
+    readonly canSwitchFaces = computed(
+        () => !this.imageUrl(this.currentPrint()?.image_uris) && this.facesWithImages().length > 1,
+    );
+    readonly hasMultipleFaces = computed(() => this.faces().length > 1);
 
     private readonly route = inject(ActivatedRoute);
     private readonly cardSearch = inject(CardSearchService);
@@ -34,6 +52,7 @@ export class CardDetail {
                 distinctUntilChanged(),
                 switchMap((oracleId) => {
                     this.card.set(null);
+                    this.currentFaceIndex.set(0);
                     this.error.set('');
 
                     if (!oracleId) {
@@ -66,10 +85,45 @@ export class CardDetail {
 
     selectPrint(print: CardPrint): void {
         this.currentPrintId.set(print.id);
+        this.currentFaceIndex.set(0);
     }
 
-    printImageUrl(print: CardPrint): string | null {
-        const image = print.image_uris?.['normal'] ?? print.image_uris?.['large'] ?? print.image_uris?.['small'];
-        return typeof image === 'string' ? image : null;
+    switchFace(): void {
+        if (this.canSwitchFaces()) {
+            this.currentFaceIndex.update((index) => (index + 1) % this.facesWithImages().length);
+        }
+    }
+
+    printImageUrl(print: CardPrint, face: CardFace | null = null): string | null {
+        const image = this.imageUrl(print.image_uris) ?? this.imageUrl(face?.image_uris);
+        if (image) return image;
+
+        for (const candidate of [...(print.faces ?? [])].sort(
+            (a, b) => a.face_index - b.face_index,
+        )) {
+            const faceImage = this.imageUrl(candidate.image_uris);
+            if (faceImage) return faceImage;
+        }
+        return null;
+    }
+
+    private imageUrl(images: Record<string, unknown> | null | undefined): string | null {
+        for (const size of [
+            'normal',
+            'large',
+            'small',
+            'png',
+            'display',
+            'grid',
+            'thumb',
+            'border_crop',
+            'crop',
+            'art_crop',
+            'art',
+        ]) {
+            const image = images?.[size];
+            if (typeof image === 'string' && image.trim()) return image;
+        }
+        return null;
     }
 }
