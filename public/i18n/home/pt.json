@@ -1,0 +1,10 @@
+{
+    "intro": {
+        "eyebrow": "O arquivo de cartas e scanner por câmera",
+        "discover": "Descubra cartas de Magic, explore o texto Oracle",
+        "scan": "e encontre sua próxima carta pela câmera."
+    },
+    "actions": {
+        "searchSyntax": "Aprenda a sintaxe de busca"
+    }
+}

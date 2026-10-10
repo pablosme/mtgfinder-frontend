@@ -1,3 +1,4 @@
+import type { TranslocoService } from '@jsverse/transloco';
 import type { CardSearchFilterField } from './interface/card-search-filter-field.interface';
 import type { CardSearchFilters } from './interface/card-search-filters.interface';
 import type { CardSearchQuery } from './interface/card-search-query.interface';
@@ -5,6 +6,7 @@ import type { CardSearchQuery } from './interface/card-search-query.interface';
 export function parseCardSearchQuery(
     query: string,
     fields: readonly CardSearchFilterField[],
+    translate: TranslocoService['translate'],
 ): CardSearchQuery {
     const filters: CardSearchFilters = {};
     // Keep quoted values together, including escaped quotes and unfinished input.
@@ -22,7 +24,7 @@ export function parseCardSearchQuery(
 
         const match = /^\/([a-z_]+)=(.*)$/i.exec(token);
         if (!match) {
-            return { name, filters, error: 'Choose a filter and enter it as /filter=value.' };
+            return { name, filters, error: translate('validation.search.syntax') };
         }
         const command = match[1].toLowerCase();
         const field = fields.find((field) => field.key === command || field.alias === command);
@@ -30,7 +32,7 @@ export function parseCardSearchQuery(
             return {
                 name,
                 filters,
-                error: `Unknown filter /${command}. Use / to choose a filter.`,
+                error: translate('validation.search.unknown', { command }),
             };
         }
 
@@ -40,13 +42,13 @@ export function parseCardSearchQuery(
                 // JSON string syntax also supports quotes and backslashes inside a value.
                 value = JSON.parse(value) as string;
             } catch {
-                return { name, filters, error: `Finish the quoted value for /${command}.` };
+                return { name, filters, error: translate('validation.search.unfinishedQuote', { command }) };
             }
         } else if (value.includes('"')) {
             return {
                 name,
                 filters,
-                error: `Wrap the whole /${command} value in double quotes.`,
+                error: translate('validation.search.quoteWholeValue', { command }),
             };
         }
         value = value.trim();
@@ -54,7 +56,7 @@ export function parseCardSearchQuery(
             return {
                 name,
                 filters,
-                error: `Enter a value for /${command}: ${field.placeholder}.`,
+                error: translate('validation.search.missingValue', { command, example: translate(field.placeholder) }),
             };
         }
 
@@ -64,7 +66,7 @@ export function parseCardSearchQuery(
                 return {
                     name,
                     filters,
-                    error: 'Use W, U, B, R, G for colors, or C alone for colorless.',
+                    error: translate('validation.search.colors'),
                 };
             }
         }
@@ -75,7 +77,7 @@ export function parseCardSearchQuery(
             return {
                 name,
                 filters,
-                error: 'Mana value (CMC) must be a nonnegative number, such as 0 or 2.5.',
+                error: translate('validation.search.manaValue'),
             };
         }
         if (field.key === 'legality') {
@@ -84,7 +86,7 @@ export function parseCardSearchQuery(
                 return {
                     name,
                     filters,
-                    error: 'Enter a format, optionally followed by :legal, :not_legal, :restricted or :banned.',
+                    error: translate('validation.search.legality'),
                 };
             }
         }
@@ -94,7 +96,7 @@ export function parseCardSearchQuery(
                 return {
                     name,
                     filters,
-                    error: `${field.label}: use ${field.options.join(', ')}.`,
+                    error: translate('validation.search.options', { label: translate(field.label), options: field.options.join(', ') }),
                 };
             }
         }

@@ -1,0 +1,221 @@
+{
+    "intro": {
+        "backToSearch": "Volver a la búsqueda de cartas",
+        "eyebrow": "La guía del campo de búsqueda",
+        "title": "Sintaxis de búsqueda",
+        "description": "Empieza con el nombre de una carta. Añade algunos comandos para acotar la búsqueda por color, tipo, impresión, formato y más."
+    },
+    "contents": {
+        "label": "En esta página",
+        "gettingStarted": "Primeros pasos",
+        "writingCommands": "Cómo escribir comandos",
+        "commandCount": "Los {{count}} comandos",
+        "combiningFilters": "Combinar filtros",
+        "troubleshooting": "Solución de problemas"
+    },
+    "quickStart": {
+        "eyebrow": "01 / Inicio rápido",
+        "title": "De un nombre a una búsqueda precisa",
+        "nameText": "es el texto del nombre.",
+        "typeFilter": "añade un filtro de tipo, y",
+        "colorFilter": "añade un filtro de color rojo.",
+        "steps": {
+            "name": {
+                "title": "Introduce el nombre de una carta o parte de él.",
+                "body": "Los resultados aparecen mientras escribes, tras una breve pausa. El nombre es obligatorio, incluso al usar filtros."
+            },
+            "command": {
+                "title": "Añade un comando.",
+                "typeBefore": "Escribe",
+                "afterKey": "o usa el botón de barra en el cuadro de búsqueda. Elige un filtro y luego introduce su valor después de",
+                "end": "."
+            },
+            "result": {
+                "title": "Abre un resultado.",
+                "clickBefore": "Haz clic en una carta, o usa",
+                "and": "y",
+                "highlightAfter": "para resaltarla y",
+                "openAfter": "para abrir sus detalles."
+            }
+        },
+        "noteBefore": "Puedes usar el cuadro de búsqueda de la parte superior de esta página mientras lees. Las flechas y Enter también funcionan en el menú de filtros. Pulsa",
+        "noteAfter": "para cerrar las sugerencias."
+    },
+    "basics": {
+        "eyebrow": "02 / Lo básico",
+        "title": "Escribe los comandos como /filtro=valor",
+        "separate": {
+            "term": "Separa los comandos con espacios",
+            "before": "Mantén cada comando junto:",
+            "after": ". No pongas espacios alrededor del signo igual. Los comandos pueden ir antes o después del nombre; el texto fuera de los comandos se convierte en la búsqueda por nombre de carta."
+        },
+        "quote": {
+            "term": "Entrecomilla los valores que contengan espacios",
+            "before": "Usa comillas dobles alrededor de todo el valor:",
+            "or": "o",
+            "after": ". Las comillas simples no agrupan palabras. Cierra las comillas dobles antes de añadir otro comando."
+        },
+        "special": {
+            "term": "Mantén los caracteres especiales dentro de valores entrecomillados",
+            "before": "Dentro de un valor entre comillas dobles, escribe",
+            "middle": "para unas comillas dobles literales y",
+            "after": "para una barra invertida literal."
+        },
+        "names": {
+            "term": "Usa los nombres de comando admitidos",
+            "before": "Los nombres de comando no distinguen mayúsculas de minúsculas:",
+            "and": "y",
+            "afterPair": "usan el mismo filtro.",
+            "aliasesAfter": "son alias. Conserva los guiones bajos en nombres como"
+        },
+        "split": {
+            "term": "Conserva intactos los nombres de cartas partidas",
+            "before": "La doble barra en",
+            "after": "forma parte del nombre. No inicia un filtro."
+        }
+    },
+    "reference": {
+        "eyebrow": "03 / Referencia de comandos",
+        "title": "Todos los filtros admitidos",
+        "description": "Añade estos fragmentos de comando al nombre de una carta. Elige un comando abajo para ir a sus ejemplos y reglas de valores.",
+        "indexLabel": "Comandos de búsqueda",
+        "alsoAccepts": "También acepta",
+        "acceptedValues": "Valores aceptados:",
+        "examplesLabel": "Ejemplos del comando"
+    },
+    "combining": {
+        "eyebrow": "04 / Todo junto",
+        "title": "Combina y repite comandos",
+        "description": "Añade distintos comandos para acotar varias propiedades en la misma búsqueda. Repite un comando para indicar varios valores; el último valor no borra el anterior.",
+        "angel": "Busca el nombre Angel con el tipo criatura, volar y valor de maná 4.",
+        "lotus": "Busca el nombre Lotus con un código de edición y un número de coleccionista.",
+        "elfBefore": "Indica verde o negro como alternativas. Para ambos colores en un solo filtro, usa",
+        "elfAfter": "en su lugar.",
+        "dragon": "Indica dos valores de rareza mientras buscas el nombre Dragon.",
+        "note": "Los filtros se mantienen al pasar entre los cuadros de búsqueda de inicio y de la cabecera. Borra un comando para quitar ese filtro, o quita todos los comandos para volver a una búsqueda solo por nombre."
+    },
+    "troubleshooting": {
+        "eyebrow": "05 / Cuando una búsqueda necesita arreglo",
+        "title": "Solución de problemas",
+        "missingName": {
+            "term": "“Introduce el nombre de una carta para buscar.”",
+            "before": "Los filtros por sí solos no inician una búsqueda. Añade texto de nombre, como",
+            "end": "."
+        },
+        "unknownFilter": {
+            "term": "Filtro desconocido o valor faltante",
+            "typeBefore": "Escribe",
+            "useBefore": "para elegir un comando admitido. Usa",
+            "after": ", con la barra, el signo igual y un valor no vacío. Los errores de sintaxis detienen la búsqueda hasta que se corrijan."
+        },
+        "unfinishedQuote": {
+            "term": "Un valor entre comillas está sin terminar",
+            "before": "Comprueba que todo el valor esté entre comillas dobles. Por ejemplo, escribe",
+            "end": "."
+        },
+        "rejectedValue": {
+            "term": "Se rechaza un color, una rareza, un estado de formato o un valor de maná",
+            "useBefore": "Usa",
+            "blue": "para azul,",
+            "mythic": "para mítica,",
+            "underscore": "con un guion bajo, y un número no negativo como",
+            "after": ". Consulta la referencia de comandos para más detalles."
+        },
+        "noResults": {
+            "term": "No se encontraron cartas",
+            "body": "Revisa el nombre, quita los filtros uno a uno y busca comandos sobrantes de una búsqueda anterior. Una sintaxis válida aún puede no dar resultados. Los ejemplos ilustran la sintaxis y no garantizan resultados."
+        },
+        "searchFailed": {
+            "term": "“No se pudo buscar cartas. Inténtalo de nuevo.”",
+            "body": "No se pudo completar la solicitud de búsqueda. Inténtalo de nuevo; este mensaje es distinto de un error de sintaxis o de una lista de resultados vacía."
+        },
+        "backToSearch": "Volver a la búsqueda de cartas"
+    },
+    "commands": {
+        "type": {
+            "description": "Filtra por tipo de carta, supertipo o subtipo, como creature, legendary o Dragon.",
+            "notes": {
+                "quote": "Pon entre comillas dobles una frase que contenga espacios."
+            }
+        },
+        "keyword": {
+            "description": "Busca una habilidad de palabra clave, como flying, trample o first strike.",
+            "notes": {
+                "abilityName": "Usa aquí el nombre de una habilidad, en lugar de una frase del texto de reglas."
+            }
+        },
+        "colors": {
+            "description": "Filtra por los colores de la carta usando las cinco letras de color de Magic.",
+            "notes": {
+                "letters": "W = blanco, U = azul, B = negro, R = rojo, G = verde. Usa C solo para incoloro.",
+                "format": "G,B y GB son equivalentes. Se aceptan letras minúsculas. Para usar espacios, entrecomilla el valor: /color=\"G, B\".",
+                "combine": "Usa /color=G,B para ambos colores; repite /color=G /color=B para cualquiera de los colores. No combines C con otro color."
+            }
+        },
+        "color_identity": {
+            "description": "Filtra por identidad de color, que puede incluir colores además del color propio de la carta, como los de su texto de reglas.",
+            "notes": {
+                "notation": "Usa la misma notación W, U, B, R, G y C que los colores.",
+                "combine": "Combina letras en un solo valor para ambos colores, o repite el comando para alternativas."
+            }
+        },
+        "legality": {
+            "description": "Indica un formato, seguido opcionalmente de un estado de legalidad tras dos puntos.",
+            "notes": {
+                "default": "Un formato sin estado significa legal: /legality=commander y /legality=commander:legal son equivalentes.",
+                "statuses": "Estados admitidos: legal, not_legal, restricted y banned. Conserva el guion bajo en not_legal.",
+                "formats": "Usa un identificador de formato como standard, modern, pioneer, legacy, vintage o commander. Estos ejemplos especifican filtros, no la legalidad de una carta concreta."
+            }
+        },
+        "rarity": {
+            "description": "Filtra por la rareza de la impresión. Usa uno de los valores admitidos que se indican abajo.",
+            "notes": {
+                "mythic": "Usa mythic para mítica. Repite el comando para indicar más de una rareza."
+            }
+        },
+        "set": {
+            "description": "Encuentra impresiones de una edición por su nombre o código.",
+            "notes": {
+                "quote": "Entrecomilla los nombres de edición que contengan espacios."
+            }
+        },
+        "collection": {
+            "description": "Coincide con el nombre o código de una edición, o con un número de coleccionista exacto.",
+            "notes": {
+                "printings": "Este comando busca información de impresiones; no se refiere a las cartas que posees.",
+                "multipleSets": "Un número de coleccionista puede aparecer en más de una edición. Añade /set= para especificar también una edición."
+            }
+        },
+        "cmc": {
+            "description": "Filtra por valor de maná, también llamado coste de maná convertido o CMC.",
+            "notes": {
+                "number": "Usa un número no negativo y un punto para los decimales.",
+                "operators": "Aquí no se aceptan operadores de comparación ni rangos. Usa /cmc=3, no /cmc=>3 ni /cmc=2-4."
+            }
+        },
+        "layout": {
+            "description": "Filtra por la disposición de la carta, como una carta normal o una carta que se transforma.",
+            "notes": {
+                "identifier": "Usa el identificador de disposición como valor."
+            }
+        },
+        "power": {
+            "description": "Filtra por el valor de fuerza impreso.",
+            "notes": {
+                "asterisk": "El asterisco es un valor de característica, tal como está impreso en algunas cartas; no es un comodín para cualquier fuerza."
+            }
+        },
+        "toughness": {
+            "description": "Filtra por el valor de resistencia impreso.",
+            "notes": {
+                "combine": "Combina /power= y /toughness= para especificar ambas características."
+            }
+        },
+        "loyalty": {
+            "description": "Filtra por el valor de lealtad inicial impreso de un planeswalker.",
+            "notes": {
+                "symbol": "Introduce el valor que aparece en la carta, incluido un valor simbólico como X cuando corresponda."
+            }
+        }
+    }
+}

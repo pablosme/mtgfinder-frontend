@@ -1,0 +1,10 @@
+{
+    "intro": {
+        "eyebrow": "L’archivio delle carte e scanner per fotocamera",
+        "discover": "Scopri le carte di Magic, esplora il testo Oracle,",
+        "scan": "e trova la tua prossima carta con la fotocamera."
+    },
+    "actions": {
+        "searchSyntax": "Impara la sintassi di ricerca"
+    }
+}

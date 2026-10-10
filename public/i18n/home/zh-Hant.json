@@ -1,0 +1,10 @@
+{
+    "intro": {
+        "eyebrow": "卡牌檔案與相機掃描器",
+        "discover": "探索魔法風雲會卡牌，查閱 Oracle 規則文本，",
+        "scan": "並透過相機尋找你的下一張卡牌。"
+    },
+    "actions": {
+        "searchSyntax": "了解搜尋語法"
+    }
+}

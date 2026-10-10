@@ -1,12 +1,14 @@
+<ng-container *transloco="let t">
 @for (token of tokens(); track $index) {
     @if (token.classes) {
         <span
             [class]="token.classes"
             role="img"
-            [attr.aria-label]="token.label"
+            [attr.aria-label]="token.labelKey ? t(token.labelKey, token.labelParams) : (token.staticLabel || token.text)"
             [attr.title]="token.text"
         ></span>
     } @else {
         {{ token.text }}
     }
 }
+</ng-container>

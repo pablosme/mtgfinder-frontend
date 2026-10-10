@@ -1,0 +1,49 @@
+{
+    "status": {
+        "loading": "טוען קלף…"
+    },
+    "actions": {
+        "switchSide": "החלפת צד"
+    },
+    "printings": {
+        "heading": "סטים ושפות הדפסה",
+        "empty": "אין הדפסות זמינות."
+    },
+    "accessibility": {
+        "imageAndPrints": "תמונת הקלף והדפסותיו",
+        "mana": "עלות וערך מאנה",
+        "information": "מידע על הקלף",
+        "imageFromSet": "{{name}} מתוך {{set}}",
+        "missingImage": "אין תמונה זמינה עבור {{name}}"
+    },
+    "fields": {
+        "printing": "הדפסה",
+        "manaCost": "עלות מאנה",
+        "colors": "צבעים",
+        "keywords": "מילות מפתח",
+        "powerToughness": "כוח / עמידות",
+        "loyalty": "נאמנות",
+        "defense": "הגנה",
+        "reserved": "הרשימה השמורה (Reserved List)",
+        "set": "סט",
+        "collectorNumber": "מספר אספנות",
+        "artist": "אמן",
+        "releaseDate": "תאריך יציאה",
+        "rarity": "נדירות",
+        "oracleId": "Oracle ID",
+        "manaValue": "ערך מאנה: {{value}}"
+    },
+    "oracle": {
+        "heading": "טקסט",
+        "subtitle": "טקסט חוקים של Oracle",
+        "printed": "טקסט מודפס",
+        "empty": "אין טקסט Oracle."
+    },
+    "metadata": {
+        "heading": "אוסף"
+    },
+    "errors": {
+        "missingId": "לא סופק oracle_id.",
+        "loadFailed": "לא ניתן לטעון קלף זה."
+    }
+}

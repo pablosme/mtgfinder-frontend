@@ -1,0 +1,221 @@
+{
+    "intro": {
+        "backToSearch": "返回卡牌搜索",
+        "eyebrow": "搜索字段指南",
+        "title": "搜索语法",
+        "description": "以卡牌名称开始。添加少量命令即可按颜色、类别、系列、赛制等缩小搜索范围。"
+    },
+    "contents": {
+        "label": "本页导览",
+        "gettingStarted": "快速上手",
+        "writingCommands": "编写命令",
+        "commandCount": "全部 {{count}} 个命令",
+        "combiningFilters": "组合过滤器",
+        "troubleshooting": "疑难解答"
+    },
+    "quickStart": {
+        "eyebrow": "01 / 快速上手",
+        "title": "从牌名到精准搜索",
+        "nameText": "是牌名文本。",
+        "typeFilter": "添加了类别过滤器，而",
+        "colorFilter": "添加了红色颜色过滤器。",
+        "steps": {
+            "name": {
+                "title": "输入卡牌名称或部分牌名。",
+                "body": "输入后稍作停顿即可显示结果。即使使用了过滤器，也必须提供牌名。"
+            },
+            "command": {
+                "title": "添加命令。",
+                "typeBefore": "输入",
+                "afterKey": "或使用搜索框中的斜杠按钮。选择过滤器，然后在",
+                "end": "后面输入其取值。"
+            },
+            "result": {
+                "title": "打开结果。",
+                "clickBefore": "点击卡牌，或使用",
+                "and": "和",
+                "highlightAfter": "高亮选中，然后按",
+                "openAfter": "打开其详情。"
+            }
+        },
+        "noteBefore": "阅读时可直接使用本页顶部的搜索框。方向键和 Enter 键在过滤器菜单中同样可用。按",
+        "noteAfter": "可关闭建议列表。"
+    },
+    "basics": {
+        "eyebrow": "02 / 基础规则",
+        "title": "以 /filter=value 格式编写命令",
+        "separate": {
+            "term": "用空格分隔各个命令",
+            "before": "保持各命令紧凑连接：",
+            "after": "。等号两边不要加空格。命令可以放在牌名前或牌名后；命令之外的文本均作为牌名进行搜索。"
+        },
+        "quote": {
+            "term": "包含空格的取值须用双引号包裹",
+            "before": "在整个取值周围使用双引号：",
+            "or": "或",
+            "after": "。单引号不能起到分组作用。在添加另一个命令前请先闭合双引号。"
+        },
+        "special": {
+            "term": "保留引号内的特殊字符",
+            "before": "在双引号取值内部，输入",
+            "middle": "表示字面双引号，输入",
+            "after": "表示字面反斜杠。"
+        },
+        "names": {
+            "term": "使用支持的命令名称",
+            "before": "命令名称不区分大小写：",
+            "and": "和",
+            "afterPair": "使用的是同一个过滤器。",
+            "aliasesAfter": "为别名。请保留下划线，例如"
+        },
+        "split": {
+            "term": "保持连体牌名称完整",
+            "before": "在",
+            "after": "中的双斜杠是牌名的一部分，不会触发过滤器。"
+        }
+    },
+    "reference": {
+        "eyebrow": "03 / 命令参考",
+        "title": "所有受支持的过滤器",
+        "description": "将这些命令代码添加到卡牌名称中。在下方选择命令以跳转到其示例和取值规则。",
+        "indexLabel": "搜索命令",
+        "alsoAccepts": "亦接受",
+        "acceptedValues": "有效取值：",
+        "examplesLabel": "命令示例"
+    },
+    "combining": {
+        "eyebrow": "04 / 组合使用",
+        "title": "组合与重复命令",
+        "description": "添加不同命令以在同一搜索中限定多项属性。重复输入命令可提供多个取值；后输入的取值不会覆盖先输入的取值。",
+        "angel": "搜索牌名含有 Angel 且类别为生物、具有飞行、法术力值为 4 的卡牌。",
+        "lotus": "通过系列代码和收集编号搜索牌名含有 Lotus 的卡牌。",
+        "elfBefore": "提供绿色或黑色作为可选颜色。若需在单个过滤器中同时指定两种颜色，请改用",
+        "elfAfter": "。",
+        "dragon": "在搜索牌名 Dragon 时同时指定两个稀有度取值。",
+        "note": "在主页与顶部导航搜索框之间切换时，过滤器会予以保留。删除某个命令即可移除该过滤器，清除所有命令即可恢复为仅按牌名搜索。"
+    },
+    "troubleshooting": {
+        "eyebrow": "05 / 搜索问题排查",
+        "title": "疑难解答",
+        "missingName": {
+            "term": "“请输入卡牌名称以进行搜索。”",
+            "before": "仅有过滤器无法发起搜索。请添加牌名文本，例如",
+            "end": "。"
+        },
+        "unknownFilter": {
+            "term": "未知过滤器或缺少取值",
+            "typeBefore": "输入",
+            "useBefore": "以挑选受支持的命令。请使用",
+            "after": "，包含斜杠、等号以及非空的取值。存在语法错误时将暂停搜索，直至纠正。"
+        },
+        "unfinishedQuote": {
+            "term": "引号取值未闭合",
+            "before": "请检查整个取值是否已被双引号闭合包裹。例如，应写为",
+            "end": "。"
+        },
+        "rejectedValue": {
+            "term": "颜色、稀有度、合法性赛制或法术力值无效",
+            "useBefore": "使用",
+            "blue": "表示蓝色，",
+            "mythic": "表示秘稀（mythic rare），",
+            "underscore": "需带下划线，法术力值需为非负数，如",
+            "after": "。详情请参阅命令参考。"
+        },
+        "noResults": {
+            "term": "未找到卡牌",
+            "body": "请检查牌名拼写，逐个移除过滤器，并排查上次搜索遗留的命令。即使语法正确也可能没有匹配卡牌。示例仅用于展示语法，并不保证一定有结果。"
+        },
+        "searchFailed": {
+            "term": "“无法搜索卡牌，请重试。”",
+            "body": "搜索请求未能完成。请重试；该提示与语法错误或结果为空是不同的情况。"
+        },
+        "backToSearch": "返回卡牌搜索"
+    },
+    "commands": {
+        "type": {
+            "description": "按卡牌类别、超类别或副类别过滤，例如 creature、legendary 或 Dragon。",
+            "notes": {
+                "quote": "包含空格的短语必须用双引号包裹。"
+            }
+        },
+        "keyword": {
+            "description": "按关键词异能搜索，例如 flying、trample 或 first strike。",
+            "notes": {
+                "abilityName": "此处应填写异能名称，而非规则文本里的完整句子。"
+            }
+        },
+        "colors": {
+            "description": "使用万智牌的 5 个颜色字母按卡牌颜色过滤。",
+            "notes": {
+                "letters": "W = 白，U = 蓝，B = 黑，R = 红，G = 绿。C 单独使用表示无色。",
+                "format": "G,B 与 GB 等效。接受小写字母。如含空格请用引号包裹：/color=\"G, B\"。",
+                "combine": "两种颜色均要求请用 /color=G,B；满足任一颜色请重复使用 /color=G /color=B。不可将 C 与其他颜色组合。"
+            }
+        },
+        "color_identity": {
+            "description": "按标识色过滤，标识色可包含卡牌本身颜色之外的颜色（如规则文本中的法术力符号颜色）。",
+            "notes": {
+                "notation": "使用与颜色相同的 W、U、B、R、G、C 记号。",
+                "combine": "在同一取值中组合字母以要求包含两种颜色，或重复该命令以提供备选项。"
+            }
+        },
+        "legality": {
+            "description": "指定赛制，可选用冒号附加合法性状态。",
+            "notes": {
+                "default": "赛制后不加状态表示合法：/legality=commander 与 /legality=commander:legal 等效。",
+                "statuses": "支持的状态：legal、not_legal、restricted 和 banned。请保留 not_legal 中的下划线。",
+                "formats": "使用标准赛制标识符，如 standard、modern、pioneer、legacy、vintage 或 commander。这些示例指定的是过滤器，而非某张特定卡牌的合法性。"
+            }
+        },
+        "rarity": {
+            "description": "按印刷版本的稀有度过滤。请使用下列支持的取值之一。",
+            "notes": {
+                "mythic": "秘稀请使用 mythic。如需指定多种稀有度，请重复使用该命令。"
+            }
+        },
+        "set": {
+            "description": "按系列名称或系列代码查找某系列的印刷版本。",
+            "notes": {
+                "quote": "包含空格的系列名称须用双引号包裹。"
+            }
+        },
+        "collection": {
+            "description": "匹配系列名称、系列代码或精确的收集编号。",
+            "notes": {
+                "printings": "此命令用于搜索印刷版本信息，不代表你拥有的卡牌收藏。",
+                "multipleSets": "收集编号可能会出现在多个系列中。可添加 /set= 以同时指定系列。"
+            }
+        },
+        "cmc": {
+            "description": "按法术力值（也称总法术力费用或 CMC）过滤。",
+            "notes": {
+                "number": "请使用非负数，小数使用点号。",
+                "operators": "此处不接受比较运算符和范围。请使用 /cmc=3，而非 /cmc=>3 或 /cmc=2-4。"
+            }
+        },
+        "layout": {
+            "description": "按卡牌版面布局过滤，例如常规卡牌或双面转变卡牌。",
+            "notes": {
+                "identifier": "请使用布局标识符作为取值。"
+            }
+        },
+        "power": {
+            "description": "按印刷的力量数值过滤。",
+            "notes": {
+                "asterisk": "星号是某些卡牌上印刷的特征数值，并非代表任意力量的通配符。"
+            }
+        },
+        "toughness": {
+            "description": "按印刷的防御力数值过滤。",
+            "notes": {
+                "combine": "组合使用 /power= 和 /toughness= 可同时指定力量与防御力两项特征。"
+            }
+        },
+        "loyalty": {
+            "description": "按鹏洛客（planeswalker）印刷的初始忠诚度数值过滤。",
+            "notes": {
+                "symbol": "请输入卡牌上显示的数值，如适用亦包括符号数值（如 X）。"
+            }
+        }
+    }
+}

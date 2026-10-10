@@ -1,3 +1,4 @@
+import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -23,13 +24,14 @@ import { CardSearchService } from '../card-search.service';
 import { Router } from '@angular/router';
 @Component({
     selector: 'app-camera',
-    imports: [MatDialogModule],
+    imports: [TranslocoDirective, MatDialogModule],
     providers: [CardOcrService],
     templateUrl: './camera.html',
     styleUrl: './camera.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Camera {
+    private readonly transloco = inject(TranslocoService);
     private readonly dialogRef = inject(MatDialogRef<Camera, CardScanResult>);
     private readonly destroyRef = inject(DestroyRef);
     private readonly document = inject(DOCUMENT);
@@ -149,8 +151,8 @@ export class Camera {
                 this.lastDetection = detection;
                 this.progress.set(
                     this.goodCardFrames >= this.requiredGoodFrames
-                        ? 'Card border locked…'
-                        : 'Card detected. Keep it still…',
+                        ? this.transloco.translate('scanner.messages.borderLocked')
+                        : this.transloco.translate('scanner.messages.detected'),
                 );
             } else {
                 this.missedCardFrames++;
@@ -164,7 +166,7 @@ export class Camera {
 
             if (captureReady && this.goodCardFrames >= this.requiredGoodFrames) {
                 this.goodCardFrames = 0;
-                this.progress.set('Card found. Confirming border…');
+                this.progress.set(this.transloco.translate('scanner.messages.confirming'));
                 this.cancelCardDetection();
                 await this.captureCard();
                 return;
@@ -175,7 +177,7 @@ export class Camera {
             this.lastDetection = null;
             this.previewDetection.set(null);
             this.retryAfter = view.performance.now() + 1000;
-            this.progress.set('Waiting for the scanner. Retrying automatically…');
+            this.progress.set(this.transloco.translate('scanner.messages.retryScanner'));
         }
 
         this.scheduleCardDetection();
@@ -406,11 +408,11 @@ export class Camera {
     private getDetectionMessage(detection: CardDetection): string {
         switch (detection.reason) {
             case 'outline':
-                return 'Keep all four corners visible against a contrasting background.';
+                return this.transloco.translate('scanner.messages.corners');
             case 'perspective':
-                return 'Tilt the card slightly toward the camera.';
+                return this.transloco.translate('scanner.messages.tilt');
             case 'ready':
-                return 'Hold the card steady…';
+                return this.transloco.translate('scanner.messages.steady');
         }
     }
     /** Capture the current camera image at OCR-friendly resolution. */
@@ -421,7 +423,7 @@ export class Camera {
         frame.height = Math.round(video.videoHeight * scale);
         const context = frame.getContext('2d');
         if (!context) {
-            throw new Error('Unable to capture a camera frame in this browser.');
+            throw new Error(this.transloco.translate('scanner.messages.captureFailed'));
         }
         context.drawImage(video, 0, 0, frame.width, frame.height);
         return frame;
@@ -456,9 +458,7 @@ export class Camera {
             this.scheduleCardDetection();
         } catch {
             if (!this.closed) {
-                this.error.set(
-                    'The camera stopped responding. Close this dialog and reopen the scanner.',
-                );
+                this.error.set(this.transloco.translate('scanner.messages.stopped'));
             }
         }
     }
@@ -488,7 +488,7 @@ export class Camera {
         }
 
         if (video.readyState < 2 || !video.videoWidth || !video.videoHeight) {
-            this.progress.set('Waiting for the camera… Scanning will continue automatically.');
+            this.progress.set(this.transloco.translate('scanner.messages.waitingCamera'));
             this.scheduleCardDetection();
             return;
         }
@@ -497,7 +497,7 @@ export class Camera {
         this.processing.set(true);
         this.result.set(null);
         this.name.set('');
-        this.progress.set('Card found. Confirming border…');
+        this.progress.set(this.transloco.translate('scanner.messages.confirming'));
 
         let best: {
             frame: HTMLCanvasElement;
@@ -505,7 +505,7 @@ export class Camera {
             detectionScore: number;
             sharpness: number;
         } | null = null;
-        let retryMessage = 'Keep the whole card visible. Scanning again automatically…';
+        let retryMessage = this.transloco.translate('scanner.messages.retryVisible');
         let retryDelayMs = 500;
 
         try {
@@ -614,8 +614,7 @@ export class Camera {
             }
 
             if (!best) {
-                retryMessage =
-                    'The card border moved or was incomplete. Hold it still and keep all four corners visible…';
+                retryMessage = this.transloco.translate('scanner.messages.borderMoved');
                 return;
             }
 
@@ -637,11 +636,11 @@ export class Camera {
             this.result.set(result);
 
             if (!language.ocrModel) {
-                this.error.set('Text recognition is unavailable for this language.');
+                this.error.set(this.transloco.translate('scanner.messages.languageUnavailable'));
                 return;
             }
 
-            this.progress.set('Reading card text…');
+            this.progress.set(this.transloco.translate('scanner.messages.readingText'));
 
             const recognized = await this.ocr.recognizeCard(
                 prepareCardForOcr(cv, card),
@@ -655,8 +654,7 @@ export class Camera {
 
             const readable = recognized.filter((candidate) => candidate.text.trim().length > 0);
             if (!readable.length) {
-                retryMessage =
-                    'Text was unclear. Keep the card steady and reduce glare; scanning again automatically…';
+                retryMessage = this.transloco.translate('scanner.messages.unclear');
                 return;
             }
 
@@ -671,7 +669,7 @@ export class Camera {
                 confidence,
             });
 
-            this.progress.set('Searching for the card…');
+            this.progress.set(this.transloco.translate('scanner.messages.searching'));
 
             const cards = await firstValueFrom(
                 this.cardSearch
@@ -679,7 +677,7 @@ export class Camera {
                     .pipe(timeout({ first: 45000 }), takeUntilDestroyed(this.destroyRef)),
             ).catch((err: unknown) => {
                 console.error('[Camera] Search error:', err);
-                retryMessage = 'Search is temporarily unavailable. Retrying automatically…';
+                retryMessage = this.transloco.translate('scanner.messages.searchUnavailable');
                 retryDelayMs = 3000;
                 return null;
             });
@@ -687,13 +685,18 @@ export class Camera {
             if (this.closed || !cards) return;
 
             if (cards.total_results < 1) {
-                retryMessage = 'Card not identified yet. Reading another image automatically…';
+                retryMessage = this.transloco.translate('scanner.messages.unidentified');
                 return;
             }
 
             const oracleId = cards.data[0]?.oracle_id;
             if (!oracleId) {
-                retryMessage = 'No usable match yet. Reading another image automatically…';
+                retryMessage = this.transloco.translate('scanner.messages.noMatch');
+                return;
+            }
+
+            if ((cards.data[0].similarity_score ?? 0) < 0.7) {
+                retryMessage = this.transloco.translate('scanner.messages.lowSimilarity');
                 return;
             }
 
@@ -702,7 +705,7 @@ export class Camera {
                 queryParams: { oracle_id: oracleId },
             });
         } catch {
-            retryMessage = 'Reading was interrupted. Scanning again automatically…';
+            retryMessage = this.transloco.translate('scanner.messages.interrupted');
             retryDelayMs = 1000;
         } finally {
             if (best) {
@@ -806,7 +809,11 @@ export class Camera {
                 .filter((device) => device.kind === 'videoinput')
                 .map((device, index) => ({
                     deviceId: device.deviceId,
-                    label: device.label || `Camera ${index + 1}`,
+                    label:
+                        device.label ||
+                        this.transloco.translate<string>('scanner.device.number', {
+                            number: index + 1,
+                        }),
                 }));
             this.cameras.set(cameras);
             const settings = track.getSettings();
@@ -858,7 +865,7 @@ export class Camera {
         this.cancelCardDetection();
         this.loading.set(true);
         this.error.set('');
-        this.progress.set('Switching camera…');
+        this.progress.set(this.transloco.translate('scanner.messages.switching'));
         this.previewDetection.set(null);
         this.goodCardFrames = 0;
         this.lastDetection = null;
@@ -878,7 +885,7 @@ export class Camera {
             const track = stream.getVideoTracks()[0];
             if (!track) {
                 stream.getTracks().forEach((currentTrack) => currentTrack.stop());
-                throw new Error('The selected camera did not provide a video track.');
+                throw new Error(this.transloco.translate('scanner.messages.noTrack'));
             }
             this.stream = stream;
             video.removeAttribute('poster');
@@ -886,7 +893,7 @@ export class Camera {
             await video.play();
             if (this.closed) return;
             this.loading.set(false);
-            this.progress.set('Position the whole card inside the camera.');
+            this.progress.set(this.transloco.translate('scanner.messages.position'));
             void this.refreshCameraList(track);
             this.scheduleCardDetection();
         } catch (error: unknown) {
@@ -899,7 +906,7 @@ export class Camera {
             );
             if (!this.closed) {
                 this.loading.set(false);
-                this.error.set('Unable to switch to the selected camera.');
+                this.error.set(this.transloco.translate('scanner.messages.switchFailed'));
                 this.progress.set('');
             }
         }
@@ -1132,9 +1139,7 @@ export class Camera {
             return;
         }
         if (!navigator.mediaDevices?.getUserMedia) {
-            this.error.set(
-                'Camera access is unavailable. Use a supported browser on HTTPS or localhost.',
-            );
+            this.error.set(this.transloco.translate('scanner.messages.unavailable'));
             this.loading.set(false);
             return;
         }
@@ -1144,7 +1149,7 @@ export class Camera {
             let stream: MediaStream | null = null;
 
             if (preferred) {
-                this.progress.set('Starting camera…');
+                this.progress.set(this.transloco.translate('scanner.messages.starting'));
                 try {
                     stream = await this.requestCameraStream(preferred.deviceId);
                 } catch (error) {
@@ -1172,7 +1177,7 @@ export class Camera {
 
             if (!stream) {
                 if (this.closed) return;
-                this.progress.set('Selecting the best camera…');
+                this.progress.set(this.transloco.translate('scanner.messages.selecting'));
                 const detection = await this.detectAndSaveBestCamera();
                 if (this.closed) return;
                 stream = detection.stream ?? (await this.requestCameraStream(detection.deviceId));
@@ -1193,7 +1198,7 @@ export class Camera {
             }
 
             this.loading.set(false);
-            this.progress.set('Position the whole card inside the camera.');
+            this.progress.set(this.transloco.translate('scanner.messages.position'));
             this.goodCardFrames = 0;
             this.lastDetection = null;
             this.lastDetectionAt = 0;
@@ -1222,25 +1227,19 @@ export class Camera {
             switch (name) {
                 case 'NotAllowedError':
                 case 'SecurityError':
-                    this.error.set(
-                        'Camera access was denied. Allow camera access in your browser settings, then reopen this dialog.',
-                    );
+                    this.error.set(this.transloco.translate('scanner.messages.accessDenied'));
                     break;
                 case 'NotFoundError':
-                    this.error.set('No camera was found. Connect a camera and reopen this dialog.');
+                    this.error.set(this.transloco.translate('scanner.messages.notFound'));
                     break;
                 case 'NotReadableError':
-                    this.error.set(
-                        'The camera could not be started. Close other apps using it and reopen this dialog.',
-                    );
+                    this.error.set(this.transloco.translate('scanner.messages.busy'));
                     break;
                 case 'OverconstrainedError':
-                    this.error.set(
-                        'The camera could not provide a compatible video mode. Close this dialog and try again.',
-                    );
+                    this.error.set(this.transloco.translate('scanner.messages.incompatible'));
                     break;
                 default:
-                    this.error.set('Unable to show the camera. Close this dialog and try again.');
+                    this.error.set(this.transloco.translate('scanner.messages.showFailed'));
             }
             this.loading.set(false);
             this.stopCamera();

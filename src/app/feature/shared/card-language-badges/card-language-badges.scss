@@ -28,6 +28,18 @@
     border-radius: var(--radius-sm);
 }
 
+app-mana-text {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+
+    .ms {
+        margin: 0;
+        font-size: 1.1em;
+    }
+}
+
 :host(.language-selector) {
     gap: var(--space-2);
 

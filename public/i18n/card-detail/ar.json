@@ -1,0 +1,49 @@
+{
+    "status": {
+        "loading": "جارٍ تحميل البطاقة…"
+    },
+    "actions": {
+        "switchSide": "قلب الوجه"
+    },
+    "printings": {
+        "heading": "المجموعات ولغات الطباعة",
+        "empty": "لا تتوفر أي طبعات."
+    },
+    "accessibility": {
+        "imageAndPrints": "صورة البطاقة وطبعاتها",
+        "mana": "تكلفة المانا وقيمتها",
+        "information": "معلومات البطاقة",
+        "imageFromSet": "{{name}} من {{set}}",
+        "missingImage": "لا تتوفر صورة لـ {{name}}"
+    },
+    "fields": {
+        "printing": "الطبعة",
+        "manaCost": "تكلفة المانا",
+        "colors": "الألوان",
+        "keywords": "الكلمات المفتاحية",
+        "powerToughness": "القوة / الصلابة",
+        "loyalty": "الولاء",
+        "defense": "الدفاع",
+        "reserved": "القائمة المحجوزة (Reserved List)",
+        "set": "المجموعة",
+        "collectorNumber": "رقم الجامع",
+        "artist": "الفنان",
+        "releaseDate": "تاريخ الإصدار",
+        "rarity": "الندرة",
+        "oracleId": "Oracle ID",
+        "manaValue": "قيمة المانا: {{value}}"
+    },
+    "oracle": {
+        "heading": "النص",
+        "subtitle": "نص قواعد Oracle",
+        "printed": "النص المطبوع",
+        "empty": "لا يوجد نص Oracle."
+    },
+    "metadata": {
+        "heading": "المجموعة المرجعية"
+    },
+    "errors": {
+        "missingId": "لم يتم تقديم oracle_id.",
+        "loadFailed": "تعذّر تحميل هذه البطاقة."
+    }
+}

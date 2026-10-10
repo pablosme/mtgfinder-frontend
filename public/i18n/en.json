@@ -1,0 +1,240 @@
+{
+    "header": {
+        "brand": "Sol Binder",
+        "homeLabel": "Sol Binder home",
+        "caption": "A Magic: The Gathering card archive",
+        "language": "Interface language"
+    },
+    "accessibility": {
+        "skipToContent": "Skip to content",
+        "breadcrumb": "Breadcrumb"
+    },
+    "footer": {
+        "disclaimer": "© Sol Binder. Magic: The Gathering and its related properties are trademarks of Wizards of the Coast LLC, a subsidiary of Hasbro, Inc. This site is not affiliated with, endorsed by, or promoted by Wizards of the Coast. All Portuguese Oracle and rules text is provided solely for informational purposes and community reference.",
+        "terms": "Terms of Use",
+        "privacy": "Privacy Policy",
+        "about": "About the archive"
+    },
+    "navigation": {
+        "searchSyntax": "Search syntax",
+        "cardSearch": "Card search"
+    },
+    "common": {
+        "unavailable": "Unavailable",
+        "close": "Close",
+        "yes": "Yes",
+        "no": "No"
+    },
+    "search": {
+        "label": "Search for a card",
+        "placeholder": "Card name or / to add a filter",
+        "addFilter": "Add a search filter",
+        "scan": "Scan card",
+        "scanLabel": "Scan card with camera",
+        "help": {
+            "beforeSlash": "Search by name. Type",
+            "beforeExample": "to add filters, for example"
+        },
+        "filters": {
+            "type": {
+                "label": "Type",
+                "placeholder": "e.g. Legendary Creature"
+            },
+            "keyword": {
+                "label": "Keyword",
+                "placeholder": "e.g. Flying"
+            },
+            "colors": {
+                "label": "Colors",
+                "placeholder": "e.g. W,U or C",
+                "hint": "W, U, B, R, G; C for colorless. Use G,B for both colors; repeat the filter for either color."
+            },
+            "colorIdentity": {
+                "label": "Color identity",
+                "placeholder": "e.g. B,G or C",
+                "hint": "W, U, B, R, G; C for colorless. Use G,B for both colors; repeat the filter for either color."
+            },
+            "legality": {
+                "label": "Legality",
+                "placeholder": "e.g. commander or modern:banned",
+                "hint": "Format alone means legal. Optional status: legal, not_legal, restricted, banned."
+            },
+            "rarity": {
+                "label": "Rarity",
+                "placeholder": "common, uncommon, rare, mythic, special or bonus"
+            },
+            "set": {
+                "label": "Set",
+                "placeholder": "Set name or code"
+            },
+            "collection": {
+                "label": "Collection",
+                "placeholder": "Set name, code or collector number",
+                "hint": "Matches a set name/code or an exact collector number."
+            },
+            "cmc": {
+                "label": "Mana value (CMC)",
+                "placeholder": "e.g. 0 or 2.5"
+            },
+            "layout": {
+                "label": "Layout",
+                "placeholder": "e.g. normal or transform"
+            },
+            "power": {
+                "label": "Power",
+                "placeholder": "e.g. 2 or *"
+            },
+            "toughness": {
+                "label": "Toughness",
+                "placeholder": "e.g. 3 or *"
+            },
+            "loyalty": {
+                "label": "Loyalty",
+                "placeholder": "e.g. 4 or X"
+            }
+        },
+        "status": {
+            "noFilters": "No matching filters. Try another filter name.",
+            "nameRequired": "Enter a card name to search.",
+            "loading": "Searching cards…",
+            "empty": "No cards found.",
+            "failed": "Unable to search cards. Please try again.",
+            "filterCount": "{{count}} filters. Keep typing to narrow them, or use the arrow keys and Enter to choose.",
+            "resultCount": "{{count}} results. Use the arrow keys to choose a card."
+        },
+        "filtersLabel": "Search filters",
+        "resultsLabel": "Card search results"
+    },
+    "scanner": {
+        "title": "Scan a card",
+        "device": {
+            "label": "Camera",
+            "number": "Camera {{number}}"
+        },
+        "previewLabel": "Live camera preview",
+        "waitingAccess": "Waiting for camera access…",
+        "captureAlt": "Your captured card, straightened and cropped",
+        "messages": {
+            "borderLocked": "Card border locked…",
+            "detected": "Card detected. Keep it still…",
+            "confirming": "Card found. Confirming border…",
+            "retryScanner": "Waiting for the scanner. Retrying automatically…",
+            "corners": "Keep all four corners visible against a contrasting background.",
+            "tilt": "Tilt the card slightly toward the camera.",
+            "steady": "Hold the card steady…",
+            "captureFailed": "Unable to capture a camera frame in this browser.",
+            "stopped": "The camera stopped responding. Close this dialog and reopen the scanner.",
+            "waitingCamera": "Waiting for the camera… Scanning will continue automatically.",
+            "retryVisible": "Keep the whole card visible. Scanning again automatically…",
+            "borderMoved": "The card border moved or was incomplete. Hold it still and keep all four corners visible…",
+            "languageUnavailable": "Text recognition is unavailable for this language.",
+            "readingText": "Reading card text…",
+            "unclear": "Text was unclear. Keep the card steady and reduce glare; scanning again automatically…",
+            "searching": "Searching for the card…",
+            "searchUnavailable": "Search is temporarily unavailable. Retrying automatically…",
+            "unidentified": "Card not identified yet. Reading another image automatically…",
+            "noMatch": "No usable match yet. Reading another image automatically…",
+            "interrupted": "Reading was interrupted. Scanning again automatically…",
+            "switching": "Switching camera…",
+            "noTrack": "The selected camera did not provide a video track.",
+            "position": "Position the whole card inside the camera.",
+            "switchFailed": "Unable to switch to the selected camera.",
+            "unavailable": "Camera access is unavailable. Use a supported browser on HTTPS or localhost.",
+            "starting": "Starting camera…",
+            "selecting": "Selecting the best camera…",
+            "accessDenied": "Camera access was denied. Allow camera access in your browser settings, then reopen this dialog.",
+            "notFound": "No camera was found. Connect a camera and reopen this dialog.",
+            "busy": "The camera could not be started. Close other apps using it and reopen this dialog.",
+            "incompatible": "The camera could not provide a compatible video mode. Close this dialog and try again.",
+            "showFailed": "Unable to show the camera. Close this dialog and try again.",
+            "lowSimilarity": "No usable match yet. Reading another image automatically…"
+        },
+        "guidance": "Keep all four corners visible. Scanning is automatic.",
+        "ocr": {
+            "manual": "Enter the name manually for this language.",
+            "cancelled": "Scanning cancelled.",
+            "loadFailed": "Unable to load or run text recognition. Please retry.",
+            "unavailable": "OCR is not available for this language.",
+            "initializeFailed": "Unable to initialize text recognition.",
+            "detailed": "Trying detailed recognition…",
+            "reading": "Reading card…",
+            "timeout": "Text recognition took too long. Please retry.",
+            "loading": "Loading {{language}} text recognition…",
+            "modelFailed": "Unable to load {{language}} text recognition. Check your connection and retry.",
+            "readingName": "Reading card name ({{pass}}/{{total}})… {{percent}}%",
+            "passComplete": "Reading card… {{count}} pass complete",
+            "passesComplete": "Reading card… {{count}} passes complete"
+        }
+    },
+    "formatLegality": {
+        "heading": "Format legality",
+        "subtitle": "Official formats",
+        "empty": "No legality information is available.",
+        "status": {
+            "legal": "Legal",
+            "restricted": "Restricted (1×)",
+            "banned": "Banned",
+            "not_legal": "Not legal",
+            "unknown": "Unknown",
+            "unknownFormat": "Unknown format"
+        }
+    },
+    "metadata": {
+        "title": "Sol Binder — Magic Card Search"
+    },
+    "cardLanguages": {
+        "en": "English",
+        "es": "Spanish",
+        "fr": "French",
+        "de": "German",
+        "it": "Italian",
+        "pt": "Portuguese",
+        "ja": "Japanese",
+        "ko": "Korean",
+        "ru": "Russian",
+        "zhs": "Chinese, simplified",
+        "zht": "Chinese, traditional",
+        "ar": "Arabic",
+        "he": "Hebrew",
+        "la": "Latin",
+        "grc": "Ancient Greek",
+        "sa": "Sanskrit",
+        "phyrexianManual": "Phyrexian (manual name)",
+        "ph": "Phyrexian",
+        "und": "Unknown language",
+        "other": "Language: {{code}}",
+        "selector": "Print language",
+        "singular": "Language:",
+        "plural": "Languages:"
+    },
+    "validation": {
+        "search": {
+            "syntax": "Choose a filter and enter it as /filter=value.",
+            "unknown": "Unknown filter /{{command}}. Use / to choose a filter.",
+            "unfinishedQuote": "Finish the quoted value for /{{command}}.",
+            "quoteWholeValue": "Wrap the whole /{{command}} value in double quotes.",
+            "missingValue": "Enter a value for /{{command}}: {{example}}.",
+            "colors": "Use W, U, B, R, G for colors, or C alone for colorless.",
+            "manaValue": "Mana value (CMC) must be a nonnegative number, such as 0 or 2.5.",
+            "legality": "Enter a format, optionally followed by :legal, :not_legal, :restricted or :banned.",
+            "options": "{{label}}: use {{options}}."
+        }
+    },
+    "mana": {
+        "white": "white",
+        "blue": "blue",
+        "black": "black",
+        "red": "red",
+        "green": "green",
+        "colorless": "colorless",
+        "snow": "snow",
+        "life": "2 life",
+        "tap": "Tap",
+        "untap": "Untap",
+        "energy": "Energy",
+        "chaos": "Chaos",
+        "infinite": "Infinite mana",
+        "phyrexian": "Phyrexian mana",
+        "generic": "{{value}} generic mana"
+    }
+}

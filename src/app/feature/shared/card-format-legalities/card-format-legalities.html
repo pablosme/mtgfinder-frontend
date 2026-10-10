@@ -1,3 +1,4 @@
+<ng-container *transloco="let t">
 <section class="legality-panel" aria-labelledby="legality-heading">
     <div class="legality-heading">
         <h2 id="legality-heading">
@@ -14,9 +15,8 @@
                 <path d="M12 3 4 6v6c0 4 4 7 8 9 4-2 8-5 8-9V6l-8-3Z" />
                 <path d="m8 12 3 3 5-6" />
             </svg>
-            Format legality
-        </h2>
-        <span>Official formats</span>
+             {{ t('formatLegality.heading') }} </h2>
+        <span> {{ t('formatLegality.subtitle') }} </span>
     </div>
     @if (formats().length) {
         <ul class="legality-list">
@@ -25,12 +25,14 @@
                     @if (legality.status === 'legal' || legality.status === 'restricted') {
                         <span class="status-dot" aria-hidden="true"></span>
                     }
-                    <span class="format-name">{{ legality.format }}</span>
-                    <span class="status-label">{{ legality.statusLabel }}</span>
+                    <span class="format-name">{{ legality.format || t('formatLegality.status.unknownFormat') }}</span>
+                    <span class="status-label">{{ legality.status === 'unknown' ? (legality.fallbackLabel || t(legality.statusKey)) : t(legality.statusKey) }}</span>
                 </li>
             }
         </ul>
     } @else {
-        <p class="empty-legality">No legality information is available.</p>
+        <p class="empty-legality"> {{ t('formatLegality.empty') }} </p>
     }
 </section>
+
+</ng-container>

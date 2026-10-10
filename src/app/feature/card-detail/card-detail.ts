@@ -1,3 +1,4 @@
+import { TranslocoDirective } from '@jsverse/transloco';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -12,7 +13,7 @@ import { CardFormatLegalities } from '../shared/card-format-legalities/card-form
 
 @Component({
     selector: 'app-card-detail',
-    imports: [ManaText, RouterLink, CardLanguageBadges, CardFormatLegalities],
+    imports: [TranslocoDirective, ManaText, RouterLink, CardLanguageBadges, CardFormatLegalities],
     templateUrl: './card-detail.html',
     styleUrl: './card-detail.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -103,14 +104,14 @@ export class CardDetail {
 
                     if (!oracleId) {
                         this.loading.set(false);
-                        this.error.set('No oracle_id was provided.');
+                        this.error.set('cardDetail.errors.missingId');
                         return of(null);
                     }
 
                     this.loading.set(true);
                     return this.cardSearch.getCardInfo(oracleId).pipe(
                         catchError(() => {
-                            this.error.set('Unable to load this card.');
+                            this.error.set('cardDetail.errors.loadFailed');
                             return of(null);
                         }),
                         finalize(() => this.loading.set(false)),

@@ -5,100 +5,90 @@ import type { SearchSyntaxCommand } from './search-syntax-command.interface';
 const COMMAND_HELP: Readonly<Record<keyof CardSearchFilters, Omit<SearchSyntaxCommand, 'field'>>> =
     {
         type: {
-            description:
-                'Filter by card type, supertype or subtype, such as creature, legendary or Dragon.',
+            description: 'searchSyntax.commands.type.description',
             examples: ['/type=creature', '/type="Legendary Creature"', '/type=dragon'],
-            notes: ['Put a phrase containing spaces inside double quotes.'],
+            notes: ['searchSyntax.commands.type.notes.quote'],
         },
         keyword: {
-            description: 'Look for a keyword ability, such as flying, trample or first strike.',
+            description: 'searchSyntax.commands.keyword.description',
             examples: ['/keyword=flying', '/keyword="first strike"'],
-            notes: ['Use an ability name here, rather than a sentence from the rules text.'],
+            notes: ['searchSyntax.commands.keyword.notes.abilityName'],
         },
         colors: {
-            description: 'Filter by the card’s colors using the five Magic color letters.',
+            description: 'searchSyntax.commands.colors.description',
             examples: ['/color=U', '/color=G,B', '/color=C', '/color=G /color=B'],
             notes: [
-                'W = white, U = blue, B = black, R = red, G = green. Use C alone for colorless.',
-                'G,B and GB are equivalent. Lowercase letters are accepted. For spaces, quote the value: /color="G, B".',
-                'Use /color=G,B for both colors; repeat /color=G /color=B for either color. Do not combine C with another color.',
+                'searchSyntax.commands.colors.notes.letters',
+                'searchSyntax.commands.colors.notes.format',
+                'searchSyntax.commands.colors.notes.combine',
             ],
         },
         color_identity: {
-            description:
-                'Filter by color identity, which can include colors beyond the card’s own color, such as those in its rules text.',
+            description: 'searchSyntax.commands.color_identity.description',
             examples: ['/color_identity=W,U', '/color_identity=C'],
             notes: [
-                'Uses the same W, U, B, R, G and C notation as colors.',
-                'Combine letters in one value for both colors, or repeat the command for alternatives.',
+                'searchSyntax.commands.color_identity.notes.notation',
+                'searchSyntax.commands.color_identity.notes.combine',
             ],
         },
         legality: {
-            description:
-                'Specify a format, optionally followed by a legality status after a colon.',
+            description: 'searchSyntax.commands.legality.description',
             examples: [
                 '/legality=commander',
                 '/legality=modern:banned',
                 '/legality=vintage:restricted',
             ],
             notes: [
-                'A format without a status means legal: /legality=commander and /legality=commander:legal are equivalent.',
-                'Supported statuses: legal, not_legal, restricted and banned. Keep the underscore in not_legal.',
-                'Use a format identifier such as standard, modern, pioneer, legacy, vintage or commander. These examples specify filters, not the legality of a particular card.',
+                'searchSyntax.commands.legality.notes.default',
+                'searchSyntax.commands.legality.notes.statuses',
+                'searchSyntax.commands.legality.notes.formats',
             ],
         },
         rarity: {
-            description: 'Filter by printing rarity. Use one of the supported values listed below.',
+            description: 'searchSyntax.commands.rarity.description',
             examples: ['/rarity=rare', '/rarity=common /rarity=uncommon'],
-            notes: [
-                'Use mythic for mythic rare. Repeat the command to supply more than one rarity.',
-            ],
+            notes: ['searchSyntax.commands.rarity.notes.mythic'],
         },
         set: {
-            description: 'Find printings from a set by its name or code.',
+            description: 'searchSyntax.commands.set.description',
             examples: ['/set=lea', '/set="Limited Edition Alpha"'],
-            notes: ['Quote set names containing spaces.'],
+            notes: ['searchSyntax.commands.set.notes.quote'],
         },
         collection: {
-            description: 'Match a set name, set code or an exact collector number.',
+            description: 'searchSyntax.commands.collection.description',
             examples: ['/collection=lea', '/collection=232'],
             notes: [
-                'This command searches printing information; it does not refer to cards you own.',
-                'A collector number can occur in more than one set. Add /set= to specify a set as well.',
+                'searchSyntax.commands.collection.notes.printings',
+                'searchSyntax.commands.collection.notes.multipleSets',
             ],
         },
         cmc: {
-            description: 'Filter by mana value, also called converted mana cost or CMC.',
+            description: 'searchSyntax.commands.cmc.description',
             examples: ['/cmc=0', '/cmc=3', '/cmc=2.5'],
             notes: [
-                'Use a nonnegative number and a period for decimals.',
-                'Comparison operators and ranges are not accepted here. Use /cmc=3, not /cmc=>3 or /cmc=2-4.',
+                'searchSyntax.commands.cmc.notes.number',
+                'searchSyntax.commands.cmc.notes.operators',
             ],
         },
         layout: {
-            description:
-                'Filter by the card’s layout, such as a normal card or a transforming card.',
+            description: 'searchSyntax.commands.layout.description',
             examples: ['/layout=normal', '/layout=transform'],
-            notes: ['Use the layout identifier as the value.'],
+            notes: ['searchSyntax.commands.layout.notes.identifier'],
         },
         power: {
-            description: 'Filter by the printed power value.',
+            description: 'searchSyntax.commands.power.description',
             examples: ['/power=2', '/power=*'],
-            notes: [
-                'The asterisk is a characteristic value, as printed on some cards; it is not a wildcard for any power.',
-            ],
+            notes: ['searchSyntax.commands.power.notes.asterisk'],
         },
         toughness: {
-            description: 'Filter by the printed toughness value.',
+            description: 'searchSyntax.commands.toughness.description',
             examples: ['/toughness=3', '/toughness=*'],
-            notes: ['Combine /power= and /toughness= to specify both characteristics.'],
+            notes: ['searchSyntax.commands.toughness.notes.combine'],
         },
         loyalty: {
-            description: 'Filter by the printed starting loyalty value of a planeswalker.',
+            description: 'searchSyntax.commands.loyalty.description',
             examples: ['/loyalty=4', '/loyalty=X'],
-            notes: [
-                'Enter the value shown on the card, including a symbolic value such as X when applicable.',
-            ],
+            notes: ['searchSyntax.commands.loyalty.notes.symbol'],
         },
     };
 

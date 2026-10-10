@@ -1,0 +1,221 @@
+{
+    "intro": {
+        "backToSearch": "Torna alla ricerca carte",
+        "eyebrow": "La guida ai campi di ricerca",
+        "title": "Sintassi di ricerca",
+        "description": "Inizia con il nome di una carta. Aggiungi alcuni comandi per restringere la ricerca per colore, tipo, stampa, formato e altro."
+    },
+    "contents": {
+        "label": "In questa pagina",
+        "gettingStarted": "Per iniziare",
+        "writingCommands": "Scrivere i comandi",
+        "commandCount": "Tutti i {{count}} comandi",
+        "combiningFilters": "Combinare i filtri",
+        "troubleshooting": "Risoluzione dei problemi"
+    },
+    "quickStart": {
+        "eyebrow": "01 / Guida rapida",
+        "title": "Da un nome a una ricerca mirata",
+        "nameText": "è il testo del nome.",
+        "typeFilter": "aggiunge un filtro per tipo, e",
+        "colorFilter": "aggiunge un filtro colore rosso.",
+        "steps": {
+            "name": {
+                "title": "Inserisci il nome di una carta o parte di esso.",
+                "body": "I risultati appaiono durante la digitazione dopo una breve pausa. Il nome è obbligatorio, anche quando si usano i filtri."
+            },
+            "command": {
+                "title": "Aggiungi un comando.",
+                "typeBefore": "Digita",
+                "afterKey": "o usa il pulsante barra nella casella di ricerca. Scegli un filtro, quindi inserisci il suo valore dopo",
+                "end": "."
+            },
+            "result": {
+                "title": "Apri un risultato.",
+                "clickBefore": "Fai clic su una carta, oppure usa",
+                "and": "e",
+                "highlightAfter": "per evidenziarla ed",
+                "openAfter": "per aprire i dettagli."
+            }
+        },
+        "noteBefore": "Puoi usare la casella di ricerca in cima a questa pagina durante la lettura. I tasti freccia e Invio funzionano anche nel menu dei filtri. Premi",
+        "noteAfter": "per chiudere i suggerimenti."
+    },
+    "basics": {
+        "eyebrow": "02 / Le basi",
+        "title": "Scrivi comandi come /filter=value",
+        "separate": {
+            "term": "Separa i comandi con spazi",
+            "before": "Mantieni ogni comando compatto:",
+            "after": ". Non aggiungere spazi attorno al segno di uguale. I comandi possono precedere o seguire il nome; il testo al di fuori dei comandi costituisce la ricerca per nome della carta."
+        },
+        "quote": {
+            "term": "Racchiudi tra virgolette i valori contenenti spazi",
+            "before": "Usa le virgolette doppie attorno all’intero valore:",
+            "or": "o",
+            "after": ". Le virgolette singole non raggruppano le parole. Chiudi le virgolette doppie prima di aggiungere un altro comando."
+        },
+        "special": {
+            "term": "Mantieni i caratteri speciali all’interno dei valori tra virgolette",
+            "before": "All’interno di un valore tra virgolette doppie, scrivi",
+            "middle": "per una virgoletta doppia letterale e",
+            "after": "per una barra rovesciata letterale."
+        },
+        "names": {
+            "term": "Usa i nomi dei comandi supportati",
+            "before": "I nomi dei comandi non fanno distinzione tra maiuscole e minuscole:",
+            "and": "e",
+            "afterPair": "usano lo stesso filtro.",
+            "aliasesAfter": "sono sinonimi. Mantieni i trattini bassi in nomi come"
+        },
+        "split": {
+            "term": "Mantieni intatti i nomi delle carte divise",
+            "before": "La doppia barra in",
+            "after": "fa parte del nome. Non avvia un filtro."
+        }
+    },
+    "reference": {
+        "eyebrow": "03 / Riferimento comandi",
+        "title": "Tutti i filtri supportati",
+        "description": "Aggiungi questi snippet di comando al nome di una carta. Scegli un comando qui sotto per passare ai suoi esempi e alle regole sui valori.",
+        "indexLabel": "Comandi di ricerca",
+        "alsoAccepts": "Accetta anche",
+        "acceptedValues": "Valori accettati:",
+        "examplesLabel": "Esempi di comando"
+    },
+    "combining": {
+        "eyebrow": "04 / Combina e ripeti",
+        "title": "Combina e ripeti i comandi",
+        "description": "Aggiungi comandi diversi per restringere più proprietà nella stessa ricerca. Ripeti un comando per fornire più valori; il valore successivo non cancella quello precedente.",
+        "angel": "Cerca il nome Angel con tipo creatura, volare e valore di mana 4.",
+        "lotus": "Cerca il nome Lotus con codice di espansione e numero di collezione.",
+        "elfBefore": "Fornisci verde o nero come alternative. Per entrambi i colori in un unico filtro, usa",
+        "elfAfter": "invece.",
+        "dragon": "Fornisci due valori di rarità durante la ricerca del nome Dragon.",
+        "note": "I filtri rimangono attivi quando ci si sposta tra la casella di ricerca della home e quella dell’intestazione. Cancella un comando per rimuovere quel filtro, oppure rimuovi tutti i comandi per tornare alla ricerca solo per nome."
+    },
+    "troubleshooting": {
+        "eyebrow": "05 / Quando una ricerca necessita di correzioni",
+        "title": "Risoluzione dei problemi",
+        "missingName": {
+            "term": "“Inserisci il nome di una carta da cercare.”",
+            "before": "I filtri da soli non avviano una ricerca. Aggiungi il testo del nome, come",
+            "end": "."
+        },
+        "unknownFilter": {
+            "term": "Filtro sconosciuto o valore mancante",
+            "typeBefore": "Digita",
+            "useBefore": "per scegliere un comando supportato. Usa",
+            "after": ", con la barra, il segno di uguale e un valore non vuoto. Gli errori di sintassi sospendono la ricerca fino alla correzione."
+        },
+        "unfinishedQuote": {
+            "term": "Un valore tra virgolette non è chiuso",
+            "before": "Verifica che l’intero valore sia racchiuso tra virgolette doppie. Ad esempio, scrivi",
+            "end": "."
+        },
+        "rejectedValue": {
+            "term": "Un colore, una rarità, uno stato di legalità o un valore di mana è rifiutato",
+            "useBefore": "Usa",
+            "blue": "per blu,",
+            "mythic": "per rara mitica,",
+            "underscore": "con un trattino basso, e un numero non negativo come",
+            "after": ". Consulta il riferimento comandi per i dettagli."
+        },
+        "noResults": {
+            "term": "Nessuna carta trovata",
+            "body": "Controlla il nome, rimuovi i filtri uno alla volta e verifica la presenza di comandi rimasti da una ricerca precedente. Una sintassi valida può comunque non produrre corrispondenze. Gli esempi illustrano la sintassi e non garantiscono risultati."
+        },
+        "searchFailed": {
+            "term": "“Impossibile cercare le carte. Riprova.”",
+            "body": "Impossibile completare la richiesta di ricerca. Riprova; questo messaggio è separato da un errore di sintassi o da un elenco di risultati vuoto."
+        },
+        "backToSearch": "Torna alla ricerca carte"
+    },
+    "commands": {
+        "type": {
+            "description": "Filtra per tipo di carta, supertipo o sottotipo, come creature, legendary o Dragon.",
+            "notes": {
+                "quote": "Racchiudi tra virgolette doppie le frasi contenenti spazi."
+            }
+        },
+        "keyword": {
+            "description": "Cerca un’abilità definita da parola chiave, come flying, trample o first strike.",
+            "notes": {
+                "abilityName": "Usa qui il nome dell’abilità, piuttosto che una frase del testo delle regole."
+            }
+        },
+        "colors": {
+            "description": "Filtra per i colori della carta usando le cinque lettere dei colori di Magic.",
+            "notes": {
+                "letters": "W = bianco, U = blu, B = nero, R = rosso, G = verde. Usa C da solo per incolore.",
+                "format": "G,B e GB sono equivalenti. Le lettere minuscole sono accettate. Per gli spazi, racchiudi tra virgolette il valore: /color=\"G, B\".",
+                "combine": "Usa /color=G,B per entrambi i colori; ripeti /color=G /color=B per uno o l’altro colore. Non combinare C con un altro colore."
+            }
+        },
+        "color_identity": {
+            "description": "Filtra per identità di colore, che può includere colori oltre a quello della carta stessa, come quelli nel suo testo delle regole.",
+            "notes": {
+                "notation": "Usa la stessa notazione W, U, B, R, G e C dei colori.",
+                "combine": "Combina le lettere in un unico valore per entrambi i colori, oppure ripeti il comando per le alternative."
+            }
+        },
+        "legality": {
+            "description": "Specifica un formato, facoltativamente seguito da uno stato di legalità dopo i due punti.",
+            "notes": {
+                "default": "Un formato senza stato indica legale: /legality=commander e /legality=commander:legal sono equivalenti.",
+                "statuses": "Stati supportati: legal, not_legal, restricted e banned. Mantieni il trattino basso in not_legal.",
+                "formats": "Usa un identificatore di formato come standard, modern, pioneer, legacy, vintage o commander. Questi esempi specificano filtri, non la legalità di una particolare carta."
+            }
+        },
+        "rarity": {
+            "description": "Filtra per rarità di stampa. Usa uno dei valori supportati elencati di seguito.",
+            "notes": {
+                "mythic": "Usa mythic per rara mitica. Ripeti il comando per fornire più di una rarità."
+            }
+        },
+        "set": {
+            "description": "Trova le stampe di un’espansione tramite il suo nome o codice.",
+            "notes": {
+                "quote": "Racchiudi tra virgolette i nomi delle espansioni contenenti spazi."
+            }
+        },
+        "collection": {
+            "description": "Trova una corrispondenza per nome espansione, codice espansione o un numero di collezione esatto.",
+            "notes": {
+                "printings": "Questo comando cerca le informazioni di stampa; non fa riferimento alle carte che possiedi.",
+                "multipleSets": "Un numero di collezione può trovarsi in più di un’espansione. Aggiungi /set= per specificare anche un’espansione."
+            }
+        },
+        "cmc": {
+            "description": "Filtra per valore di mana, chiamato anche costo di mana convertito o CMC.",
+            "notes": {
+                "number": "Usa un numero non negativo e un punto per i decimali.",
+                "operators": "Gli operatori di confronto e gli intervalli non sono accettati qui. Usa /cmc=3, non /cmc=>3 o /cmc=2-4."
+            }
+        },
+        "layout": {
+            "description": "Filtra per layout della carta, come una carta normale o una carta bifronte trasformabile.",
+            "notes": {
+                "identifier": "Usa l’identificatore di layout come valore."
+            }
+        },
+        "power": {
+            "description": "Filtra per valore di forza stampato.",
+            "notes": {
+                "asterisk": "L’asterisco è un valore caratteristico, come stampato su alcune carte; non è un carattere jolly per qualsiasi forza."
+            }
+        },
+        "toughness": {
+            "description": "Filtra per valore di costituzione stampato.",
+            "notes": {
+                "combine": "Combina /power= e /toughness= per specificare entrambe le caratteristiche."
+            }
+        },
+        "loyalty": {
+            "description": "Filtra per valore di fedeltà iniziale stampato di un planeswalker.",
+            "notes": {
+                "symbol": "Inserisci il valore mostrato sulla carta, compreso un valore simbolico come X se applicabile."
+            }
+        }
+    }
+}

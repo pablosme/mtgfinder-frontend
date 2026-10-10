@@ -1,17 +1,18 @@
+<ng-container *transloco="let t">
 @if (loading()) {
-    <p class="detail-message" role="status">Loading card…</p>
+    <p class="detail-message" role="status"> {{ t('cardDetail.status.loading') }} </p>
 } @else if (error()) {
-    <p class="detail-message detail-message--error" role="alert">{{ error() }}</p>
+    <p class="detail-message detail-message--error" role="alert">{{ t(error()) }}</p>
 } @else if (card(); as card) {
     <article class="card-detail" aria-labelledby="card-title">
-        <nav class="breadcrumbs" aria-label="Breadcrumb">
-            <a routerLink="/">Card search</a>
+        <nav class="breadcrumbs" [attr.aria-label]="t('accessibility.breadcrumb')">
+            <a routerLink="/"> {{ t('navigation.cardSearch') }} </a>
             <span aria-hidden="true">›</span>
             <span aria-current="page">{{ card.name }}</span>
         </nav>
 
         <div class="detail-grid">
-            <section class="visual-column" aria-label="Card image and prints">
+            <section class="visual-column" [attr.aria-label]="t('cardDetail.accessibility.imageAndPrints')">
                 @if (currentPrint(); as print) {
                     <figure class="featured-print">
                         <div class="featured-image">
@@ -19,9 +20,7 @@
                                 <img
                                     [src]="imageUrl"
                                     [alt]="
-                                        (currentFace()?.name || card.name) +
-                                        ' from ' +
-                                        print.set_name
+                                        t('cardDetail.accessibility.imageFromSet', { name: currentFace()?.name || card.name, set: print.set_name })
                                     "
                                 />
                             } @else {
@@ -29,8 +28,7 @@
                                     class="image-placeholder"
                                     role="img"
                                     [attr.aria-label]="
-                                        'No image available for ' +
-                                        (currentFace()?.name || card.name)
+                                        t('cardDetail.accessibility.missingImage', { name: currentFace()?.name || card.name })
                                     "
                                 >
                                     {{ currentFace()?.name || card.name }}
@@ -54,8 +52,8 @@
                                 <button
                                     class="ui-button switch-side"
                                     type="button"
-                                    aria-label="Switch side"
-                                    title="Switch side"
+                                    [attr.aria-label]="t('cardDetail.actions.switchSide')"
+                                    [title]="t('cardDetail.actions.switchSide')"
                                     (click)="switchFace()"
                                 >
                                     <svg
@@ -76,7 +74,7 @@
 
                 <div class="printings-space">
                     <section class="printings-panel" aria-labelledby="prints-heading">
-                        <h2 id="prints-heading">Sets &amp; print languages</h2>
+                        <h2 id="prints-heading"> {{ t('cardDetail.printings.heading') }} </h2>
                         @if (printSets().length) {
                             <ul class="print-list">
                                 @for (set of printSets(); track set.key) {
@@ -117,20 +115,20 @@
                                 }
                             </ul>
                         } @else {
-                            <p>No printings are available.</p>
+                            <p> {{ t('cardDetail.printings.empty') }} </p>
                         }
                     </section>
                 </div>
             </section>
 
-            <section class="information-column" aria-label="Card information">
+            <section class="information-column" [attr.aria-label]="t('cardDetail.accessibility.information')">
                 <section class="overview-panel" aria-labelledby="card-title">
                     <div class="overview-heading">
                         <div>
                             <h1 id="card-title">{{ card.name }}</h1>
                             @if (currentPrint(); as print) {
                                 @if (print.printed_name && print.printed_name !== card.name) {
-                                    <p class="printed-name">{{ print.printed_name }}</p>
+                                    <p class="printed-name" [class.lang-phy]="print.lang === 'ph'">{{ print.printed_name }}</p>
                                 }
                             }
                             @if (card.type_line) {
@@ -151,7 +149,7 @@
                                             aria-labelledby="printing-label"
                                         >
                                             <span class="field-label" id="printing-label"
-                                                >Printing</span
+                                                > {{ t('cardDetail.fields.printing') }} </span
                                             >
                                             @for (print of languagePrints(); track print.id) {
                                                 <button
@@ -176,13 +174,13 @@
                         </div>
 
                         @if (card.mana_cost; as manaCost) {
-                            <div class="mana-summary" aria-label="Mana cost and value">
-                                <span class="field-label">Mana cost</span>
+                            <div class="mana-summary" [attr.aria-label]="t('cardDetail.accessibility.mana')">
+                                <span class="field-label"> {{ t('cardDetail.fields.manaCost') }} </span>
                                 <strong>
                                     <app-mana-text [text]="manaCost" />
                                 </strong>
                                 @if (card.cmc !== null) {
-                                    <span>Mana value: {{ card.cmc }}</span>
+                                    <span>{{ t('cardDetail.fields.manaValue', { value: card.cmc }) }}</span>
                                 }
                             </div>
                         }
@@ -192,7 +190,7 @@
                         @if (card.colors; as colors) {
                             @if (colors.length) {
                                 <p>
-                                    <span class="field-label">Colors</span>
+                                    <span class="field-label"> {{ t('cardDetail.fields.colors') }} </span>
                                     @for (color of colors; track $index) {
                                         <app-mana-text [text]="'{' + color + '}'" />
                                     }
@@ -202,34 +200,34 @@
                         @if (card.keywords; as keywords) {
                             @if (keywords.length) {
                                 <p>
-                                    <span class="field-label">Keywords</span
+                                    <span class="field-label"> {{ t('cardDetail.fields.keywords') }} </span
                                     >{{ keywords.join(', ') }}
                                 </p>
                             }
                         }
                         @if (card.power !== null || card.toughness !== null) {
                             <p>
-                                <span class="field-label">Power / Toughness</span
+                                <span class="field-label"> {{ t('cardDetail.fields.powerToughness') }} </span
                                 >{{ card.power || '—' }} / {{ card.toughness || '—' }}
                             </p>
                         }
                         @if (card.loyalty) {
-                            <p><span class="field-label">Loyalty</span>{{ card.loyalty }}</p>
+                            <p><span class="field-label"> {{ t('cardDetail.fields.loyalty') }} </span>{{ card.loyalty }}</p>
                         }
                         @if (card.defense) {
-                            <p><span class="field-label">Defense</span>{{ card.defense }}</p>
+                            <p><span class="field-label"> {{ t('cardDetail.fields.defense') }} </span>{{ card.defense }}</p>
                         }
                         <p class="reserved-status">
-                            <span class="field-label">Reserved List</span>
-                            {{ card.reserved ? 'Yes' : 'No' }}
+                            <span class="field-label"> {{ t('cardDetail.fields.reserved') }} </span>
+                            {{ card.reserved ? t('common.yes') : t('common.no') }}
                         </p>
                     </div>
                 </section>
 
                 <section class="oracle-panel" aria-labelledby="oracle-heading">
                     <div class="section-heading">
-                        <h2 id="oracle-heading">Text</h2>
-                        <span>Oracle rules text</span>
+                        <h2 id="oracle-heading"> {{ t('cardDetail.oracle.heading') }} </h2>
+                        <span> {{ t('cardDetail.oracle.subtitle') }} </span>
                     </div>
                     @if (hasMultipleFaces()) {
                         @for (face of faces(); track face.face_index) {
@@ -242,13 +240,13 @@
                                         {{ face.name }}
                                     </h3>
                                     @if (face.mana_cost) {
-                                        <span aria-label="Mana cost"
+                                        <span [attr.aria-label]="t('cardDetail.fields.manaCost')"
                                             ><app-mana-text [text]="face.mana_cost"
                                         /></span>
                                     }
                                 </div>
                                 @if (face.printed_name && face.printed_name !== face.name) {
-                                    <p class="printed-name">{{ face.printed_name }}</p>
+                                    <p class="printed-name" [class.lang-phy]="currentPrint()?.lang === 'ph'">{{ face.printed_name }}</p>
                                 }
                                 @if (face.type_line) {
                                     <p class="type-line">{{ face.type_line }}</p>
@@ -256,13 +254,13 @@
                                 <div class="oracle-text">
                                     <p>
                                         <app-mana-text
-                                            [text]="face.oracle_text || 'No oracle text.'"
+                                            [text]="face.oracle_text || t('cardDetail.oracle.empty')"
                                         />
                                     </p>
                                 </div>
                                 @if (face.printed_text && face.printed_text !== face.oracle_text) {
-                                    <div class="oracle-text printed-text">
-                                        <span class="field-label">Printed text</span>
+                                    <div class="oracle-text printed-text" [class.lang-phy]="currentPrint()?.lang === 'ph'">
+                                        <span class="field-label"> {{ t('cardDetail.oracle.printed') }} </span>
                                         <p><app-mana-text [text]="face.printed_text" /></p>
                                     </div>
                                 }
@@ -275,27 +273,27 @@
                                     <div class="card-facts">
                                         @if (face.power != null || face.toughness != null) {
                                             <p>
-                                                <span class="field-label">Power / Toughness</span
+                                                <span class="field-label"> {{ t('cardDetail.fields.powerToughness') }} </span
                                                 >{{ face.power ?? '—' }} /
                                                 {{ face.toughness ?? '—' }}
                                             </p>
                                         }
                                         @if (face.loyalty != null) {
                                             <p>
-                                                <span class="field-label">Loyalty</span
+                                                <span class="field-label"> {{ t('cardDetail.fields.loyalty') }} </span
                                                 >{{ face.loyalty }}
                                             </p>
                                         }
                                         @if (face.defense != null) {
                                             <p>
-                                                <span class="field-label">Defense</span
+                                                <span class="field-label"> {{ t('cardDetail.fields.defense') }} </span
                                                 >{{ face.defense }}
                                             </p>
                                         }
                                     </div>
                                 }
                                 @if (face.flavor_text) {
-                                    <blockquote>{{ face.flavor_text }}</blockquote>
+                                    <blockquote [class.lang-phy]="currentPrint()?.lang === 'ph'">{{ face.flavor_text }}</blockquote>
                                 }
                             </section>
                         }
@@ -304,66 +302,72 @@
                             @if (card.oracle_text) {
                                 <p><app-mana-text [text]="card.oracle_text" /></p>
                             } @else {
-                                <p>No oracle text.</p>
+                                <p> {{ t('cardDetail.oracle.empty') }} </p>
                             }
                         </div>
                         @if (currentPrint(); as print) {
+                            @if (print.printed_text && print.printed_text !== card.oracle_text) {
+                                <div class="oracle-text printed-text" [class.lang-phy]="print.lang === 'ph'">
+                                    <span class="field-label"> {{ t('cardDetail.oracle.printed') }} </span>
+                                    <p><app-mana-text [text]="print.printed_text" /></p>
+                                </div>
+                            }
                             @if (print.flavor_text) {
-                                <blockquote>{{ print.flavor_text }}</blockquote>
+                                <blockquote [class.lang-phy]="print.lang === 'ph'">{{ print.flavor_text }}</blockquote>
                             }
                         }
                     }
                 </section>
 
                 <section class="metadata-panel" aria-labelledby="metadata-heading">
-                    <h2 id="metadata-heading">Collection</h2>
+                    <h2 id="metadata-heading"> {{ t('cardDetail.metadata.heading') }} </h2>
                     <dl class="metadata-grid">
                         @if (currentPrint(); as print) {
                             <div>
-                                <dt>Set</dt>
+                                <dt> {{ t('cardDetail.fields.set') }} </dt>
                                 <dd>{{ print.set_name }}</dd>
                             </div>
                             <div>
-                                <dt>Collector number</dt>
+                                <dt> {{ t('cardDetail.fields.collectorNumber') }} </dt>
                                 <dd>{{ print.collector_number }}</dd>
                             </div>
                             <div>
-                                <dt>Artist</dt>
-                                <dd>{{ print.artist || 'Unavailable' }}</dd>
+                                <dt> {{ t('cardDetail.fields.artist') }} </dt>
+                                <dd>{{ print.artist || t('common.unavailable') }}</dd>
                             </div>
                             <div>
-                                <dt>Release date</dt>
-                                <dd>{{ print.released_at || 'Unavailable' }}</dd>
+                                <dt> {{ t('cardDetail.fields.releaseDate') }} </dt>
+                                <dd>{{ print.released_at || t('common.unavailable') }}</dd>
                             </div>
                             <div>
-                                <dt>Rarity</dt>
+                                <dt> {{ t('cardDetail.fields.rarity') }} </dt>
                                 <dd>{{ print.rarity }}</dd>
                             </div>
                         } @else {
                             <div>
-                                <dt>Set</dt>
-                                <dd>Unavailable</dd>
+                                <dt> {{ t('cardDetail.fields.set') }} </dt>
+                                <dd> {{ t('common.unavailable') }} </dd>
                             </div>
                             <div>
-                                <dt>Collector number</dt>
-                                <dd>Unavailable</dd>
+                                <dt> {{ t('cardDetail.fields.collectorNumber') }} </dt>
+                                <dd> {{ t('common.unavailable') }} </dd>
                             </div>
                             <div>
-                                <dt>Artist</dt>
-                                <dd>Unavailable</dd>
+                                <dt> {{ t('cardDetail.fields.artist') }} </dt>
+                                <dd> {{ t('common.unavailable') }} </dd>
                             </div>
                             <div>
-                                <dt>Release date</dt>
-                                <dd>Unavailable</dd>
+                                <dt> {{ t('cardDetail.fields.releaseDate') }} </dt>
+                                <dd> {{ t('common.unavailable') }} </dd>
                             </div>
                             <div>
-                                <dt>Rarity</dt>
-                                <dd>Unavailable</dd>
+                                <dt> {{ t('cardDetail.fields.rarity') }} </dt>
+                                <dd> {{ t('common.unavailable') }} </dd>
                             </div>
                         }
                         <div>
-                            <dt>Oracle ID</dt>
-                            <dd>{{ card.oracle_id || 'Unavailable' }}</dd>
+                            <dt> {{ t('cardDetail.fields.oracleId') }} </dt>
+                            <dd>{{ card.oracle_id || t('common.unavailable') }}</dd>
                         </div>
                     </dl>
                 </section>
@@ -373,3 +377,5 @@
         </div>
     </article>
 }
+
+</ng-container>

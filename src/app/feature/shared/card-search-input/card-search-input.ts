@@ -1,3 +1,5 @@
+import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
+import { LanguageService } from '../../../core/i18n/language.service';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -26,12 +28,14 @@ import { CARD_SEARCH_FILTER_FIELDS } from '../card-search-filter-fields';
 
 @Component({
     selector: 'app-card-search-input',
-    imports: [ManaText],
+    imports: [TranslocoDirective, ManaText],
     templateUrl: './card-search-input.html',
     styleUrl: './card-search-input.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardSearchInput {
+    private readonly transloco = inject(TranslocoService);
+    private readonly language = inject(LanguageService);
     private readonly cardSearch = inject(CardSearchService);
     private readonly dialog = inject(MatDialog);
     private readonly destroyRef = inject(DestroyRef);
@@ -44,7 +48,15 @@ export class CardSearchInput {
     readonly scannedCard = signal<CardScanResult | null>(null);
     readonly cards = signal<OracleCard[]>([]);
     readonly query = signal(formatCardSearchFilters(this.filters(), this.filterFields));
-    readonly parsedQuery = computed(() => parseCardSearchQuery(this.query(), this.filterFields));
+    readonly parsedQuery = computed(() => {
+        // Reading the language makes validation messages re-translate on a live switch.
+        this.language.current();
+        return parseCardSearchQuery(
+            this.query(),
+            this.filterFields,
+            this.transloco.translate.bind(this.transloco),
+        );
+    });
     private readonly caret = signal(0);
     readonly filterCompletion = computed(() => {
         const caret = this.caret();
@@ -69,11 +81,14 @@ export class CardSearchInput {
     });
     readonly matchingFilters = computed(() => {
         const completion = this.filterCompletion();
+        this.language.current();
         if (!completion) return [];
         return this.filterFields.filter((field) =>
-            [field.key, field.alias ?? '', field.label.toLowerCase()].some((value) =>
-                value.includes(completion.prefix),
-            ),
+            [
+                field.key,
+                field.alias ?? '',
+                this.transloco.translate<string>(field.label).toLowerCase(),
+            ].some((value) => value.includes(completion.prefix)),
         );
     });
     readonly pickingFilter = computed(() => this.filterCompletion() !== null);
@@ -86,26 +101,31 @@ export class CardSearchInput {
     readonly selected = signal(false);
     readonly activeIndex = signal(-1);
     readonly listId = computed(() => `${this.inputId()}-suggestions`);
-    readonly expanded = computed(() => this.open() && this.suggestionCount() > 0);
+    readonly expanded = computed(
+        () => this.open() && (this.suggestionCount() > 0 || !!this.status()),
+    );
     readonly activeOptionId = computed(() =>
         this.expanded() && this.activeIndex() >= 0
             ? `${this.listId()}-${this.activeIndex()}`
             : null,
     );
     readonly status = computed(() => {
+        this.language.current();
         if (this.pickingFilter()) {
             return this.matchingFilters().length
-                ? `${this.matchingFilters().length} filters. Keep typing to narrow them, or use the arrow keys and Enter to choose.`
-                : 'No matching filters. Try another filter name.';
+                ? this.transloco.translate('search.status.filterCount', {
+                      count: this.matchingFilters().length,
+                  })
+                : this.transloco.translate('search.status.noFilters');
         }
         if (this.parsedQuery().error) return this.parsedQuery().error;
         if (this.selected() || !this.query().trim()) return '';
-        if (!this.parsedQuery().name) return 'Enter a card name to search.';
-        if (this.loading()) return 'Searching cards…';
-        if (this.error()) return this.error();
+        if (!this.parsedQuery().name) return this.transloco.translate('search.status.nameRequired');
+        if (this.loading()) return this.transloco.translate('search.status.loading');
+        if (this.error()) return this.transloco.translate(this.error());
         return this.cards().length
-            ? `${this.cards().length} results. Use the arrow keys to choose a card.`
-            : 'No cards found.';
+            ? this.transloco.translate('search.status.resultCount', { count: this.cards().length })
+            : this.transloco.translate('search.status.empty');
     });
 
     private readonly searchInput = viewChild.required<ElementRef<HTMLInputElement>>('searchInput');
@@ -130,7 +150,7 @@ export class CardSearchInput {
                               catchError(() =>
                                   of({
                                       cards: [],
-                                      error: 'Unable to search cards. Please try again.',
+                                      error: 'search.status.failed',
                                   }),
                               ),
                           )

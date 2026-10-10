@@ -1,0 +1,49 @@
+{
+    "status": {
+        "loading": "正在載入卡牌…"
+    },
+    "actions": {
+        "switchSide": "切換另一面"
+    },
+    "printings": {
+        "heading": "系列與印刷語言",
+        "empty": "暫無可用的印刷版本。"
+    },
+    "accessibility": {
+        "imageAndPrints": "卡牌圖像與版本",
+        "mana": "魔法力費用與魔法力值",
+        "information": "卡牌資訊",
+        "imageFromSet": "來自 {{set}} 的 {{name}}",
+        "missingImage": "暫無 {{name}} 的卡牌圖像"
+    },
+    "fields": {
+        "printing": "版本",
+        "manaCost": "魔法力費用",
+        "colors": "顏色",
+        "keywords": "關鍵字",
+        "powerToughness": "力量 / 防禦力",
+        "loyalty": "忠誠度",
+        "defense": "防禦值",
+        "reserved": "保留清單",
+        "set": "系列",
+        "collectorNumber": "收集編號",
+        "artist": "畫家",
+        "releaseDate": "發行日期",
+        "rarity": "稀有度",
+        "oracleId": "Oracle ID",
+        "manaValue": "魔法力值：{{value}}"
+    },
+    "oracle": {
+        "heading": "文字",
+        "subtitle": "Oracle 規則文字",
+        "printed": "印刷文字",
+        "empty": "暫無 Oracle 文字。"
+    },
+    "metadata": {
+        "heading": "收藏資訊"
+    },
+    "errors": {
+        "missingId": "未提供 oracle_id。",
+        "loadFailed": "無法載入此卡牌。"
+    }
+}

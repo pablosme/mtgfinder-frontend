@@ -1,0 +1,49 @@
+{
+    "status": {
+        "loading": "Carregando carta…"
+    },
+    "actions": {
+        "switchSide": "Trocar de lado"
+    },
+    "printings": {
+        "heading": "Edições e idiomas de impressão",
+        "empty": "Nenhuma impressão disponível."
+    },
+    "accessibility": {
+        "imageAndPrints": "Imagem da carta e impressões",
+        "mana": "Custo e valor de mana",
+        "information": "Informações da carta",
+        "imageFromSet": "{{name}} de {{set}}",
+        "missingImage": "Nenhuma imagem disponível para {{name}}"
+    },
+    "fields": {
+        "printing": "Impressão",
+        "manaCost": "Custo de mana",
+        "colors": "Cores",
+        "keywords": "Palavras-chave",
+        "powerToughness": "Poder / Resistência",
+        "loyalty": "Lealdade",
+        "defense": "Defesa",
+        "reserved": "Lista de Reservadas",
+        "set": "Edição",
+        "collectorNumber": "Número de colecionador",
+        "artist": "Artista",
+        "releaseDate": "Data de lançamento",
+        "rarity": "Raridade",
+        "oracleId": "Oracle ID",
+        "manaValue": "Valor de mana: {{value}}"
+    },
+    "oracle": {
+        "heading": "Texto",
+        "subtitle": "Texto de regras Oracle",
+        "printed": "Texto impresso",
+        "empty": "Sem texto Oracle."
+    },
+    "metadata": {
+        "heading": "Coleção"
+    },
+    "errors": {
+        "missingId": "Nenhum oracle_id foi informado.",
+        "loadFailed": "Não foi possível carregar esta carta."
+    }
+}

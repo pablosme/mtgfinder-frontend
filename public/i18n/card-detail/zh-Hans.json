@@ -1,0 +1,49 @@
+{
+    "status": {
+        "loading": "正在加载卡牌…"
+    },
+    "actions": {
+        "switchSide": "切换另一面"
+    },
+    "printings": {
+        "heading": "系列与印刷语言",
+        "empty": "暂无可用的印刷版本。"
+    },
+    "accessibility": {
+        "imageAndPrints": "卡牌图像与版本",
+        "mana": "法术力费用与法术力值",
+        "information": "卡牌信息",
+        "imageFromSet": "来自 {{set}} 的 {{name}}",
+        "missingImage": "暂无 {{name}} 的卡牌图像"
+    },
+    "fields": {
+        "printing": "版本",
+        "manaCost": "法术力费用",
+        "colors": "颜色",
+        "keywords": "关键词",
+        "powerToughness": "力量 / 防御力",
+        "loyalty": "忠诚度",
+        "defense": "防御值",
+        "reserved": "保留列表",
+        "set": "系列",
+        "collectorNumber": "收集编号",
+        "artist": "插画师",
+        "releaseDate": "发行日期",
+        "rarity": "稀有度",
+        "oracleId": "Oracle ID",
+        "manaValue": "法术力值：{{value}}"
+    },
+    "oracle": {
+        "heading": "文本",
+        "subtitle": "Oracle 规则文本",
+        "printed": "印刷文本",
+        "empty": "暂无 Oracle 文本。"
+    },
+    "metadata": {
+        "heading": "收集信息"
+    },
+    "errors": {
+        "missingId": "未提供 oracle_id。",
+        "loadFailed": "无法加载此卡牌。"
+    }
+}

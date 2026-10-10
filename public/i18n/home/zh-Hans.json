@@ -1,0 +1,10 @@
+{
+    "intro": {
+        "eyebrow": "卡牌档案与摄像头扫描器",
+        "discover": "探索万智牌，查阅 Oracle 规则文本，",
+        "scan": "并通过摄像头寻找你的下一张卡牌。"
+    },
+    "actions": {
+        "searchSyntax": "了解搜索语法"
+    }
+}

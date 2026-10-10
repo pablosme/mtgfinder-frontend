@@ -1,157 +1,187 @@
-<div class="card-search">
-    <label [for]="inputId()">Search for a card</label>
-    <div class="search-row">
-        <div class="search-field">
-            <svg
-                class="search-icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                aria-hidden="true"
-                focusable="false"
-            >
-                <circle cx="10.5" cy="10.5" r="6.5" />
-                <path d="m16 16 4.5 4.5" />
-            </svg>
-            <input
-                #searchInput
-                [id]="inputId()"
-                type="search"
-                autocomplete="off"
-                role="combobox"
-                aria-autocomplete="list"
-                aria-haspopup="listbox"
-                [attr.aria-controls]="expanded() ? listId() : null"
-                [attr.aria-expanded]="expanded()"
-                [attr.aria-activedescendant]="activeOptionId()"
-                [attr.aria-describedby]="inputId() + '-help ' + inputId() + '-status'"
-                [attr.aria-invalid]="parsedQuery().error && !pickingFilter() ? true : null"
-                [value]="query()"
-                (input)="onInput($event)"
-                (focus)="updateCaret(); open.set(true)"
-                (click)="updateCaret(); open.set(true)"
-                (select)="updateCaret()"
-                (keyup)="updateCaret()"
-                (compositionend)="onInput($event)"
-                (blur)="open.set(false); activeIndex.set(-1)"
-                (keydown)="onKeydown($event)"
-                placeholder="Card name or / to add a filter"
-            />
+<ng-container *transloco="let t">
+    <div class="card-search">
+        <label [for]="inputId()"> {{ t('search.label') }} </label>
+        <div class="search-row">
+            <div class="search-field">
+                <svg
+                    class="search-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    aria-hidden="true"
+                    focusable="false"
+                >
+                    <circle cx="10.5" cy="10.5" r="6.5" />
+                    <path d="m16 16 4.5 4.5" />
+                </svg>
+                <input
+                    #searchInput
+                    [id]="inputId()"
+                    type="search"
+                    autocomplete="off"
+                    role="combobox"
+                    aria-autocomplete="list"
+                    aria-haspopup="listbox"
+                    [attr.aria-controls]="expanded() ? listId() : null"
+                    [attr.aria-expanded]="expanded()"
+                    [attr.aria-activedescendant]="activeOptionId()"
+                    [attr.aria-describedby]="inputId() + '-help ' + inputId() + '-status'"
+                    [attr.aria-invalid]="parsedQuery().error && !pickingFilter() ? true : null"
+                    [value]="query()"
+                    (input)="onInput($event)"
+                    (focus)="updateCaret(); open.set(true)"
+                    (click)="updateCaret(); open.set(true)"
+                    (select)="updateCaret()"
+                    (keyup)="updateCaret()"
+                    (compositionend)="onInput($event)"
+                    (blur)="open.set(false); activeIndex.set(-1)"
+                    (keydown)="onKeydown($event)"
+                    [placeholder]="t('search.placeholder')"
+                />
+
+                <button
+                    class="ui-button filter-picker"
+                    type="button"
+                    [attr.aria-label]="t('search.addFilter')"
+                    [attr.aria-controls]="expanded() && pickingFilter() ? listId() : null"
+                    (pointerdown)="$event.preventDefault()"
+                    (click)="openFilterSuggestions()"
+                >
+                    /
+                </button>
+
+                @if (expanded()) {
+                    <div
+                        class="suggestions"
+                        [attr.aria-label]="
+                            pickingFilter() ? t('search.filtersLabel') : t('search.resultsLabel')
+                        "
+                    >
+                        @if (status()) {
+                            <p
+                                class="suggestion-status"
+                                [class.suggestion-status--error]="
+                                    error() || (parsedQuery().error && !pickingFilter())
+                                "
+                                [id]="inputId() + '-status'"
+                                role="status"
+                                aria-live="polite"
+                            >
+                                {{ status() }}
+                            </p>
+                        }
+
+                        @if (suggestionCount() > 0) {
+                            <ul
+                                [id]="listId()"
+                                class="suggestion-list"
+                                role="listbox"
+                                [attr.aria-label]="
+                                    pickingFilter()
+                                        ? t('search.filtersLabel')
+                                        : t('search.resultsLabel')
+                                "
+                            >
+                                @if (pickingFilter()) {
+                                    @for (
+                                        field of matchingFilters();
+                                        track field.key;
+                                        let index = $index
+                                    ) {
+                                        <li role="presentation">
+                                            <button
+                                                #option
+                                                type="button"
+                                                role="option"
+                                                tabindex="-1"
+                                                [id]="listId() + '-' + index"
+                                                [attr.aria-selected]="activeIndex() === index"
+                                                [class.active]="activeIndex() === index"
+                                                [title]="t(field.hint ?? field.placeholder)"
+                                                (pointerdown)="$event.preventDefault()"
+                                                (click)="addFilter(field)"
+                                            >
+                                                <span class="filter-option">
+                                                    <span
+                                                        >{{ t(field.label) }}
+                                                        <code
+                                                            >/{{ field.alias ?? field.key }}=</code
+                                                        ></span
+                                                    >
+                                                    <small>{{ t(field.placeholder) }}</small>
+                                                </span>
+                                            </button>
+                                        </li>
+                                    }
+                                } @else {
+                                    @for (card of cards(); track card.id; let index = $index) {
+                                        <li role="presentation">
+                                            <button
+                                                #option
+                                                type="button"
+                                                role="option"
+                                                tabindex="-1"
+                                                [id]="listId() + '-' + index"
+                                                [attr.aria-selected]="activeIndex() === index"
+                                                [class.active]="activeIndex() === index"
+                                                (pointerdown)="$event.preventDefault()"
+                                                (click)="selectCard(card)"
+                                            >
+                                                <div class="suggestion-content">
+                                                    <div class="suggestion-heading">
+                                                        <span class="suggestion-name">{{
+                                                            card.name
+                                                        }}</span>
+                                                        @if (card.mana_cost) {
+                                                            <app-mana-text
+                                                                class="suggestion-cost"
+                                                                [text]="card.mana_cost"
+                                                            />
+                                                        }
+                                                    </div>
+                                                    <span class="suggestion-type">{{
+                                                        card.type_line
+                                                    }}</span>
+                                                </div>
+                                            </button>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        }
+                    </div>
+                }
+            </div>
 
             <button
-                class="ui-button filter-picker"
+                class="ui-button camera-button"
                 type="button"
-                aria-label="Add a search filter"
-                [attr.aria-controls]="expanded() && pickingFilter() ? listId() : null"
-                (pointerdown)="$event.preventDefault()"
-                (click)="openFilterSuggestions()"
+                [attr.aria-label]="t('search.scanLabel')"
+                aria-haspopup="dialog"
+                [title]="t('search.scanLabel')"
+                (click)="openCamera()"
             >
-                /
-            </button>
-
-            @if (expanded()) {
-                <ul
-                    [id]="listId()"
-                    class="suggestions"
-                    role="listbox"
-                    [attr.aria-label]="pickingFilter() ? 'Search filters' : 'Card search results'"
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    aria-hidden="true"
+                    focusable="false"
                 >
-                    @if (pickingFilter()) {
-                        @for (field of matchingFilters(); track field.key; let index = $index) {
-                            <li role="presentation">
-                                <button
-                                    #option
-                                    type="button"
-                                    role="option"
-                                    tabindex="-1"
-                                    [id]="listId() + '-' + index"
-                                    [attr.aria-selected]="activeIndex() === index"
-                                    [class.active]="activeIndex() === index"
-                                    [title]="field.hint ?? field.placeholder"
-                                    (pointerdown)="$event.preventDefault()"
-                                    (click)="addFilter(field)"
-                                >
-                                    <span class="filter-option">
-                                        <span
-                                            >{{ field.label }}
-                                            <code>/{{ field.alias ?? field.key }}=</code></span
-                                        >
-                                        <small>{{ field.placeholder }}</small>
-                                    </span>
-                                </button>
-                            </li>
-                        }
-                    } @else {
-                        @for (card of cards(); track card.id; let index = $index) {
-                            <li role="presentation">
-                                <button
-                                    #option
-                                    type="button"
-                                    role="option"
-                                    tabindex="-1"
-                                    [id]="listId() + '-' + index"
-                                    [attr.aria-selected]="activeIndex() === index"
-                                    [class.active]="activeIndex() === index"
-                                    (pointerdown)="$event.preventDefault()"
-                                    (click)="selectCard(card)"
-                                >
-                                    <div class="suggestion-content">
-                                        <div class="suggestion-heading">
-                                            <span class="suggestion-name">{{ card.name }}</span>
-                                            @if (card.mana_cost) {
-                                                <app-mana-text
-                                                    class="suggestion-cost"
-                                                    [text]="card.mana_cost"
-                                                />
-                                            }
-                                        </div>
-                                        <span class="suggestion-type">{{ card.type_line }}</span>
-                                    </div>
-                                </button>
-                            </li>
-                        }
-                    }
-                </ul>
-            }
+                    <path
+                        d="M8 5 9.5 3h5L16 5h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"
+                    />
+                    <circle cx="12" cy="13" r="4" />
+                </svg>
+                <span class="camera-label"> {{ t('search.scan') }} </span>
+            </button>
         </div>
 
-        <button
-            class="ui-button camera-button"
-            type="button"
-            aria-label="Scan card with camera"
-            aria-haspopup="dialog"
-            title="Scan card with camera"
-            (click)="openCamera()"
-        >
-            <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                aria-hidden="true"
-                focusable="false"
-            >
-                <path
-                    d="M8 5 9.5 3h5L16 5h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"
-                />
-                <circle cx="12" cy="13" r="4" />
-            </svg>
-            <span class="camera-label">Scan card</span>
-        </button>
+        <p class="search-help" [id]="inputId() + '-help'">
+            {{ t('search.help.beforeSlash') }} <kbd>/</kbd> {{ t('search.help.beforeExample') }}
+            <code>/type=creature</code>.
+        </p>
     </div>
-
-    <p class="search-help" [id]="inputId() + '-help'">
-        Search by name. Type <kbd>/</kbd> to add filters, for example <code>/type=creature</code>.
-    </p>
-
-    <p
-        class="search-status"
-        [class.search-status--error]="error() || (parsedQuery().error && !pickingFilter())"
-        [id]="inputId() + '-status'"
-        role="status"
-        aria-live="polite"
-    >
-        {{ status() }}
-    </p>
-</div>
+</ng-container>

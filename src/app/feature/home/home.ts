@@ -1,3 +1,4 @@
+import { TranslocoDirective } from '@jsverse/transloco';
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
@@ -6,7 +7,7 @@ import { CardSearchInput } from '../shared/card-search-input/card-search-input';
 
 @Component({
     selector: 'app-home',
-    imports: [CardSearchInput, RouterLink],
+    imports: [TranslocoDirective, CardSearchInput, RouterLink],
     templateUrl: './home.html',
     styleUrl: './home.scss',
 })

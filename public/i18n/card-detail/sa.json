@@ -1,0 +1,49 @@
+{
+    "status": {
+        "loading": "पत्रं समारोप्यते…"
+    },
+    "actions": {
+        "switchSide": "पार्श्वं परिवर्तयतु"
+    },
+    "printings": {
+        "heading": "सङ्ग्रहाः मुद्रणभाषाश्च",
+        "empty": "मुद्रणानि न उपलभ्यन्ते।"
+    },
+    "accessibility": {
+        "imageAndPrints": "पत्रचित्रं मुद्रणानि च",
+        "mana": "Mana-मूल्यं मानं च",
+        "information": "पत्रविवरणम्",
+        "imageFromSet": "{{name}} ({{set}} सङ्ग्रहात्)",
+        "missingImage": "{{name}} पत्रस्य चित्रं न उपलभ्यते"
+    },
+    "fields": {
+        "printing": "मुद्रणम्",
+        "manaCost": "Mana-मूल्यम्",
+        "colors": "वर्णाः",
+        "keywords": "संकेतशब्दाः",
+        "powerToughness": "बलम् / दृढता",
+        "loyalty": "निष्ठा",
+        "defense": "रक्षा",
+        "reserved": "रक्षितसूची",
+        "set": "सङ्ग्रहः",
+        "collectorNumber": "सङ्ग्राहकसंख्या",
+        "artist": "चित्रकारः",
+        "releaseDate": "प्रकाशनदिनाङ्कः",
+        "rarity": "दुर्लभता",
+        "oracleId": "Oracle ID",
+        "manaValue": "Mana-मानम्: {{value}}"
+    },
+    "oracle": {
+        "heading": "ग्रन्थः",
+        "subtitle": "Oracle विधिवचनम्",
+        "printed": "मुद्रितवचनम्",
+        "empty": "Oracle विधिवचनं न विद्यते।"
+    },
+    "metadata": {
+        "heading": "सङ्ग्रहविवरणम्"
+    },
+    "errors": {
+        "missingId": "oracle_id न प्रदत्तम्।",
+        "loadFailed": "अस्य पत्रस्य समारोपणं न जातम्।"
+    }
+}

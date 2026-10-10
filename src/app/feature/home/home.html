@@ -1,15 +1,17 @@
+<ng-container *transloco="let t">
 <section class="home" aria-labelledby="home-heading">
     <div class="home-intro">
-        <p class="home-eyebrow">The card archive &amp; camera scanner</p>
+        <p class="home-eyebrow"> {{ t('home.intro.eyebrow') }} </p>
         <div class="home-emblem" aria-hidden="true">
             <img src="icon2.png" alt="" />
         </div>
-        <h1 id="home-heading">Sol Binder</h1>
+        <h1 id="home-heading"> {{ t('header.brand') }} </h1>
         <p class="home-description">
-            Discover Magic cards, explore oracle text,<br class="desktop-break" />
-            and find your next card by camera.
-        </p>
+             {{ t('home.intro.discover') }} <br class="desktop-break" />
+             {{ t('home.intro.scan') }} </p>
     </div>
     <app-card-search-input inputId="home-card-search" (cardSelected)="selectCard($event)" />
-    <a class="home-syntax-link" routerLink="/search-syntax">Learn the search syntax</a>
+    <a class="home-syntax-link" routerLink="/search-syntax"> {{ t('home.actions.searchSyntax') }} </a>
 </section>
+
+</ng-container>

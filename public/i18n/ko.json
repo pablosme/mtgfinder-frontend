@@ -1,0 +1,240 @@
+{
+    "header": {
+        "brand": "Sol Binder",
+        "homeLabel": "Sol Binder 홈",
+        "caption": "Magic: The Gathering 카드 아카이브",
+        "language": "인터페이스 언어"
+    },
+    "accessibility": {
+        "skipToContent": "본문으로 건너뛰기",
+        "breadcrumb": "경로"
+    },
+    "footer": {
+        "disclaimer": "© Sol Binder. Magic: The Gathering 및 관련 자산은 Hasbro, Inc.의 자회사인 Wizards of the Coast LLC의 상표입니다. 이 사이트는 Wizards of the Coast와 제휴, 보증 또는 홍보되지 않습니다. 모든 포르투갈어 Oracle 및 규칙 텍스트는 정보 제공 및 커뮤니티 참조 목적으로만 제공됩니다.",
+        "terms": "이용 약관",
+        "privacy": "개인정보 처리방침",
+        "about": "아카이브 소개"
+    },
+    "navigation": {
+        "searchSyntax": "검색 구문",
+        "cardSearch": "카드 검색"
+    },
+    "common": {
+        "unavailable": "사용 불가",
+        "close": "닫기",
+        "yes": "예",
+        "no": "아니요"
+    },
+    "search": {
+        "label": "카드 검색",
+        "placeholder": "카드 이름 또는 필터 추가를 위한 /",
+        "addFilter": "검색 필터 추가",
+        "scan": "카드 스캔",
+        "scanLabel": "카메라로 카드 스캔",
+        "help": {
+            "beforeSlash": "이름으로 검색. 필터를 추가하려면",
+            "beforeExample": "을(를) 입력하세요 (예:"
+        },
+        "filters": {
+            "type": {
+                "label": "유형",
+                "placeholder": "예: Legendary Creature"
+            },
+            "keyword": {
+                "label": "키워드",
+                "placeholder": "예: Flying"
+            },
+            "colors": {
+                "label": "색상",
+                "placeholder": "예: W,U 또는 C",
+                "hint": "W, U, B, R, G; 무색은 C. 두 색상 모두에는 G,B를 사용하고, 둘 중 한 색상에는 필터를 반복하세요."
+            },
+            "colorIdentity": {
+                "label": "색상 정체성",
+                "placeholder": "예: B,G 또는 C",
+                "hint": "W, U, B, R, G; 무색은 C. 두 색상 모두에는 G,B를 사용하고, 둘 중 한 색상에는 필터를 반복하세요."
+            },
+            "legality": {
+                "label": "적법성",
+                "placeholder": "예: commander 또는 modern:banned",
+                "hint": "포맷 단독은 적법함을 의미합니다. 선택적 상태: legal, not_legal, restricted, banned."
+            },
+            "rarity": {
+                "label": "희귀도",
+                "placeholder": "common, uncommon, rare, mythic, special 또는 bonus"
+            },
+            "set": {
+                "label": "세트",
+                "placeholder": "세트 이름 또는 코드"
+            },
+            "collection": {
+                "label": "수집",
+                "placeholder": "세트 이름, 코드 또는 수집가 번호",
+                "hint": "세트 이름/코드 또는 정확한 수집가 번호와 일치합니다."
+            },
+            "cmc": {
+                "label": "마나 값 (CMC)",
+                "placeholder": "예: 0 또는 2.5"
+            },
+            "layout": {
+                "label": "레이아웃",
+                "placeholder": "예: normal 또는 transform"
+            },
+            "power": {
+                "label": "공격력",
+                "placeholder": "예: 2 또는 *"
+            },
+            "toughness": {
+                "label": "방어력",
+                "placeholder": "예: 3 또는 *"
+            },
+            "loyalty": {
+                "label": "충성도",
+                "placeholder": "예: 4 또는 X"
+            }
+        },
+        "status": {
+            "noFilters": "일치하는 필터가 없습니다. 다른 필터 이름을 시도해 보세요.",
+            "nameRequired": "검색할 카드 이름을 입력하세요.",
+            "loading": "카드 검색 중…",
+            "empty": "카드를 찾을 수 없습니다.",
+            "failed": "카드를 검색할 수 없습니다. 다시 시도해 주세요.",
+            "filterCount": "필터 {{count}}개. 계속 입력하여 좁히거나 화살표 키와 Enter를 눌러 선택하세요.",
+            "resultCount": "결과 {{count}}개. 화살표 키를 사용하여 카드를 선택하세요."
+        },
+        "filtersLabel": "검색 필터",
+        "resultsLabel": "카드 검색 결과"
+    },
+    "scanner": {
+        "title": "카드 스캔",
+        "device": {
+            "label": "카메라",
+            "number": "카메라 {{number}}"
+        },
+        "previewLabel": "실시간 카메라 미리보기",
+        "waitingAccess": "카메라 접근 대기 중…",
+        "captureAlt": "직선화 및 잘라내기가 완료된 캡처된 카드",
+        "messages": {
+            "borderLocked": "카드 테두리 고정됨…",
+            "detected": "카드가 감지되었습니다. 움직이지 마세요…",
+            "confirming": "카드를 찾았습니다. 테두리 확인 중…",
+            "retryScanner": "스캐너 대기 중. 자동으로 다시 시도합니다…",
+            "corners": "대비되는 배경에서 네 모서리가 모두 보이도록 유지하세요.",
+            "tilt": "카드를 카메라 쪽으로 살짝 기울이세요.",
+            "steady": "카드를 가만히 잡으세요…",
+            "captureFailed": "이 브라우저에서 카메라 프레임을 캡처할 수 없습니다.",
+            "stopped": "카메라가 응답하지 않습니다. 이 대화 상자를 닫고 스캐너를 다시 여세요.",
+            "waitingCamera": "카메라 대기 중… 스캔이 자동으로 계속됩니다.",
+            "retryVisible": "전체 카드가 보이도록 유지하세요. 자동으로 다시 스캔합니다…",
+            "borderMoved": "카드 테두리가 움직였거나 불완전합니다. 가만히 잡고 네 모서리가 모두 보이게 하세요…",
+            "languageUnavailable": "이 언어는 텍스트 인식을 지원하지 않습니다.",
+            "readingText": "카드 텍스트 읽는 중…",
+            "unclear": "텍스트가 불분명합니다. 카드를 안정시키고 눈부심을 줄이세요; 자동으로 다시 스캔합니다…",
+            "searching": "카드 검색 중…",
+            "searchUnavailable": "검색을 일시적으로 사용할 수 없습니다. 자동으로 다시 시도합니다…",
+            "unidentified": "아직 카드가 식별되지 않았습니다. 자동으로 다른 이미지를 읽는 중…",
+            "noMatch": "사용 가능한 일치 항목이 아직 없습니다. 자동으로 다른 이미지를 읽는 중…",
+            "interrupted": "읽기가 중단되었습니다. 자동으로 다시 스캔합니다…",
+            "switching": "카메라 전환 중…",
+            "noTrack": "선택한 카메라에서 비디오 트랙을 제공하지 않았습니다.",
+            "position": "전체 카드를 카메라 안에 위치시키세요.",
+            "switchFailed": "선택한 카메라로 전환할 수 없습니다.",
+            "unavailable": "카메라 접근을 사용할 수 없습니다. HTTPS 또는 localhost의 지원되는 브라우저를 사용하세요.",
+            "starting": "카메라 시작 중…",
+            "selecting": "최적의 카메라 선택 중…",
+            "accessDenied": "카메라 접근이 거부되었습니다. 브라우저 설정에서 카메라 접근을 허용한 후 이 대화 상자를 다시 여세요.",
+            "notFound": "카메라를 찾을 수 없습니다. 카메라를 연결하고 이 대화 상자를 다시 여세요.",
+            "busy": "카메라를 시작할 수 없습니다. 카메라를 사용하는 다른 앱을 닫고 이 대화 상자를 다시 여세요.",
+            "incompatible": "카메라에서 호환되는 비디오 모드를 제공할 수 없습니다. 이 대화 상자를 닫고 다시 시도하세요.",
+            "showFailed": "카메라를 표시할 수 없습니다. 이 대화 상자를 닫고 다시 시도하세요.",
+            "lowSimilarity": "사용 가능한 일치 항목이 아직 없습니다. 자동으로 다른 이미지를 읽는 중…"
+        },
+        "guidance": "네 모서리가 모두 보이도록 유지하세요. 스캔은 자동으로 진행됩니다.",
+        "ocr": {
+            "manual": "이 언어의 이름을 수동으로 입력하세요.",
+            "cancelled": "스캔이 취소되었습니다.",
+            "loadFailed": "텍스트 인식을 로드하거나 실행할 수 없습니다. 다시 시도해 주세요.",
+            "unavailable": "이 언어에는 OCR을 사용할 수 없습니다.",
+            "initializeFailed": "텍스트 인식을 초기화할 수 없습니다.",
+            "detailed": "정밀 인식 시도 중…",
+            "reading": "카드 읽는 중…",
+            "timeout": "텍스트 인식 시간이 초과되었습니다. 다시 시도해 주세요.",
+            "loading": "{{language}} 텍스트 인식 로드 중…",
+            "modelFailed": "{{language}} 텍스트 인식을 로드할 수 없습니다. 연결을 확인하고 다시 시도하세요.",
+            "readingName": "카드 이름 읽는 중 ({{pass}}/{{total}})… {{percent}}%",
+            "passComplete": "카드 읽는 중… {{count}}단계 완료",
+            "passesComplete": "카드 읽는 중… {{count}}단계 완료"
+        }
+    },
+    "formatLegality": {
+        "heading": "포맷 적법성",
+        "subtitle": "공식 포맷",
+        "empty": "적법성 정보를 사용할 수 없습니다.",
+        "status": {
+            "legal": "사용 가능 (Legal)",
+            "restricted": "제한됨 (Restricted 1×)",
+            "banned": "금지됨 (Banned)",
+            "not_legal": "사용 불가 (Not legal)",
+            "unknown": "알 수 없음",
+            "unknownFormat": "알 수 없는 포맷"
+        }
+    },
+    "metadata": {
+        "title": "Sol Binder — Magic 카드 검색"
+    },
+    "cardLanguages": {
+        "en": "영어",
+        "es": "스페인어",
+        "fr": "프랑스어",
+        "de": "독일어",
+        "it": "이탈리아어",
+        "pt": "포르투갈어",
+        "ja": "일본어",
+        "ko": "한국어",
+        "ru": "러시아어",
+        "zhs": "중국어 간체",
+        "zht": "중국어 번체",
+        "ar": "아랍어",
+        "he": "히브리어",
+        "la": "라틴어",
+        "grc": "고대 그리스어",
+        "sa": "산스크리트어",
+        "phyrexianManual": "피렉시아어 (수동 이름)",
+        "ph": "피렉시아어",
+        "und": "알 수 없는 언어",
+        "other": "언어: {{code}}",
+        "selector": "인쇄 언어",
+        "singular": "언어:",
+        "plural": "언어:"
+    },
+    "validation": {
+        "search": {
+            "syntax": "필터를 선택하고 /filter=value 형식으로 입력하세요.",
+            "unknown": "알 수 없는 필터 /{{command}}. 필터를 선택하려면 /를 사용하세요.",
+            "unfinishedQuote": "/{{command}}의 따옴표 값을 완성하세요.",
+            "quoteWholeValue": "/{{command}} 값 전체를 큰따옴표로 묶으세요.",
+            "missingValue": "/{{command}}의 값을 입력하세요: {{example}}.",
+            "colors": "색상에는 W, U, B, R, G를 사용하고, 무색에는 C만 사용하세요.",
+            "manaValue": "마나 값 (CMC)은 0 또는 2.5와 같은 0 이상의 숫자여야 합니다.",
+            "legality": "포맷을 입력하고, 선택적으로 :legal, :not_legal, :restricted 또는 :banned를 붙이세요.",
+            "options": "{{label}}: {{options}}을(를) 사용하세요."
+        }
+    },
+    "mana": {
+        "white": "백색",
+        "blue": "청색",
+        "black": "흑색",
+        "red": "적색",
+        "green": "녹색",
+        "colorless": "무색",
+        "snow": "눈",
+        "life": "생명 2점",
+        "tap": "탭",
+        "untap": "언탭",
+        "energy": "에너지",
+        "chaos": "카오스",
+        "infinite": "무한 마나",
+        "phyrexian": "피렉시아 마나",
+        "generic": "일반 마나 {{value}}"
+    }
+}

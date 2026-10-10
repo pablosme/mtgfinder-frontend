@@ -1,0 +1,240 @@
+{
+    "header": {
+        "brand": "Sol Binder",
+        "homeLabel": "Accueil Sol Binder",
+        "caption": "Une archive de cartes Magic: The Gathering",
+        "language": "Langue de l’interface"
+    },
+    "accessibility": {
+        "skipToContent": "Aller au contenu",
+        "breadcrumb": "Fil d’Ariane"
+    },
+    "footer": {
+        "disclaimer": "© Sol Binder. Magic: The Gathering et ses propriétés associées sont des marques de Wizards of the Coast LLC, filiale de Hasbro, Inc. Ce site n’est ni affilié à Wizards of the Coast, ni approuvé ou promu par celle-ci. Tous les textes Oracle et de règles en portugais sont fournis uniquement à titre informatif et pour servir de référence à la communauté.",
+        "terms": "Conditions d’utilisation",
+        "privacy": "Politique de confidentialité",
+        "about": "À propos de l’archive"
+    },
+    "navigation": {
+        "searchSyntax": "Syntaxe de recherche",
+        "cardSearch": "Recherche de cartes"
+    },
+    "common": {
+        "unavailable": "Indisponible",
+        "close": "Fermer",
+        "yes": "Oui",
+        "no": "Non"
+    },
+    "search": {
+        "label": "Rechercher une carte",
+        "placeholder": "Nom de la carte ou / pour ajouter un filtre",
+        "addFilter": "Ajouter un filtre de recherche",
+        "scan": "Scanner une carte",
+        "scanLabel": "Scanner une carte avec l’appareil photo",
+        "help": {
+            "beforeSlash": "Recherchez par nom. Tapez",
+            "beforeExample": "pour ajouter des filtres, par exemple"
+        },
+        "filters": {
+            "type": {
+                "label": "Type",
+                "placeholder": "p. ex. Legendary Creature"
+            },
+            "keyword": {
+                "label": "Mot-clé",
+                "placeholder": "p. ex. Flying"
+            },
+            "colors": {
+                "label": "Couleurs",
+                "placeholder": "p. ex. W,U ou C",
+                "hint": "W, U, B, R, G ; C pour incolore. Utilisez G,B pour les deux couleurs ; répétez le filtre pour l’une ou l’autre couleur."
+            },
+            "colorIdentity": {
+                "label": "Identité de couleur",
+                "placeholder": "p. ex. B,G ou C",
+                "hint": "W, U, B, R, G ; C pour incolore. Utilisez G,B pour les deux couleurs ; répétez le filtre pour l’une ou l’autre couleur."
+            },
+            "legality": {
+                "label": "Légalité",
+                "placeholder": "p. ex. commander ou modern:banned",
+                "hint": "Un format seul signifie légal. Statut facultatif : legal, not_legal, restricted, banned."
+            },
+            "rarity": {
+                "label": "Rareté",
+                "placeholder": "common, uncommon, rare, mythic, special ou bonus"
+            },
+            "set": {
+                "label": "Extension",
+                "placeholder": "Nom ou code de l’extension"
+            },
+            "collection": {
+                "label": "Collection",
+                "placeholder": "Nom, code de l’extension ou numéro de collection",
+                "hint": "Correspond à un nom ou code d’extension, ou à un numéro de collection exact."
+            },
+            "cmc": {
+                "label": "Valeur de mana (CMC)",
+                "placeholder": "p. ex. 0 ou 2.5"
+            },
+            "layout": {
+                "label": "Disposition",
+                "placeholder": "p. ex. normal ou transform"
+            },
+            "power": {
+                "label": "Force",
+                "placeholder": "p. ex. 2 ou *"
+            },
+            "toughness": {
+                "label": "Endurance",
+                "placeholder": "p. ex. 3 ou *"
+            },
+            "loyalty": {
+                "label": "Loyauté",
+                "placeholder": "p. ex. 4 ou X"
+            }
+        },
+        "status": {
+            "noFilters": "Aucun filtre correspondant. Essayez un autre nom de filtre.",
+            "nameRequired": "Saisissez un nom de carte pour lancer la recherche.",
+            "loading": "Recherche de cartes…",
+            "empty": "Aucune carte trouvée.",
+            "failed": "Impossible de rechercher des cartes. Veuillez réessayer.",
+            "filterCount": "{{count}} filtres. Continuez à taper pour les affiner, ou utilisez les flèches et Entrée pour choisir.",
+            "resultCount": "{{count}} résultats. Utilisez les flèches pour choisir une carte."
+        },
+        "filtersLabel": "Filtres de recherche",
+        "resultsLabel": "Résultats de la recherche de cartes"
+    },
+    "scanner": {
+        "title": "Scanner une carte",
+        "device": {
+            "label": "Appareil photo",
+            "number": "Appareil photo {{number}}"
+        },
+        "previewLabel": "Aperçu en direct de l’appareil photo",
+        "waitingAccess": "En attente de l’accès à l’appareil photo…",
+        "captureAlt": "Votre carte capturée, redressée et recadrée",
+        "messages": {
+            "borderLocked": "Bordure de la carte verrouillée…",
+            "detected": "Carte détectée. Ne bougez pas…",
+            "confirming": "Carte trouvée. Confirmation de la bordure…",
+            "retryScanner": "En attente du scanner. Nouvelle tentative automatique…",
+            "corners": "Gardez les quatre coins visibles sur un fond contrasté.",
+            "tilt": "Inclinez légèrement la carte vers l’appareil photo.",
+            "steady": "Tenez la carte bien droite…",
+            "captureFailed": "Impossible de capturer une image de l’appareil photo dans ce navigateur.",
+            "stopped": "L’appareil photo ne répond plus. Fermez cette fenêtre et rouvrez le scanner.",
+            "waitingCamera": "En attente de l’appareil photo… Le scan reprendra automatiquement.",
+            "retryVisible": "Gardez toute la carte visible. Nouveau scan automatique…",
+            "borderMoved": "La bordure de la carte a bougé ou était incomplète. Ne bougez pas et gardez les quatre coins visibles…",
+            "languageUnavailable": "La reconnaissance de texte n’est pas disponible pour cette langue.",
+            "readingText": "Lecture du texte de la carte…",
+            "unclear": "Le texte n’était pas clair. Tenez la carte stable et réduisez les reflets ; nouveau scan automatique…",
+            "searching": "Recherche de la carte…",
+            "searchUnavailable": "La recherche est temporairement indisponible. Nouvelle tentative automatique…",
+            "unidentified": "Carte pas encore identifiée. Lecture automatique d’une autre image…",
+            "noMatch": "Aucune correspondance exploitable pour l’instant. Lecture automatique d’une autre image…",
+            "interrupted": "La lecture a été interrompue. Nouveau scan automatique…",
+            "switching": "Changement d’appareil photo…",
+            "noTrack": "L’appareil photo sélectionné n’a fourni aucune piste vidéo.",
+            "position": "Placez toute la carte dans le champ de l’appareil photo.",
+            "switchFailed": "Impossible de passer à l’appareil photo sélectionné.",
+            "unavailable": "L’accès à l’appareil photo est indisponible. Utilisez un navigateur compatible en HTTPS ou sur localhost.",
+            "starting": "Démarrage de l’appareil photo…",
+            "selecting": "Sélection du meilleur appareil photo…",
+            "accessDenied": "L’accès à l’appareil photo a été refusé. Autorisez-le dans les paramètres de votre navigateur, puis rouvrez cette fenêtre.",
+            "notFound": "Aucun appareil photo trouvé. Branchez un appareil photo et rouvrez cette fenêtre.",
+            "busy": "Impossible de démarrer l’appareil photo. Fermez les autres applications qui l’utilisent et rouvrez cette fenêtre.",
+            "incompatible": "L’appareil photo n’a pas pu fournir de mode vidéo compatible. Fermez cette fenêtre et réessayez.",
+            "showFailed": "Impossible d’afficher l’appareil photo. Fermez cette fenêtre et réessayez.",
+            "lowSimilarity": "Aucune correspondance exploitable pour l’instant. Lecture automatique d’une autre image…"
+        },
+        "guidance": "Gardez les quatre coins visibles. Le scan est automatique.",
+        "ocr": {
+            "manual": "Saisissez le nom manuellement pour cette langue.",
+            "cancelled": "Scan annulé.",
+            "loadFailed": "Impossible de charger ou d’exécuter la reconnaissance de texte. Veuillez réessayer.",
+            "unavailable": "L’OCR n’est pas disponible pour cette langue.",
+            "initializeFailed": "Impossible d’initialiser la reconnaissance de texte.",
+            "detailed": "Essai d’une reconnaissance détaillée…",
+            "reading": "Lecture de la carte…",
+            "timeout": "La reconnaissance de texte a pris trop de temps. Veuillez réessayer.",
+            "loading": "Chargement de la reconnaissance de texte ({{language}})…",
+            "modelFailed": "Impossible de charger la reconnaissance de texte ({{language}}). Vérifiez votre connexion et réessayez.",
+            "readingName": "Lecture du nom de la carte ({{pass}}/{{total}})… {{percent}} %",
+            "passComplete": "Lecture de la carte… {{count}} passage terminé",
+            "passesComplete": "Lecture de la carte… {{count}} passages terminés"
+        }
+    },
+    "formatLegality": {
+        "heading": "Légalité par format",
+        "subtitle": "Formats officiels",
+        "empty": "Aucune information de légalité disponible.",
+        "status": {
+            "legal": "Légale",
+            "restricted": "Restreinte (1×)",
+            "banned": "Bannie",
+            "not_legal": "Non légale",
+            "unknown": "Inconnu",
+            "unknownFormat": "Format inconnu"
+        }
+    },
+    "metadata": {
+        "title": "Sol Binder — Recherche de cartes Magic"
+    },
+    "cardLanguages": {
+        "en": "Anglais",
+        "es": "Espagnol",
+        "fr": "Français",
+        "de": "Allemand",
+        "it": "Italien",
+        "pt": "Portugais",
+        "ja": "Japonais",
+        "ko": "Coréen",
+        "ru": "Russe",
+        "zhs": "Chinois simplifié",
+        "zht": "Chinois traditionnel",
+        "ar": "Arabe",
+        "he": "Hébreu",
+        "la": "Latin",
+        "grc": "Grec ancien",
+        "sa": "Sanskrit",
+        "phyrexianManual": "Phyrexian (nom manuel)",
+        "ph": "Phyrexian",
+        "und": "Langue inconnue",
+        "other": "Langue : {{code}}",
+        "selector": "Langue de l’impression",
+        "singular": "Langue :",
+        "plural": "Langues :"
+    },
+    "validation": {
+        "search": {
+            "syntax": "Choisissez un filtre et saisissez-le sous la forme /filtre=valeur.",
+            "unknown": "Filtre /{{command}} inconnu. Utilisez / pour choisir un filtre.",
+            "unfinishedQuote": "Terminez la valeur entre guillemets pour /{{command}}.",
+            "quoteWholeValue": "Placez toute la valeur de /{{command}} entre guillemets doubles.",
+            "missingValue": "Saisissez une valeur pour /{{command}} : {{example}}.",
+            "colors": "Utilisez W, U, B, R, G pour les couleurs, ou C seul pour incolore.",
+            "manaValue": "La valeur de mana (CMC) doit être un nombre positif ou nul, par exemple 0 ou 2.5.",
+            "legality": "Saisissez un format, éventuellement suivi de :legal, :not_legal, :restricted ou :banned.",
+            "options": "{{label}} : utilisez {{options}}."
+        }
+    },
+    "mana": {
+        "white": "blanc",
+        "blue": "bleu",
+        "black": "noir",
+        "red": "rouge",
+        "green": "vert",
+        "colorless": "incolore",
+        "snow": "neige",
+        "life": "2 points de vie",
+        "tap": "Engager",
+        "untap": "Dégager",
+        "energy": "Énergie",
+        "chaos": "Chaos",
+        "infinite": "Mana infini",
+        "phyrexian": "Mana phyrexian",
+        "generic": "{{value}} mana générique"
+    }
+}

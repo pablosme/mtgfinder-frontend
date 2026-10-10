@@ -1,3 +1,4 @@
+import { TranslocoService } from '@jsverse/transloco';
 import { DOCUMENT, DestroyRef, Injectable, inject } from '@angular/core';
 import type { PSM, Worker } from 'tesseract.js';
 
@@ -39,6 +40,7 @@ export interface CardOcrResult {
  */
 @Injectable()
 export class CardOcrService {
+    private readonly transloco = inject(TranslocoService);
     private readonly document = inject(DOCUMENT);
     private readonly cancellation = new AbortController();
 
@@ -75,14 +77,14 @@ export class CardOcrService {
         progress: (message: string) => void,
     ): Promise<CardNameRecognition> {
         if (!language.ocrModel) {
-            throw new Error('Enter the name manually for this language.');
+            throw new Error(this.transloco.translate('scanner.ocr.manual'));
         }
 
         const { default: tesseract } = await import('tesseract.js');
         const { createWorker, OEM, PSM } = tesseract;
 
         if (this.cancellation.signal.aborted) {
-            throw new Error('Scanning cancelled.');
+            throw new Error(this.transloco.translate('scanner.ocr.cancelled'));
         }
 
         const base = new URL('assets/tesseract/', this.document.baseURI);
@@ -90,7 +92,7 @@ export class CardOcrService {
         /*
          * Check/warm the model HTTP cache before creating the worker.
          */
-        progress(`Loading ${language.label} text recognition…`);
+        progress(this.transloco.translate('scanner.ocr.loading', { language: this.transloco.translate(language.label) }));
 
         const response = await this.waitFor(
             fetch(
@@ -106,14 +108,14 @@ export class CardOcrService {
 
         if (!response.ok) {
             throw new Error(
-                `Unable to load ${language.label} text recognition. Check your connection and retry.`,
+                this.transloco.translate('scanner.ocr.modelFailed', { language: this.transloco.translate(language.label) }),
             );
         }
 
         await this.waitFor(response.arrayBuffer());
 
         if (this.cancellation.signal.aborted) {
-            throw new Error('Scanning cancelled.');
+            throw new Error(this.transloco.translate('scanner.ocr.cancelled'));
         }
 
         let finished = false;
@@ -146,16 +148,14 @@ export class CardOcrService {
 
                     progress(
                         status === 'recognizing text'
-                            ? `Reading card name (${pass}/${totalPasses})… ${Math.round(
-                                  fraction * 100,
-                              )}%`
-                            : `Loading ${language.label} text recognition…`,
+                            ? this.transloco.translate('scanner.ocr.readingName', { pass, total: totalPasses, percent: Math.round(fraction * 100) })
+                            : this.transloco.translate('scanner.ocr.loading', { language: this.transloco.translate(language.label) }),
                     );
                 },
 
                 errorHandler: () =>
                     rejectInitialization(
-                        new Error('Unable to load or run text recognition. Please retry.'),
+                        new Error(this.transloco.translate('scanner.ocr.loadFailed')),
                     ),
             },
 
@@ -173,7 +173,7 @@ export class CardOcrService {
             if (finished || this.cancellation.signal.aborted) {
                 void worker.terminate();
 
-                throw new Error('Scanning cancelled.');
+                throw new Error(this.transloco.translate('scanner.ocr.cancelled'));
             }
 
             this.worker = worker;
@@ -271,11 +271,11 @@ export class CardOcrService {
         progress: (message: string) => void,
     ): Promise<CardOcrResult[]> {
         if (!language.ocrModel) {
-            throw new Error('OCR is not available for this language.');
+            throw new Error(this.transloco.translate('scanner.ocr.unavailable'));
         }
 
         if (this.cancellation.signal.aborted) {
-            throw new Error('Scanning cancelled.');
+            throw new Error(this.transloco.translate('scanner.ocr.cancelled'));
         }
 
         if (!images.length) {
@@ -292,7 +292,7 @@ export class CardOcrService {
         const workers = await this.ensureCardWorkers(language, progress);
 
         if (!workers.length) {
-            throw new Error('Unable to initialize text recognition.');
+            throw new Error(this.transloco.translate('scanner.ocr.initializeFailed'));
         }
 
         const results: CardOcrResult[] = [];
@@ -305,7 +305,7 @@ export class CardOcrService {
             mode: PSM,
         ): Promise<CardOcrResult> => {
             if (this.cancellation.signal.aborted) {
-                throw new Error('Scanning cancelled.');
+                throw new Error(this.transloco.translate('scanner.ocr.cancelled'));
             }
 
             const { image, variant } = imageData;
@@ -318,12 +318,10 @@ export class CardOcrService {
 
             progress(
                 mode === PSM.AUTO
-                    ? 'Trying detailed recognition…'
+                    ? this.transloco.translate('scanner.ocr.detailed')
                     : completedPasses === 0
-                      ? 'Reading card…'
-                      : `Reading card… ${completedPasses} pass${
-                            completedPasses === 1 ? '' : 'es'
-                        } complete`,
+                      ? this.transloco.translate('scanner.ocr.reading')
+                      : this.transloco.translate(completedPasses === 1 ? 'scanner.ocr.passComplete' : 'scanner.ocr.passesComplete', { count: completedPasses }),
             );
 
             /*
@@ -337,9 +335,7 @@ export class CardOcrService {
             completedPasses++;
 
             progress(
-                `Reading card… ${completedPasses} pass${
-                    completedPasses === 1 ? '' : 'es'
-                } complete`,
+                this.transloco.translate(completedPasses === 1 ? 'scanner.ocr.passComplete' : 'scanner.ocr.passesComplete', { count: completedPasses }),
             );
 
             return {
@@ -401,7 +397,7 @@ export class CardOcrService {
          */
         while (offset < images.length) {
             if (this.cancellation.signal.aborted) {
-                throw new Error('Scanning cancelled.');
+                throw new Error(this.transloco.translate('scanner.ocr.cancelled'));
             }
 
             const batch = images.slice(offset, offset + workers.length);
@@ -430,7 +426,7 @@ export class CardOcrService {
                 ? images.find((image) => image.variant === bestResult.variant)
                 : undefined) ?? images[0];
 
-        progress('Trying detailed recognition…');
+        progress(this.transloco.translate('scanner.ocr.detailed'));
 
         const detailed = await recognize(workers[0], fallbackImage, PSM.AUTO);
 
@@ -449,11 +445,11 @@ export class CardOcrService {
         const model = language.ocrModel;
 
         if (!model) {
-            throw new Error('OCR is not available for this language.');
+            throw new Error(this.transloco.translate('scanner.ocr.unavailable'));
         }
 
         if (this.cancellation.signal.aborted) {
-            throw new Error('Scanning cancelled.');
+            throw new Error(this.transloco.translate('scanner.ocr.cancelled'));
         }
 
         /*
@@ -492,14 +488,14 @@ export class CardOcrService {
              */
             const workerCount = hardwareConcurrency >= 4 ? 2 : 1;
 
-            progress(`Loading ${language.label} text recognition…`);
+            progress(this.transloco.translate('scanner.ocr.loading', { language: this.transloco.translate(language.label) }));
 
             const created: Worker[] = [];
 
             try {
                 for (let index = 0; index < workerCount; index++) {
                     if (this.cancellation.signal.aborted) {
-                        throw new Error('Scanning cancelled.');
+                        throw new Error(this.transloco.translate('scanner.ocr.cancelled'));
                     }
 
                     let rejectInitialization: (error: Error) => void = () => {};
@@ -523,7 +519,7 @@ export class CardOcrService {
                             errorHandler: () => {
                                 rejectInitialization(
                                     new Error(
-                                        'Unable to load or run text recognition. Please retry.',
+                                        this.transloco.translate('scanner.ocr.loadFailed'),
                                     ),
                                 );
                             },
@@ -545,7 +541,7 @@ export class CardOcrService {
                         if (this.cancellation.signal.aborted) {
                             await worker.terminate();
 
-                            throw new Error('Scanning cancelled.');
+                            throw new Error(this.transloco.translate('scanner.ocr.cancelled'));
                         }
 
                         return worker;
@@ -718,10 +714,10 @@ export class CardOcrService {
         let cancel: () => void;
 
         return new Promise<T>((resolve, reject) => {
-            cancel = () => reject(new Error('Scanning cancelled.'));
+            cancel = () => reject(new Error(this.transloco.translate('scanner.ocr.cancelled')));
 
             timeout = setTimeout(
-                () => reject(new Error('Text recognition took too long. Please retry.')),
+                () => reject(new Error(this.transloco.translate('scanner.ocr.timeout'))),
                 90_000,
             );
 

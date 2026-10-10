@@ -1,0 +1,10 @@
+{
+    "intro": {
+        "eyebrow": "Das Kartenarchiv & der Kamerascanner",
+        "discover": "Entdecke Magic-Karten, erkunde den Oracle-Text",
+        "scan": "und finde deine nächste Karte per Kamera."
+    },
+    "actions": {
+        "searchSyntax": "Die Suchsyntax kennenlernen"
+    }
+}

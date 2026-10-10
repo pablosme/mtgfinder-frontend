@@ -1,0 +1,49 @@
+{
+    "status": {
+        "loading": "Loading card…"
+    },
+    "actions": {
+        "switchSide": "Switch side"
+    },
+    "printings": {
+        "heading": "Sets & print languages",
+        "empty": "No printings are available."
+    },
+    "accessibility": {
+        "imageAndPrints": "Card image and prints",
+        "mana": "Mana cost and value",
+        "information": "Card information",
+        "imageFromSet": "{{name}} from {{set}}",
+        "missingImage": "No image available for {{name}}"
+    },
+    "fields": {
+        "printing": "Printing",
+        "manaCost": "Mana cost",
+        "colors": "Colors",
+        "keywords": "Keywords",
+        "powerToughness": "Power / Toughness",
+        "loyalty": "Loyalty",
+        "defense": "Defense",
+        "reserved": "Reserved List",
+        "set": "Set",
+        "collectorNumber": "Collector number",
+        "artist": "Artist",
+        "releaseDate": "Release date",
+        "rarity": "Rarity",
+        "oracleId": "Oracle ID",
+        "manaValue": "Mana value: {{value}}"
+    },
+    "oracle": {
+        "heading": "Text",
+        "subtitle": "Oracle rules text",
+        "printed": "Printed text",
+        "empty": "No Oracle text."
+    },
+    "metadata": {
+        "heading": "Collection"
+    },
+    "errors": {
+        "missingId": "No oracle_id was provided.",
+        "loadFailed": "Unable to load this card."
+    }
+}

@@ -1,0 +1,49 @@
+{
+    "status": {
+        "loading": "Загрузка карты…"
+    },
+    "actions": {
+        "switchSide": "Сменить сторону"
+    },
+    "printings": {
+        "heading": "Выпуски и языки печати",
+        "empty": "Нет доступных изданий."
+    },
+    "accessibility": {
+        "imageAndPrints": "Изображение карты и издания",
+        "mana": "Мана-стоимость и мана-ценность",
+        "information": "Информация о карте",
+        "imageFromSet": "{{name}} из {{set}}",
+        "missingImage": "Нет изображения для {{name}}"
+    },
+    "fields": {
+        "printing": "Издание",
+        "manaCost": "Мана-стоимость",
+        "colors": "Цвета",
+        "keywords": "Ключевые слова",
+        "powerToughness": "Сила / Выносливость",
+        "loyalty": "Верность",
+        "defense": "Защита",
+        "reserved": "Резервный список",
+        "set": "Выпуск",
+        "collectorNumber": "Номер коллекционера",
+        "artist": "Художник",
+        "releaseDate": "Дата выпуска",
+        "rarity": "Редкость",
+        "oracleId": "Oracle ID",
+        "manaValue": "Мана-ценность: {{value}}"
+    },
+    "oracle": {
+        "heading": "Текст",
+        "subtitle": "Текст правил Oracle",
+        "printed": "Напечатанный текст",
+        "empty": "Нет текста Oracle."
+    },
+    "metadata": {
+        "heading": "Коллекция"
+    },
+    "errors": {
+        "missingId": "Не указан oracle_id.",
+        "loadFailed": "Не удалось загрузить карту."
+    }
+}

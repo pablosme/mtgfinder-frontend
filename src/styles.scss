@@ -18,6 +18,10 @@
         'cn',
         'tw',
         'il',
+        'va',
+        'gr',
+        'in',
+        'sa',
     )
 );
 @use './styles/tokens';
@@ -147,5 +151,105 @@ input::placeholder {
         border-color: var(--color-primary);
         background: var(--color-selected);
         box-shadow: inset 0 0 0 var(--border-width) var(--color-primary);
+    }
+}
+@font-face {
+    font-family: 'Phyrexian';
+    src: url('../public/fonts/phyrexian.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Phyrexian';
+    src: url('../public/fonts/phyrexian.woff2') format('woff2');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+// Language-specific typography
+.lang-grc {
+    font-family: 'GFS Didot', 'EB Garamond Variable', 'EB Garamond', Georgia, serif;
+}
+
+body.lang-grc {
+    --font-heading: 'GFS Didot', 'EB Garamond Variable', 'EB Garamond', Georgia, serif;
+    --font-body: 'GFS Didot', 'EB Garamond Variable', 'EB Garamond', Georgia, serif;
+    font-family: var(--font-body);
+}
+
+.lang-sa {
+    font-family: 'Noto Sans Devanagari', 'Inter Variable', Inter, Arial, sans-serif;
+}
+
+body.lang-sa {
+    --font-body: 'Noto Sans Devanagari', 'Inter Variable', Inter, Arial, sans-serif;
+    --font-heading: 'Noto Sans Devanagari', 'EB Garamond Variable', 'EB Garamond', Georgia, serif;
+    font-family: var(--font-body);
+}
+
+.lang-phy {
+    font-family: 'Phyrexian', 'Inter Variable', Inter, sans-serif !important;
+    font-style: normal;
+}
+
+body.lang-phy {
+    --font-body: 'Phyrexian', 'Inter Variable', Inter, sans-serif;
+    --font-heading: 'Phyrexian', 'EB Garamond Variable', Georgia, serif;
+    font-family: var(--font-body);
+
+    // Form controls and interactive inputs
+    input,
+    textarea,
+    select,
+    [contenteditable='true'] {
+        font-family: 'Inter Variable', Inter, Arial, sans-serif;
+    }
+
+    // Code blocks, keyboard shortcuts, and search syntax examples
+    code,
+    kbd,
+    pre,
+    samp,
+    .query-example {
+        font-family: var(--font-mono);
+    }
+
+    // Icons and graphical elements
+    mat-icon,
+    .mat-icon,
+    .material-icons,
+    .material-symbols-outlined,
+    svg {
+        font-family: inherit;
+    }
+
+    .ms,
+    [class*='ms-'] {
+        font-family: 'Mana', sans-serif;
+    }
+
+    // Keep native language names readable in selector dropdown
+    .language-selector .language-dropdown,
+    .language-trigger .language-abbr {
+        font-family: 'Inter Variable', Inter, Arial, sans-serif;
+    }
+
+    // Scryfall-sourced card data, oracle text, metadata, and search suggestions
+    .oracle-text:not(.lang-phy),
+    .flavor-text:not(.lang-phy),
+    .printed-text:not(.lang-phy),
+    .card-title:not(.lang-phy),
+    .type-line:not(.lang-phy),
+    .suggestion-content,
+    .metadata-grid,
+    .print-item,
+    .card-stat-value,
+    .card-format-legalities,
+    .card-language-badges,
+    [data-preserve-font] {
+        font-family: 'Inter Variable', Inter, Arial, sans-serif;
     }
 }

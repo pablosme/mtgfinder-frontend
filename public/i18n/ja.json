@@ -1,0 +1,240 @@
+{
+    "header": {
+        "brand": "Sol Binder",
+        "homeLabel": "Sol Binder ホーム",
+        "caption": "Magic: The Gathering カードアーカイブ",
+        "language": "表示言語"
+    },
+    "accessibility": {
+        "skipToContent": "本文へスキップ",
+        "breadcrumb": "パンくずリスト"
+    },
+    "footer": {
+        "disclaimer": "© Sol Binder. Magic: The Gathering および関連する知的財産は、Hasbro, Inc. の子会社である Wizards of the Coast LLC の商標です。本サイトは Wizards of the Coast とは提携しておらず、承認や推奨も受けていません。ポルトガル語のオラクルテキストおよびルールテキストはすべて、情報提供とコミュニティでの参照のみを目的として提供されています。",
+        "terms": "利用規約",
+        "privacy": "プライバシーポリシー",
+        "about": "アーカイブについて"
+    },
+    "navigation": {
+        "searchSyntax": "検索構文",
+        "cardSearch": "カード検索"
+    },
+    "common": {
+        "unavailable": "利用不可",
+        "close": "閉じる",
+        "yes": "はい",
+        "no": "いいえ"
+    },
+    "search": {
+        "label": "カードを検索",
+        "placeholder": "カード名、または / でフィルターを追加",
+        "addFilter": "検索フィルターを追加",
+        "scan": "カードをスキャン",
+        "scanLabel": "カメラでカードをスキャン",
+        "help": {
+            "beforeSlash": "名前で検索します。フィルターを追加するには",
+            "beforeExample": "と入力します。例:"
+        },
+        "filters": {
+            "type": {
+                "label": "タイプ",
+                "placeholder": "例: Legendary Creature"
+            },
+            "keyword": {
+                "label": "キーワード",
+                "placeholder": "例: Flying"
+            },
+            "colors": {
+                "label": "色",
+                "placeholder": "例: W,U または C",
+                "hint": "W, U, B, R, G。C は無色。両方の色を含むには G,B のように指定し、どちらかの色なら同じフィルターを繰り返します。"
+            },
+            "colorIdentity": {
+                "label": "色識別",
+                "placeholder": "例: B,G または C",
+                "hint": "W, U, B, R, G。C は無色。両方の色を含むには G,B のように指定し、どちらかの色なら同じフィルターを繰り返します。"
+            },
+            "legality": {
+                "label": "フォーマットの使用可否",
+                "placeholder": "例: commander または modern:banned",
+                "hint": "フォーマットのみの場合は使用可能を意味します。状態は任意: legal, not_legal, restricted, banned。"
+            },
+            "rarity": {
+                "label": "稀少度",
+                "placeholder": "common, uncommon, rare, mythic, special または bonus"
+            },
+            "set": {
+                "label": "セット",
+                "placeholder": "セット名またはコード"
+            },
+            "collection": {
+                "label": "コレクション",
+                "placeholder": "セット名、コード、またはコレクター番号",
+                "hint": "セット名・コード、または完全一致するコレクター番号に一致します。"
+            },
+            "cmc": {
+                "label": "マナ総量 (CMC)",
+                "placeholder": "例: 0 または 2.5"
+            },
+            "layout": {
+                "label": "レイアウト",
+                "placeholder": "例: normal または transform"
+            },
+            "power": {
+                "label": "パワー",
+                "placeholder": "例: 2 または *"
+            },
+            "toughness": {
+                "label": "タフネス",
+                "placeholder": "例: 3 または *"
+            },
+            "loyalty": {
+                "label": "忠誠度",
+                "placeholder": "例: 4 または X"
+            }
+        },
+        "status": {
+            "noFilters": "一致するフィルターがありません。別のフィルター名をお試しください。",
+            "nameRequired": "検索するカード名を入力してください。",
+            "loading": "カードを検索中…",
+            "empty": "カードが見つかりませんでした。",
+            "failed": "カードを検索できませんでした。もう一度お試しください。",
+            "filterCount": "フィルターが{{count}}件あります。入力を続けて絞り込むか、矢印キーと Enter で選択してください。",
+            "resultCount": "{{count}}件の結果があります。矢印キーでカードを選択してください。"
+        },
+        "filtersLabel": "検索フィルター",
+        "resultsLabel": "カード検索結果"
+    },
+    "scanner": {
+        "title": "カードをスキャン",
+        "device": {
+            "label": "カメラ",
+            "number": "カメラ {{number}}"
+        },
+        "previewLabel": "カメラのライブプレビュー",
+        "waitingAccess": "カメラへのアクセスを待っています…",
+        "captureAlt": "撮影したカード(補正・切り抜き済み)",
+        "messages": {
+            "borderLocked": "カードの枠を固定しました…",
+            "detected": "カードを検出しました。動かさないでください…",
+            "confirming": "カードを検出しました。枠を確認中…",
+            "retryScanner": "スキャナーを待っています。自動的に再試行します…",
+            "corners": "コントラストのある背景で、四隅がすべて見えるようにしてください。",
+            "tilt": "カードをカメラ側に少し傾けてください。",
+            "steady": "カードを動かさないでください…",
+            "captureFailed": "このブラウザではカメラのフレームを取得できません。",
+            "stopped": "カメラが応答しなくなりました。このダイアログを閉じて、スキャナーを開き直してください。",
+            "waitingCamera": "カメラを待っています…スキャンは自動的に続行されます。",
+            "retryVisible": "カード全体が見えるようにしてください。自動的に再スキャンします…",
+            "borderMoved": "カードの枠が動いたか、不完全でした。動かさず、四隅がすべて見えるようにしてください…",
+            "languageUnavailable": "この言語では文字認識を利用できません。",
+            "readingText": "カードのテキストを読み取り中…",
+            "unclear": "テキストが不鮮明でした。カードを動かさず、反射を抑えてください。自動的に再スキャンします…",
+            "searching": "カードを検索中…",
+            "searchUnavailable": "検索は一時的に利用できません。自動的に再試行します…",
+            "unidentified": "まだカードを特定できていません。別の画像を自動的に読み取ります…",
+            "noMatch": "使用できる一致はまだありません。別の画像を自動的に読み取ります…",
+            "interrupted": "読み取りが中断されました。自動的に再スキャンします…",
+            "switching": "カメラを切り替え中…",
+            "noTrack": "選択したカメラから映像トラックを取得できませんでした。",
+            "position": "カード全体をカメラに収めてください。",
+            "switchFailed": "選択したカメラに切り替えられません。",
+            "unavailable": "カメラにアクセスできません。HTTPS または localhost 上の対応ブラウザをご利用ください。",
+            "starting": "カメラを起動中…",
+            "selecting": "最適なカメラを選択中…",
+            "accessDenied": "カメラへのアクセスが拒否されました。ブラウザの設定でカメラを許可してから、このダイアログを開き直してください。",
+            "notFound": "カメラが見つかりません。カメラを接続してから、このダイアログを開き直してください。",
+            "busy": "カメラを起動できませんでした。使用中の他のアプリを閉じてから、このダイアログを開き直してください。",
+            "incompatible": "カメラが互換性のある映像モードを提供できませんでした。このダイアログを閉じて、もう一度お試しください。",
+            "showFailed": "カメラを表示できません。このダイアログを閉じて、もう一度お試しください。",
+            "lowSimilarity": "使用できる一致はまだありません。別の画像を自動的に読み取ります…"
+        },
+        "guidance": "四隅がすべて見えるようにしてください。スキャンは自動です。",
+        "ocr": {
+            "manual": "この言語では名前を手動で入力してください。",
+            "cancelled": "スキャンをキャンセルしました。",
+            "loadFailed": "文字認識を読み込めないか、実行できませんでした。再試行してください。",
+            "unavailable": "この言語では OCR を利用できません。",
+            "initializeFailed": "文字認識を初期化できませんでした。",
+            "detailed": "詳細認識を試行中…",
+            "reading": "カードを読み取り中…",
+            "timeout": "文字認識に時間がかかりすぎました。再試行してください。",
+            "loading": "{{language}}の文字認識を読み込み中…",
+            "modelFailed": "{{language}}の文字認識を読み込めませんでした。接続を確認して再試行してください。",
+            "readingName": "カード名を読み取り中 ({{pass}}/{{total}})… {{percent}}%",
+            "passComplete": "カードを読み取り中… {{count}}回完了",
+            "passesComplete": "カードを読み取り中… {{count}}回完了"
+        }
+    },
+    "formatLegality": {
+        "heading": "フォーマットの使用可否",
+        "subtitle": "公式フォーマット",
+        "empty": "使用可否の情報はありません。",
+        "status": {
+            "legal": "使用可能",
+            "restricted": "制限 (1枚)",
+            "banned": "禁止",
+            "not_legal": "使用不可",
+            "unknown": "不明",
+            "unknownFormat": "不明なフォーマット"
+        }
+    },
+    "metadata": {
+        "title": "Sol Binder — Magic カード検索"
+    },
+    "cardLanguages": {
+        "en": "英語",
+        "es": "スペイン語",
+        "fr": "フランス語",
+        "de": "ドイツ語",
+        "it": "イタリア語",
+        "pt": "ポルトガル語",
+        "ja": "日本語",
+        "ko": "韓国語",
+        "ru": "ロシア語",
+        "zhs": "中国語(簡体字)",
+        "zht": "中国語(繁体字)",
+        "ar": "アラビア語",
+        "he": "ヘブライ語",
+        "la": "ラテン語",
+        "grc": "古代ギリシア語",
+        "sa": "サンスクリット語",
+        "phyrexianManual": "ファイレクシア語(手動入力名)",
+        "ph": "ファイレクシア語",
+        "und": "不明な言語",
+        "other": "言語: {{code}}",
+        "selector": "印刷言語",
+        "singular": "言語:",
+        "plural": "言語:"
+    },
+    "validation": {
+        "search": {
+            "syntax": "フィルターを選び、/filter=value の形式で入力してください。",
+            "unknown": "不明なフィルター /{{command}} です。/ を入力してフィルターを選んでください。",
+            "unfinishedQuote": "/{{command}} の引用符で囲んだ値を閉じてください。",
+            "quoteWholeValue": "/{{command}} の値全体を二重引用符で囲んでください。",
+            "missingValue": "/{{command}} の値を入力してください: {{example}}。",
+            "colors": "色には W, U, B, R, G を使用してください。無色は C のみで指定します。",
+            "manaValue": "マナ総量 (CMC) は 0 や 2.5 のような 0 以上の数値にしてください。",
+            "legality": "フォーマットを入力してください。続けて :legal, :not_legal, :restricted, :banned を指定することもできます。",
+            "options": "{{label}}: {{options}} を使用してください。"
+        }
+    },
+    "mana": {
+        "white": "白",
+        "blue": "青",
+        "black": "黒",
+        "red": "赤",
+        "green": "緑",
+        "colorless": "無色",
+        "snow": "氷雪",
+        "life": "2点のライフ",
+        "tap": "タップ",
+        "untap": "アンタップ",
+        "energy": "エネルギー",
+        "chaos": "混沌",
+        "infinite": "無限マナ",
+        "phyrexian": "ファイレクシア・マナ",
+        "generic": "無色マナ{{value}}点"
+    }
+}

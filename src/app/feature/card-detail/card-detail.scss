@@ -203,6 +203,11 @@ h2,
     margin: var(--space-1) 0 0;
     color: var(--color-text-accent);
     font: italic var(--text-lg) / var(--leading-normal) var(--font-heading);
+
+    &.lang-phy {
+        font-family: 'Phyrexian', 'Inter Variable', Inter, sans-serif;
+        font-style: normal;
+    }
 }
 .type-line {
     margin: var(--space-3) 0 0;
@@ -299,6 +304,11 @@ h2,
 }
 .printed-text {
     margin-top: var(--space-3);
+
+    &.lang-phy {
+        font-family: 'Phyrexian', 'Inter Variable', Inter, sans-serif;
+        font-style: normal;
+    }
 }
 .oracle-panel blockquote {
     margin: var(--space-4) 0 0;
@@ -307,6 +317,11 @@ h2,
     color: var(--color-text-accent);
     font: italic var(--text-lg) / var(--leading-normal) var(--font-heading);
     overflow-wrap: anywhere;
+
+    &.lang-phy {
+        font-family: 'Phyrexian', 'Inter Variable', Inter, sans-serif;
+        font-style: normal;
+    }
 }
 .metadata-grid {
     display: grid;

@@ -1,0 +1,221 @@
+{
+    "intro": {
+        "backToSearch": "Zurück zur Kartensuche",
+        "eyebrow": "Der Leitfaden zur Suche",
+        "title": "Suchsyntax",
+        "description": "Beginne mit einem Kartennamen. Füge einige Befehle hinzu, um die Suche nach Farbe, Typ, Druck, Format und mehr einzugrenzen."
+    },
+    "contents": {
+        "label": "Auf dieser Seite",
+        "gettingStarted": "Erste Schritte",
+        "writingCommands": "Befehle schreiben",
+        "commandCount": "Alle {{count}} Befehle",
+        "combiningFilters": "Filter kombinieren",
+        "troubleshooting": "Fehlerbehebung"
+    },
+    "quickStart": {
+        "eyebrow": "01 / Schnellstart",
+        "title": "Vom Namen zur gezielten Suche",
+        "nameText": "ist der Namenstext.",
+        "typeFilter": "fügt einen Typfilter hinzu, und",
+        "colorFilter": "fügt einen Filter für die Farbe Rot hinzu.",
+        "steps": {
+            "name": {
+                "title": "Gib einen Kartennamen oder einen Teil davon ein.",
+                "body": "Die Ergebnisse erscheinen beim Tippen nach einer kurzen Pause. Ein Name ist erforderlich, auch bei der Verwendung von Filtern."
+            },
+            "command": {
+                "title": "Füge einen Befehl hinzu.",
+                "typeBefore": "Gib",
+                "afterKey": "ein oder verwende die Schrägstrich-Schaltfläche im Suchfeld. Wähle einen Filter und gib dann seinen Wert nach",
+                "end": "ein."
+            },
+            "result": {
+                "title": "Öffne ein Ergebnis.",
+                "clickBefore": "Klicke auf eine Karte oder verwende",
+                "and": "und",
+                "highlightAfter": ", um sie hervorzuheben, und",
+                "openAfter": ", um ihre Details zu öffnen."
+            }
+        },
+        "noteBefore": "Du kannst beim Lesen das Suchfeld oben auf dieser Seite verwenden. Pfeiltasten und Enter funktionieren auch im Filtermenü. Drücke",
+        "noteAfter": ", um die Vorschläge zu schließen."
+    },
+    "basics": {
+        "eyebrow": "02 / Die Grundlagen",
+        "title": "Schreibe Befehle als /filter=wert",
+        "separate": {
+            "term": "Trenne Befehle mit Leerzeichen",
+            "before": "Halte jeden Befehl zusammen:",
+            "after": ". Setze keine Leerzeichen um das Gleichheitszeichen. Befehle können vor oder nach dem Namen stehen; Text außerhalb der Befehle wird zur Suche nach dem Kartennamen."
+        },
+        "quote": {
+            "term": "Setze Werte mit Leerzeichen in Anführungszeichen",
+            "before": "Verwende doppelte Anführungszeichen um den gesamten Wert:",
+            "or": "oder",
+            "after": ". Einfache Anführungszeichen fassen keine Wörter zusammen. Schließe das doppelte Anführungszeichen, bevor du einen weiteren Befehl hinzufügst."
+        },
+        "special": {
+            "term": "Lass Sonderzeichen in Werten in Anführungszeichen",
+            "before": "Schreibe in einem Wert in doppelten Anführungszeichen",
+            "middle": "für ein wörtliches doppeltes Anführungszeichen und",
+            "after": "für einen wörtlichen Backslash."
+        },
+        "names": {
+            "term": "Verwende die unterstützten Befehlsnamen",
+            "before": "Befehlsnamen unterscheiden nicht zwischen Groß- und Kleinschreibung:",
+            "and": "und",
+            "afterPair": "verwenden denselben Filter.",
+            "aliasesAfter": "sind Aliase. Behalte Unterstriche in Namen wie"
+        },
+        "split": {
+            "term": "Lass Namen von geteilten Karten unverändert",
+            "before": "Der doppelte Schrägstrich in",
+            "after": "gehört zum Namen. Er startet keinen Filter."
+        }
+    },
+    "reference": {
+        "eyebrow": "03 / Befehlsreferenz",
+        "title": "Jeder unterstützte Filter",
+        "description": "Füge diese Befehlsbausteine einem Kartennamen hinzu. Wähle unten einen Befehl, um zu seinen Beispielen und Wertregeln zu springen.",
+        "indexLabel": "Suchbefehle",
+        "alsoAccepts": "Akzeptiert auch",
+        "acceptedValues": "Akzeptierte Werte:",
+        "examplesLabel": "Befehlsbeispiele"
+    },
+    "combining": {
+        "eyebrow": "04 / Alles zusammen",
+        "title": "Befehle kombinieren und wiederholen",
+        "description": "Füge verschiedene Befehle hinzu, um mehrere Eigenschaften in derselben Suche einzugrenzen. Wiederhole einen Befehl, um mehrere Werte anzugeben; der spätere Wert löscht den früheren nicht.",
+        "angel": "Sucht den Namen Angel mit dem Kreaturentyp, Flying und Manawert 4.",
+        "lotus": "Sucht den Namen Lotus mit einem Editionscode und einer Sammlernummer.",
+        "elfBefore": "Gibt Grün oder Schwarz als Alternativen an. Für beide Farben in einem Filter verwende stattdessen",
+        "elfAfter": ".",
+        "dragon": "Gibt zwei Seltenheitswerte an, während der Name Dragon gesucht wird.",
+        "note": "Filter bleiben erhalten, wenn du zwischen dem Suchfeld der Startseite und dem der Kopfzeile wechselst. Lösche einen Befehl, um diesen Filter zu entfernen, oder entferne alle Befehle, um zur reinen Namenssuche zurückzukehren."
+    },
+    "troubleshooting": {
+        "eyebrow": "05 / Wenn eine Suche korrigiert werden muss",
+        "title": "Fehlerbehebung",
+        "missingName": {
+            "term": "„Gib einen Kartennamen für die Suche ein.“",
+            "before": "Filter allein starten keine Suche. Füge Namenstext hinzu, zum Beispiel",
+            "end": "."
+        },
+        "unknownFilter": {
+            "term": "Unbekannter Filter oder fehlender Wert",
+            "typeBefore": "Gib",
+            "useBefore": "ein, um einen unterstützten Befehl auszuwählen. Verwende",
+            "after": " mit Schrägstrich, Gleichheitszeichen und einem nicht leeren Wert. Syntaxfehler pausieren die Suche, bis sie behoben sind."
+        },
+        "unfinishedQuote": {
+            "term": "Ein Wert in Anführungszeichen ist unvollständig",
+            "before": "Prüfe, ob der gesamte Wert in doppelte Anführungszeichen eingeschlossen ist. Schreibe zum Beispiel",
+            "end": "."
+        },
+        "rejectedValue": {
+            "term": "Eine Farbe, Seltenheit, ein Formatstatus oder Manawert wird abgelehnt",
+            "useBefore": "Verwende",
+            "blue": "für Blau,",
+            "mythic": "für mythisch selten,",
+            "underscore": "mit Unterstrich und eine nichtnegative Zahl wie",
+            "after": ". Details findest du in der Befehlsreferenz."
+        },
+        "noResults": {
+            "term": "Keine Karten gefunden",
+            "body": "Prüfe den Namen, entferne Filter einzeln und suche nach Befehlen, die von einer früheren Suche übrig geblieben sind. Gültige Syntax kann dennoch keine Treffer liefern. Die Beispiele veranschaulichen die Syntax und garantieren keine Ergebnisse."
+        },
+        "searchFailed": {
+            "term": "„Die Kartensuche ist fehlgeschlagen. Bitte versuche es erneut.“",
+            "body": "Die Suchanfrage konnte nicht abgeschlossen werden. Versuche es erneut; diese Meldung ist von einem Syntaxfehler oder einer leeren Ergebnisliste zu unterscheiden."
+        },
+        "backToSearch": "Zurück zur Kartensuche"
+    },
+    "commands": {
+        "type": {
+            "description": "Nach Kartentyp, Obertyp oder Untertyp filtern, etwa creature, legendary oder Dragon.",
+            "notes": {
+                "quote": "Setze eine Wortgruppe mit Leerzeichen in doppelte Anführungszeichen."
+            }
+        },
+        "keyword": {
+            "description": "Nach einer Schlüsselwortfähigkeit suchen, etwa flying, trample oder first strike.",
+            "notes": {
+                "abilityName": "Verwende hier einen Fähigkeitsnamen statt eines Satzes aus dem Regeltext."
+            }
+        },
+        "colors": {
+            "description": "Nach den Farben der Karte filtern, mit den fünf Magic-Farbbuchstaben.",
+            "notes": {
+                "letters": "W = weiß, U = blau, B = schwarz, R = rot, G = grün. Verwende C allein für farblos.",
+                "format": "G,B und GB sind gleichwertig. Kleinbuchstaben werden akzeptiert. Für Leerzeichen setze den Wert in Anführungszeichen: /color=\"G, B\".",
+                "combine": "Verwende /color=G,B für beide Farben; wiederhole /color=G /color=B für eine der beiden Farben. Kombiniere C nicht mit einer anderen Farbe."
+            }
+        },
+        "color_identity": {
+            "description": "Nach Farbidentität filtern, die über die eigene Farbe der Karte hinausgehende Farben enthalten kann, etwa aus ihrem Regeltext.",
+            "notes": {
+                "notation": "Verwendet dieselbe Notation W, U, B, R, G und C wie bei den Farben.",
+                "combine": "Kombiniere Buchstaben in einem Wert für beide Farben oder wiederhole den Befehl für Alternativen."
+            }
+        },
+        "legality": {
+            "description": "Gib ein Format an, optional gefolgt von einem Legalitätsstatus nach einem Doppelpunkt.",
+            "notes": {
+                "default": "Ein Format ohne Status bedeutet legal: /legality=commander und /legality=commander:legal sind gleichwertig.",
+                "statuses": "Unterstützte Status: legal, not_legal, restricted und banned. Behalte den Unterstrich in not_legal bei.",
+                "formats": "Verwende eine Formatkennung wie standard, modern, pioneer, legacy, vintage oder commander. Diese Beispiele geben Filter an, nicht die Legalität einer bestimmten Karte."
+            }
+        },
+        "rarity": {
+            "description": "Nach der Seltenheit des Drucks filtern. Verwende einen der unten aufgeführten unterstützten Werte.",
+            "notes": {
+                "mythic": "Verwende mythic für mythisch selten. Wiederhole den Befehl, um mehr als eine Seltenheit anzugeben."
+            }
+        },
+        "set": {
+            "description": "Drucke einer Edition anhand ihres Namens oder Codes finden.",
+            "notes": {
+                "quote": "Setze Editionsnamen mit Leerzeichen in Anführungszeichen."
+            }
+        },
+        "collection": {
+            "description": "Passt auf einen Editionsnamen, einen Editionscode oder eine exakte Sammlernummer.",
+            "notes": {
+                "printings": "Dieser Befehl durchsucht Druckinformationen; er bezieht sich nicht auf Karten, die du besitzt.",
+                "multipleSets": "Eine Sammlernummer kann in mehr als einer Edition vorkommen. Füge /set= hinzu, um zusätzlich eine Edition anzugeben."
+            }
+        },
+        "cmc": {
+            "description": "Nach Manawert filtern, auch umgewandelte Manakosten oder CMC genannt.",
+            "notes": {
+                "number": "Verwende eine nichtnegative Zahl und einen Punkt für Dezimalstellen.",
+                "operators": "Vergleichsoperatoren und Bereiche werden hier nicht akzeptiert. Verwende /cmc=3, nicht /cmc=>3 oder /cmc=2-4."
+            }
+        },
+        "layout": {
+            "description": "Nach dem Layout der Karte filtern, etwa normale Karte oder transformierende Karte.",
+            "notes": {
+                "identifier": "Verwende die Layout-Kennung als Wert."
+            }
+        },
+        "power": {
+            "description": "Nach dem aufgedruckten Stärkewert filtern.",
+            "notes": {
+                "asterisk": "Das Sternchen ist ein Eigenschaftswert, wie er auf einigen Karten aufgedruckt ist; es ist kein Platzhalter für beliebige Stärke."
+            }
+        },
+        "toughness": {
+            "description": "Nach dem aufgedruckten Widerstandskraftwert filtern.",
+            "notes": {
+                "combine": "Kombiniere /power= und /toughness=, um beide Eigenschaften anzugeben."
+            }
+        },
+        "loyalty": {
+            "description": "Nach dem aufgedruckten Startloyalitätswert eines Planeswalkers filtern.",
+            "notes": {
+                "symbol": "Gib den auf der Karte angezeigten Wert ein, gegebenenfalls auch einen symbolischen Wert wie X."
+            }
+        }
+    }
+}

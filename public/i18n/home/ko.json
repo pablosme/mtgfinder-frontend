@@ -1,0 +1,10 @@
+{
+    "intro": {
+        "eyebrow": "카드 아카이브 및 카메라 스캐너",
+        "discover": "Magic 카드를 발견하고 Oracle 텍스트를 탐색하며,",
+        "scan": "카메라로 다음 카드를 찾아보세요."
+    },
+    "actions": {
+        "searchSyntax": "검색 구문 알아보기"
+    }
+}

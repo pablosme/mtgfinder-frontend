@@ -1,0 +1,82 @@
+<div class="language-selector" *transloco="let t">
+    <button
+        type="button"
+        class="language-trigger"
+        [class.language-trigger--open]="isOpen()"
+        [attr.aria-expanded]="isOpen()"
+        [attr.aria-label]="t('header.language')"
+        aria-haspopup="listbox"
+        (click)="toggleOpen()"
+    >
+        @if (currentLang().flagCode) {
+            <span [class]="'fi fi-' + currentLang().flagCode" aria-hidden="true"></span>
+        } @else if (currentLang().code === 'ph') {
+            <app-mana-text text="{P}" aria-hidden="true" />
+        }
+
+        <span class="language-abbr">{{ currentLang().abbreviation }}</span>
+
+        <svg
+            class="chevron-icon"
+            [class.chevron-icon--open]="isOpen()"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+        >
+            <path d="m6 9 6 6 6-6" />
+        </svg>
+    </button>
+
+    @if (isOpen()) {
+        <div class="language-dropdown" role="listbox" [attr.aria-label]="t('header.language')">
+            <div class="dropdown-header">
+                <span class="dropdown-title">{{ t('header.language') }}</span>
+            </div>
+            <div class="dropdown-list">
+                @for (lang of language.languages; track lang.code) {
+                    <button
+                        type="button"
+                        class="language-option"
+                        [class.language-option--selected]="lang.code === language.current()"
+                        role="option"
+                        [attr.aria-selected]="lang.code === language.current()"
+                        [attr.dir]="lang.dir"
+                        (click)="selectLanguage(lang.code)"
+                    >
+                        <span class="option-badge">
+                            @if (lang.flagCode) {
+                                <span [class]="'fi fi-' + lang.flagCode" aria-hidden="true"></span>
+                            } @else if (lang.code === 'ph') {
+                                <app-mana-text text="{P}" aria-hidden="true" />
+                            } @else {
+                                <span class="flag-placeholder" aria-hidden="true"></span>
+                            }
+                            <span class="language-code">{{ lang.abbreviation }}</span>
+                        </span>
+                        <span class="language-name">{{ lang.nativeName }}</span>
+                        @if (lang.code === language.current()) {
+                            <svg
+                                class="check-icon"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                                focusable="false"
+                            >
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                        }
+                    </button>
+                }
+            </div>
+        </div>
+    }
+</div>

@@ -1,16 +1,19 @@
-<span class="language-label">{{ selectable() ? 'Language:' : 'Languages:' }}</span>
+<ng-container *transloco="let t">
+<span class="language-label">{{ selectable() ? t('cardLanguages.singular') : t('cardLanguages.plural') }}</span>
 @for (language of badges(); track language.code) {
     @if (selectable()) {
         <button
             class="ui-button ui-choice-pill"
             type="button"
-            [attr.aria-label]="language.label"
+            [attr.aria-label]="t(language.label, { code: language.code.toUpperCase() })"
             [attr.aria-pressed]="selectedLanguage() === language.code"
-            [title]="language.label"
+            [title]="t(language.label, { code: language.code.toUpperCase() })"
             (click)="languageSelected.emit(language.code)"
         >
             @if (language.flagCode) {
                 <span [class]="'fi fi-' + language.flagCode" aria-hidden="true"></span>
+            } @else if (language.code === 'ph') {
+                <app-mana-text text="{P}" aria-hidden="true" />
             }
             <span class="language-code" aria-hidden="true">{{ language.code }}</span>
         </button>
@@ -18,13 +21,17 @@
         <span
             class="language-badge"
             role="img"
-            [attr.aria-label]="language.label"
-            [title]="language.label"
+            [attr.aria-label]="t(language.label, { code: language.code.toUpperCase() })"
+            [title]="t(language.label, { code: language.code.toUpperCase() })"
         >
             @if (language.flagCode) {
                 <span [class]="'fi fi-' + language.flagCode" aria-hidden="true"></span>
+            } @else if (language.code === 'ph') {
+                <app-mana-text text="{P}" aria-hidden="true" />
             }
             <span class="language-code" aria-hidden="true">{{ language.code }}</span>
         </span>
     }
 }
+
+</ng-container>

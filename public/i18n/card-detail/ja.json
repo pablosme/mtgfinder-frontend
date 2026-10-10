@@ -1,0 +1,49 @@
+{
+    "status": {
+        "loading": "カードを読み込み中…"
+    },
+    "actions": {
+        "switchSide": "面を切り替え"
+    },
+    "printings": {
+        "heading": "セットと印刷言語",
+        "empty": "利用できる印刷情報はありません。"
+    },
+    "accessibility": {
+        "imageAndPrints": "カード画像と印刷情報",
+        "mana": "マナ・コストとマナ総量",
+        "information": "カード情報",
+        "imageFromSet": "{{set}}の{{name}}",
+        "missingImage": "{{name}}の画像はありません"
+    },
+    "fields": {
+        "printing": "印刷",
+        "manaCost": "マナ・コスト",
+        "colors": "色",
+        "keywords": "キーワード",
+        "powerToughness": "パワー / タフネス",
+        "loyalty": "忠誠度",
+        "defense": "防衛",
+        "reserved": "リザーブドリスト",
+        "set": "セット",
+        "collectorNumber": "コレクター番号",
+        "artist": "イラストレーター",
+        "releaseDate": "発売日",
+        "rarity": "稀少度",
+        "oracleId": "Oracle ID",
+        "manaValue": "マナ総量: {{value}}"
+    },
+    "oracle": {
+        "heading": "テキスト",
+        "subtitle": "オラクルのルールテキスト",
+        "printed": "印刷されたテキスト",
+        "empty": "オラクルテキストはありません。"
+    },
+    "metadata": {
+        "heading": "コレクション"
+    },
+    "errors": {
+        "missingId": "oracle_id が指定されていません。",
+        "loadFailed": "このカードを読み込めませんでした。"
+    }
+}

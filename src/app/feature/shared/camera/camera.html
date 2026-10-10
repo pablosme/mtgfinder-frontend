@@ -1,12 +1,13 @@
+<ng-container *transloco="let t">
 <header class="camera-header">
-    <h2 mat-dialog-title>Scan a card</h2>
-    <button class="ui-button" type="button" mat-dialog-close>Close</button>
+    <h2 mat-dialog-title> {{ t('scanner.title') }} </h2>
+    <button class="ui-button" type="button" mat-dialog-close> {{ t('common.close') }} </button>
 </header>
 
 <mat-dialog-content class="camera-content">
     @if (false) {
         <label class="camera-selector">
-            <span>Camera</span>
+            <span> {{ t('scanner.device.label') }} </span>
             <select
                 [value]="selectedCameraId()"
                 [disabled]="loading() || processing()"
@@ -27,7 +28,7 @@
         [attr.aria-busy]="loading() || processing()"
         (click)="manualCapture()"
     >
-        <video #video autoplay muted playsinline aria-label="Live camera preview"></video>
+        <video #video autoplay muted playsinline [attr.aria-label]="t('scanner.previewLabel')"></video>
 
         @if (outlinePoints() && !loading() && !error()) {
             <svg
@@ -42,7 +43,7 @@
         }
 
         @if (loading()) {
-            <p class="preview-message" role="status">Waiting for camera access…</p>
+            <p class="preview-message" role="status"> {{ t('scanner.waitingAccess') }} </p>
         }
 
         @if (error()) {
@@ -52,13 +53,13 @@
 
     @if (result(); as card) {
         <div class="scan-result">
-            <img [src]="card.normalizedImage" alt="Your captured card, straightened and cropped" />
+            <img [src]="card.normalizedImage" [alt]="t('scanner.captureAlt')" />
         </div>
     }
 
-    <!-- <p class="scan-guidance">Center your card and keep it steady.</p> -->
-
     <p class="scan-status" role="status" aria-live="polite">
-        {{ progress() || 'Keep all four corners visible. Scanning is automatic.' }}
+        {{ progress() || t('scanner.guidance') }}
     </p>
 </mat-dialog-content>
+
+</ng-container>

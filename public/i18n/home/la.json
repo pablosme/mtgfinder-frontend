@@ -1,0 +1,10 @@
+{
+    "intro": {
+        "eyebrow": "Tabularium chartarum & perscrutator cameræ",
+        "discover": "Chartas Magic invenies, textum Oraculi explorabis,",
+        "scan": "et proximam chartam tuam camera reperies."
+    },
+    "actions": {
+        "searchSyntax": "Disce syntaxin quaestionis"
+    }
+}

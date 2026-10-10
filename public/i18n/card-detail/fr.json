@@ -1,0 +1,49 @@
+{
+    "status": {
+        "loading": "Chargement de la carte…"
+    },
+    "actions": {
+        "switchSide": "Changer de face"
+    },
+    "printings": {
+        "heading": "Extensions & langues d’impression",
+        "empty": "Aucune impression disponible."
+    },
+    "accessibility": {
+        "imageAndPrints": "Image de la carte et impressions",
+        "mana": "Coût et valeur de mana",
+        "information": "Informations sur la carte",
+        "imageFromSet": "{{name}} de {{set}}",
+        "missingImage": "Aucune image disponible pour {{name}}"
+    },
+    "fields": {
+        "printing": "Impression",
+        "manaCost": "Coût de mana",
+        "colors": "Couleurs",
+        "keywords": "Mots-clés",
+        "powerToughness": "Force / Endurance",
+        "loyalty": "Loyauté",
+        "defense": "Défense",
+        "reserved": "Liste réservée",
+        "set": "Extension",
+        "collectorNumber": "Numéro de collection",
+        "artist": "Illustrateur",
+        "releaseDate": "Date de sortie",
+        "rarity": "Rareté",
+        "oracleId": "Oracle ID",
+        "manaValue": "Valeur de mana : {{value}}"
+    },
+    "oracle": {
+        "heading": "Texte",
+        "subtitle": "Texte de règles Oracle",
+        "printed": "Texte imprimé",
+        "empty": "Aucun texte Oracle."
+    },
+    "metadata": {
+        "heading": "Collection"
+    },
+    "errors": {
+        "missingId": "Aucun oracle_id n’a été fourni.",
+        "loadFailed": "Impossible de charger cette carte."
+    }
+}

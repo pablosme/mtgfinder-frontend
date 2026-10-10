@@ -1,0 +1,10 @@
+{
+    "intro": {
+        "eyebrow": "The card archive & camera scanner",
+        "discover": "Discover Magic cards, explore Oracle text,",
+        "scan": "and find your next card by camera."
+    },
+    "actions": {
+        "searchSyntax": "Learn the search syntax"
+    }
+}

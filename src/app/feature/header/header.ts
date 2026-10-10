@@ -2,13 +2,15 @@ import { Component, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs';
+import { TranslocoDirective } from '@jsverse/transloco';
 
 import { OracleCard } from '../shared/interface/card-search.interface';
 import { CardSearchInput } from '../shared/card-search-input/card-search-input';
+import { LanguageSelector } from '../shared/language-selector/language-selector';
 
 @Component({
     selector: 'app-header',
-    imports: [CardSearchInput, RouterLink],
+    imports: [CardSearchInput, LanguageSelector, RouterLink, TranslocoDirective],
     templateUrl: './header.html',
     styleUrl: './header.scss',
 })

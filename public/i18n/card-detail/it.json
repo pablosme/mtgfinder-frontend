@@ -1,0 +1,49 @@
+{
+    "status": {
+        "loading": "Caricamento carta…"
+    },
+    "actions": {
+        "switchSide": "Cambia lato"
+    },
+    "printings": {
+        "heading": "Espansioni e lingue di stampa",
+        "empty": "Nessuna stampa disponibile."
+    },
+    "accessibility": {
+        "imageAndPrints": "Immagine della carta e stampe",
+        "mana": "Costo di mana e valore",
+        "information": "Informazioni sulla carta",
+        "imageFromSet": "{{name}} da {{set}}",
+        "missingImage": "Nessuna immagine disponibile per {{name}}"
+    },
+    "fields": {
+        "printing": "Stampa",
+        "manaCost": "Costo di mana",
+        "colors": "Colori",
+        "keywords": "Parole chiave",
+        "powerToughness": "Forza / Costituzione",
+        "loyalty": "Fedeltà",
+        "defense": "Difesa",
+        "reserved": "Reserved List",
+        "set": "Espansione",
+        "collectorNumber": "Numero di collezione",
+        "artist": "Artista",
+        "releaseDate": "Data di uscita",
+        "rarity": "Rarità",
+        "oracleId": "Oracle ID",
+        "manaValue": "Valore di mana: {{value}}"
+    },
+    "oracle": {
+        "heading": "Testo",
+        "subtitle": "Testo delle regole Oracle",
+        "printed": "Testo stampato",
+        "empty": "Nessun testo Oracle."
+    },
+    "metadata": {
+        "heading": "Collezione"
+    },
+    "errors": {
+        "missingId": "Nessun oracle_id fornito.",
+        "loadFailed": "Impossibile caricare questa carta."
+    }
+}

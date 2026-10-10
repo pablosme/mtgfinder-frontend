@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
+import { inject, ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 
 const manaSymbols = new Set([
     ...Array.from({ length: 21 }, (_, value) => String(value)),
@@ -51,28 +52,36 @@ const manaSymbols = new Set([
     'gwp',
     'gup',
 ]);
+
 const manaLabels: Readonly<Record<string, string>> = {
-    W: 'white',
-    U: 'blue',
-    B: 'black',
-    R: 'red',
-    G: 'green',
-    C: 'colorless',
-    S: 'snow',
-    P: '2 life',
-    X: 'X',
-    Y: 'Y',
-    Z: 'Z',
-};
-const specialSymbols: Readonly<Record<string, { classes: string; label: string }>> = {
-    T: { classes: 'ms ms-tap', label: 'Tap' },
-    Q: { classes: 'ms ms-untap', label: 'Untap' },
-    E: { classes: 'ms ms-energy', label: 'Energy' },
-    CHAOS: { classes: 'ms ms-chaos', label: 'Chaos' },
-    '∞': { classes: 'ms ms-infinity ms-cost', label: 'Infinite mana' },
+    W: 'mana.white',
+    U: 'mana.blue',
+    B: 'mana.black',
+    R: 'mana.red',
+    G: 'mana.green',
+    C: 'mana.colorless',
+    S: 'mana.snow',
+    P: 'mana.life',
 };
 
+const specialSymbols: Readonly<Record<string, { classes: string; label: string }>> = {
+    T: { classes: 'ms ms-tap', label: 'mana.tap' },
+    Q: { classes: 'ms ms-untap', label: 'mana.untap' },
+    E: { classes: 'ms ms-energy', label: 'mana.energy' },
+    CHAOS: { classes: 'ms ms-chaos', label: 'mana.chaos' },
+    '∞': { classes: 'ms ms-infinity ms-cost', label: 'mana.infinite' },
+};
+
+export interface DisplayManaToken {
+    readonly text: string;
+    readonly classes: string;
+    readonly labelKey?: string;
+    readonly labelParams?: Record<string, unknown>;
+    readonly staticLabel?: string;
+}
+
 @Component({
+    imports: [TranslocoDirective],
     selector: 'app-mana-text',
     templateUrl: './mana-text.html',
     styleUrl: './mana-text.scss',
@@ -80,30 +89,64 @@ const specialSymbols: Readonly<Record<string, { classes: string; label: string }
 })
 export class ManaText {
     readonly text = input<string | null | undefined>('');
-    readonly tokens = computed(() =>
+    readonly tokens = computed<DisplayManaToken[]>(() =>
         (this.text() ?? '')
             .split(/(\{[^{}]+\})/g)
             .filter(Boolean)
-            .map((text) => {
+            .map((text): DisplayManaToken => {
                 if (!text.startsWith('{') || !text.endsWith('}')) {
-                    return { text, classes: '', label: '' };
+                    return { text, classes: '' };
                 }
 
                 const symbol = text.slice(1, -1).toUpperCase();
                 const special = specialSymbols[symbol];
-                if (special) return { text, ...special };
+                if (special) {
+                    return { text, classes: special.classes, labelKey: special.label };
+                }
 
                 const code = symbol.replaceAll('/', '').toLowerCase();
-                if (!manaSymbols.has(code)) return { text, classes: '', label: '' };
+                if (!manaSymbols.has(code)) {
+                    return { text, classes: '' };
+                }
 
-                const label =
-                    symbol === 'P'
-                        ? 'Phyrexian mana'
-                        : symbol
-                              .split('/')
-                              .map((part) => manaLabels[part] ?? `${part} generic mana`)
-                              .join(' or ');
-                return { text, classes: `ms ms-${code} ms-cost ms-shadow`, label };
+                if (symbol === 'P') {
+                    return {
+                        text,
+                        classes: `ms ms-${code} ms-cost ms-shadow`,
+                        labelKey: 'mana.phyrexian',
+                    };
+                }
+
+                const parts = symbol.split('/');
+                if (parts.length === 1) {
+                    const part = parts[0];
+                    if (manaLabels[part]) {
+                        return {
+                            text,
+                            classes: `ms ms-${code} ms-cost ms-shadow`,
+                            labelKey: manaLabels[part],
+                        };
+                    }
+                    if (/^[XYZ]$/.test(part)) {
+                        return {
+                            text,
+                            classes: `ms ms-${code} ms-cost ms-shadow`,
+                            staticLabel: part,
+                        };
+                    }
+                    return {
+                        text,
+                        classes: `ms ms-${code} ms-cost ms-shadow`,
+                        labelKey: 'mana.generic',
+                        labelParams: { value: part },
+                    };
+                }
+
+                return {
+                    text,
+                    classes: `ms ms-${code} ms-cost ms-shadow`,
+                    staticLabel: symbol,
+                };
             }),
     );
 }

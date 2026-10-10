@@ -1,0 +1,49 @@
+{
+    "status": {
+        "loading": "Karte wird geladen…"
+    },
+    "actions": {
+        "switchSide": "Seite wechseln"
+    },
+    "printings": {
+        "heading": "Editionen & Drucksprachen",
+        "empty": "Keine Drucke verfügbar."
+    },
+    "accessibility": {
+        "imageAndPrints": "Kartenbild und Drucke",
+        "mana": "Manakosten und Manawert",
+        "information": "Karteninformationen",
+        "imageFromSet": "{{name}} aus {{set}}",
+        "missingImage": "Kein Bild für {{name}} verfügbar"
+    },
+    "fields": {
+        "printing": "Druck",
+        "manaCost": "Manakosten",
+        "colors": "Farben",
+        "keywords": "Schlüsselwörter",
+        "powerToughness": "Stärke / Widerstandskraft",
+        "loyalty": "Loyalität",
+        "defense": "Verteidigung",
+        "reserved": "Reservierte Liste",
+        "set": "Edition",
+        "collectorNumber": "Sammlernummer",
+        "artist": "Künstler",
+        "releaseDate": "Erscheinungsdatum",
+        "rarity": "Seltenheit",
+        "oracleId": "Oracle ID",
+        "manaValue": "Manawert: {{value}}"
+    },
+    "oracle": {
+        "heading": "Text",
+        "subtitle": "Oracle-Regeltext",
+        "printed": "Gedruckter Text",
+        "empty": "Kein Oracle-Text."
+    },
+    "metadata": {
+        "heading": "Sammlung"
+    },
+    "errors": {
+        "missingId": "Es wurde keine oracle_id angegeben.",
+        "loadFailed": "Diese Karte konnte nicht geladen werden."
+    }
+}

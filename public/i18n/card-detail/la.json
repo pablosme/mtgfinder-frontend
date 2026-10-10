@@ -1,0 +1,49 @@
+{
+    "status": {
+        "loading": "Charta oneratur…"
+    },
+    "actions": {
+        "switchSide": "Muta faciem"
+    },
+    "printings": {
+        "heading": "Collectiones & linguae impressionum",
+        "empty": "Nullae impressiones praesto sunt."
+    },
+    "accessibility": {
+        "imageAndPrints": "Imago chartae et impressiones",
+        "mana": "Pretium et valor manae",
+        "information": "Informationes chartae",
+        "imageFromSet": "{{name}} ex {{set}}",
+        "missingImage": "Nulla imago praesto est pro {{name}}"
+    },
+    "fields": {
+        "printing": "Impressio",
+        "manaCost": "Pretium manae",
+        "colors": "Colores",
+        "keywords": "Verba clavis",
+        "powerToughness": "Potentia / Firmitas",
+        "loyalty": "Fides",
+        "defense": "Defensio",
+        "reserved": "Index reservatus",
+        "set": "Collectio",
+        "collectorNumber": "Numerus collectoris",
+        "artist": "Artifex",
+        "releaseDate": "Dies editionis",
+        "rarity": "Raritas",
+        "oracleId": "Oracle ID",
+        "manaValue": "Valor manae: {{value}}"
+    },
+    "oracle": {
+        "heading": "Textus",
+        "subtitle": "Textus regularum Oraculi",
+        "printed": "Textus impressus",
+        "empty": "Nullus textus Oraculi."
+    },
+    "metadata": {
+        "heading": "Syllabus"
+    },
+    "errors": {
+        "missingId": "Nullum oracle_id datum est.",
+        "loadFailed": "Hanc chartam onerare non potuit."
+    }
+}

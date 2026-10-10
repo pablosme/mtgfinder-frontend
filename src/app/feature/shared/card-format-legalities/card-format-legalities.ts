@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
+import { inject, ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 
 import type { CardFormatLegality } from '../interface/card-format-legality.interface';
 
@@ -11,12 +12,12 @@ const FORMAT_LABELS: Readonly<Record<string, string>> = {
     penny: 'Penny Dreadful',
 };
 
-const STATUS_LABELS: Readonly<Record<CardFormatLegality['status'], string>> = {
-    legal: 'Legal',
-    restricted: 'Restricted (1×)',
-    banned: 'Banned',
-    not_legal: 'Not legal',
-    unknown: 'Unknown',
+const STATUS_KEYS: Readonly<Record<CardFormatLegality['status'], string>> = {
+    legal: 'formatLegality.status.legal',
+    restricted: 'formatLegality.status.restricted',
+    banned: 'formatLegality.status.banned',
+    not_legal: 'formatLegality.status.not_legal',
+    unknown: 'formatLegality.status.unknown',
 };
 
 const STATUS_ORDER: Readonly<Record<CardFormatLegality['status'], number>> = {
@@ -27,7 +28,16 @@ const STATUS_ORDER: Readonly<Record<CardFormatLegality['status'], number>> = {
     unknown: 4,
 };
 
+export interface DisplayCardFormatLegality {
+    readonly key: string;
+    readonly format: string;
+    readonly status: CardFormatLegality['status'];
+    readonly statusKey: string;
+    readonly fallbackLabel: string;
+}
+
 @Component({
+    imports: [TranslocoDirective],
     selector: 'app-card-format-legalities',
     templateUrl: './card-format-legalities.html',
     styleUrl: './card-format-legalities.scss',
@@ -35,9 +45,9 @@ const STATUS_ORDER: Readonly<Record<CardFormatLegality['status'], number>> = {
 })
 export class CardFormatLegalities {
     readonly legalities = input.required<Readonly<Record<string, string>> | null>();
-    readonly formats = computed<CardFormatLegality[]>(() =>
+    readonly formats = computed<DisplayCardFormatLegality[]>(() =>
         Object.entries(this.legalities() ?? {})
-            .map(([key, value]): CardFormatLegality => {
+            .map(([key, value]): DisplayCardFormatLegality => {
                 const format = key.trim().toLowerCase();
                 const normalized = value.trim().toLowerCase();
                 let status: CardFormatLegality['status'] = 'unknown';
@@ -54,15 +64,10 @@ export class CardFormatLegalities {
                     key,
                     format:
                         FORMAT_LABELS[format] ??
-                        (format
-                            .replace(/[_-]+/g, ' ')
-                            .replace(/\b\w/g, (letter) => letter.toUpperCase()) ||
-                            'Unknown format'),
+                        format.replace(/[_-]+/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase()),
                     status,
-                    statusLabel:
-                        status === 'unknown'
-                            ? value.trim().replace(/[_-]+/g, ' ') || STATUS_LABELS.unknown
-                            : STATUS_LABELS[status],
+                    statusKey: STATUS_KEYS[status],
+                    fallbackLabel: value.trim().replace(/[_-]+/g, ' '),
                 };
             })
             .sort(

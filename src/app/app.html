@@ -1,6 +1,9 @@
-<a class="skip-link" href="#main-content">Skip to content</a>
+<ng-container *transloco="let t">
+<a class="skip-link" href="#main-content"> {{ t('accessibility.skipToContent') }} </a>
 <app-header />
 <main id="main-content" class="main-content" tabindex="-1">
     <router-outlet />
 </main>
 <app-footer />
+
+</ng-container>

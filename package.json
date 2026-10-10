@@ -8,6 +8,7 @@
         "build": "ng build --configuration production",
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
+        "i18n:check": "node scripts/check-translations.mjs",
         "serve:ssr:mtgfinder-frontend": "node dist/mtgfinder-frontend/server/server.mjs"
     },
     "private": true,
@@ -25,6 +26,7 @@
         "@angular/ssr": "^21.2.24",
         "@fontsource-variable/eb-garamond": "^5.3.0",
         "@fontsource-variable/inter": "^5.3.0",
+        "@jsverse/transloco": "8.4.0",
         "@techstark/opencv-js": "5.0.0-release.1",
         "@tesseract.js-data/ara": "1.0.0",
         "@tesseract.js-data/chi_sim": "1.0.0",

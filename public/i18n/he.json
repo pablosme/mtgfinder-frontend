@@ -1,0 +1,240 @@
+{
+    "header": {
+        "brand": "Sol Binder",
+        "homeLabel": "דף הבית של Sol Binder",
+        "caption": "ארכיון קלפי Magic: The Gathering",
+        "language": "שפת הממשק"
+    },
+    "accessibility": {
+        "skipToContent": "דלג לתוכן",
+        "breadcrumb": "נתיב ניווט"
+    },
+    "footer": {
+        "disclaimer": "© Sol Binder. Magic: The Gathering והנכסים הקשורים אליו הם סימנים מסחריים של Wizards of the Coast LLC, חברה בת של Hasbro, Inc. אתר זה אינו קשור ל-Wizards of the Coast, אינו מאושר על ידה ואינו מקודם על ידה. כל טקסט ה-Oracle והחוקים בפורטוגזית מסופק למטרות מידע והפניה קהילתית בלבד.",
+        "terms": "תנאי שימוש",
+        "privacy": "מדיניות פרטיות",
+        "about": "אודות הארכיון"
+    },
+    "navigation": {
+        "searchSyntax": "תחביר החיפוש",
+        "cardSearch": "חיפוש קלפים"
+    },
+    "common": {
+        "unavailable": "לא זמין",
+        "close": "סגירה",
+        "yes": "כן",
+        "no": "לא"
+    },
+    "search": {
+        "label": "חיפוש קלף",
+        "placeholder": "שם קלף או / להוספת מסנן",
+        "addFilter": "הוספת מסנן חיפוש",
+        "scan": "סריקת קלף",
+        "scanLabel": "סריקת קלף במצלמה",
+        "help": {
+            "beforeSlash": "חפשו לפי שם. הקלידו",
+            "beforeExample": "כדי להוסיף מסננים, לדוגמה"
+        },
+        "filters": {
+            "type": {
+                "label": "סוג",
+                "placeholder": "למשל Legendary Creature"
+            },
+            "keyword": {
+                "label": "מילת מפתח",
+                "placeholder": "למשל Flying"
+            },
+            "colors": {
+                "label": "צבעים",
+                "placeholder": "למשל W,U או C",
+                "hint": "W, U, B, R, G; C עבור חסר צבע. השתמשו ב-G,B לשני הצבעים יחד; חזרו על המסנן כדי לחפש אחד מהצבעים."
+            },
+            "colorIdentity": {
+                "label": "זהות צבע",
+                "placeholder": "למשל B,G או C",
+                "hint": "W, U, B, R, G; C עבור חסר צבע. השתמשו ב-G,B לשני הצבעים יחד; חזרו על המסנן כדי לחפש אחד מהצבעים."
+            },
+            "legality": {
+                "label": "חוקיות",
+                "placeholder": "למשל commander או modern:banned",
+                "hint": "פורמט בלבד משמעותו legal. סטטוס אופציונלי: legal, not_legal, restricted, banned."
+            },
+            "rarity": {
+                "label": "נדירות",
+                "placeholder": "common, uncommon, rare, mythic, special או bonus"
+            },
+            "set": {
+                "label": "סט",
+                "placeholder": "שם סט או קוד"
+            },
+            "collection": {
+                "label": "אוסף",
+                "placeholder": "שם סט, קוד או מספר אספנות",
+                "hint": "מתאים לשם סט/קוד או למספר אספנות מדויק."
+            },
+            "cmc": {
+                "label": "ערך מאנה (CMC)",
+                "placeholder": "למשל 0 או 2.5"
+            },
+            "layout": {
+                "label": "פריסה",
+                "placeholder": "למשל normal או transform"
+            },
+            "power": {
+                "label": "כוח",
+                "placeholder": "למשל 2 או *"
+            },
+            "toughness": {
+                "label": "עמידות",
+                "placeholder": "למשל 3 או *"
+            },
+            "loyalty": {
+                "label": "נאמנות",
+                "placeholder": "למשל 4 או X"
+            }
+        },
+        "status": {
+            "noFilters": "אין מסננים תואמים. נסו שם מסנן אחר.",
+            "nameRequired": "הזינו שם קלף לחיפוש.",
+            "loading": "מחפש קלפים…",
+            "empty": "לא נמצאו קלפים.",
+            "failed": "לא ניתן לחפש קלפים. נסו שוב.",
+            "filterCount": "{{count}} מסננים. המשיכו להקליד כדי לצמצם, או השתמשו במקשי החצים וב-Enter כדי לבחור.",
+            "resultCount": "{{count}} תוצאות. השתמשו במקשי החצים כדי לבחור קלף."
+        },
+        "filtersLabel": "מסנני חיפוש",
+        "resultsLabel": "תוצאות חיפוש קלפים"
+    },
+    "scanner": {
+        "title": "סריקת קלף",
+        "device": {
+            "label": "מצלמה",
+            "number": "מצלמה {{number}}"
+        },
+        "previewLabel": "תצוגה מקדימה חיה של המצלמה",
+        "waitingAccess": "ממתין לגישה למצלמה…",
+        "captureAlt": "הקלף שצולם, לאחר יישור וחיתוך",
+        "messages": {
+            "borderLocked": "מסגרת הקלף ננעלה…",
+            "detected": "הקלף זוהה. החזיקו אותו יציב…",
+            "confirming": "הקלף נמצא. מאשר את המסגרת…",
+            "retryScanner": "ממתין לסורק. מנסה שוב אוטומטית…",
+            "corners": "השאירו את כל ארבע הפינות גלויות על רקע מנוגד.",
+            "tilt": "הטו מעט את הקלף לכיוון המצלמה.",
+            "steady": "החזיקו את הקלף יציב…",
+            "captureFailed": "לא ניתן לצלם פריים מהמצלמה בדפדפן זה.",
+            "stopped": "המצלמה הפסיקה להגיב. סגרו את החלון ופתחו את הסורק מחדש.",
+            "waitingCamera": "ממתין למצלמה… הסריקה תימשך אוטומטית.",
+            "retryVisible": "השאירו את הקלף כולו גלוי. סורק שוב אוטומטית…",
+            "borderMoved": "מסגרת הקלף זזה או שהייתה חלקית. החזיקו אותו יציב והשאירו את כל ארבע הפינות גלויות…",
+            "languageUnavailable": "זיהוי טקסט אינו זמין לשפה זו.",
+            "readingText": "קורא את טקסט הקלף…",
+            "unclear": "הטקסט לא היה ברור. החזיקו את הקלף יציב והפחיתו סנוור; סורק שוב אוטומטית…",
+            "searching": "מחפש את הקלף…",
+            "searchUnavailable": "החיפוש אינו זמין זמנית. מנסה שוב אוטומטית…",
+            "unidentified": "הקלף עדיין לא זוהה. קורא תמונה נוספת אוטומטית…",
+            "noMatch": "עדיין אין התאמה שמישה. קורא תמונה נוספת אוטומטית…",
+            "interrupted": "הקריאה הופסקה. סורק שוב אוטומטית…",
+            "switching": "מחליף מצלמה…",
+            "noTrack": "המצלמה שנבחרה לא סיפקה ערוץ וידאו.",
+            "position": "מקמו את הקלף כולו בתוך תצוגת המצלמה.",
+            "switchFailed": "לא ניתן לעבור למצלמה שנבחרה.",
+            "unavailable": "הגישה למצלמה אינה זמינה. השתמשו בדפדפן נתמך ב-HTTPS או ב-localhost.",
+            "starting": "מפעיל את המצלמה…",
+            "selecting": "בוחר את המצלמה הטובה ביותר…",
+            "accessDenied": "הגישה למצלמה נדחתה. אפשרו גישה למצלמה בהגדרות הדפדפן ופתחו חלון זה מחדש.",
+            "notFound": "לא נמצאה מצלמה. חברו מצלמה ופתחו חלון זה מחדש.",
+            "busy": "לא ניתן היה להפעיל את המצלמה. סגרו יישומים אחרים המשתמשים בה ופתחו חלון זה מחדש.",
+            "incompatible": "המצלמה לא סיפקה מצב וידאו תואם. סגרו חלון זה ונסו שוב.",
+            "showFailed": "לא ניתן להציג את המצלמה. סגרו חלון זה ונסו שוב.",
+            "lowSimilarity": "עדיין אין התאמה שמישה. קורא תמונה נוספת אוטומטית…"
+        },
+        "guidance": "השאירו את כל ארבע הפינות גלויות. הסריקה אוטומטית.",
+        "ocr": {
+            "manual": "הזינו את השם ידנית עבור שפה זו.",
+            "cancelled": "הסריקה בוטלה.",
+            "loadFailed": "לא ניתן לטעון או להפעיל זיהוי טקסט. נסו שוב.",
+            "unavailable": "זיהוי תווים אופטי (OCR) אינו זמין לשפה זו.",
+            "initializeFailed": "לא ניתן לאתחל זיהוי טקסט.",
+            "detailed": "מנסה זיהוי מפורט…",
+            "reading": "קורא את הקלף…",
+            "timeout": "זיהוי הטקסט ארך זמן רב מדי. נסו שוב.",
+            "loading": "טוען זיהוי טקסט ב{{language}}…",
+            "modelFailed": "לא ניתן לטעון זיהוי טקסט ב{{language}}. בדקו את החיבור ונסו שוב.",
+            "readingName": "קורא את שם הקלף ({{pass}}/{{total}})… {{percent}}%",
+            "passComplete": "קורא את הקלף… {{count}} מעבר הושלם",
+            "passesComplete": "קורא את הקלף… {{count}} מעברים הושלמו"
+        }
+    },
+    "formatLegality": {
+        "heading": "חוקיות לפי פורמט",
+        "subtitle": "פורמטים רשמיים",
+        "empty": "אין מידע זמין על חוקיות.",
+        "status": {
+            "legal": "חוקי",
+            "restricted": "מוגבל (1×)",
+            "banned": "אסור",
+            "not_legal": "לא חוקי",
+            "unknown": "לא ידוע",
+            "unknownFormat": "פורמט לא ידוע"
+        }
+    },
+    "metadata": {
+        "title": "Sol Binder — חיפוש קלפי Magic"
+    },
+    "cardLanguages": {
+        "en": "אנגלית",
+        "es": "ספרדית",
+        "fr": "צרפתית",
+        "de": "גרמנית",
+        "it": "איטלקית",
+        "pt": "פורטוגזית",
+        "ja": "יפנית",
+        "ko": "קוריאנית",
+        "ru": "רוסית",
+        "zhs": "סינית מפושטת",
+        "zht": "סינית מסורתית",
+        "ar": "ערבית",
+        "he": "עברית",
+        "la": "לטינית",
+        "grc": "יוונית עתיקה",
+        "sa": "סנסקריט",
+        "phyrexianManual": "פיירקסית (שם ידני)",
+        "ph": "פיירקסית",
+        "und": "שפה לא ידועה",
+        "other": "שפה: {{code}}",
+        "selector": "שפת ההדפסה",
+        "singular": "שפה:",
+        "plural": "שפות:"
+    },
+    "validation": {
+        "search": {
+            "syntax": "בחרו מסנן והזינו אותו בצורה /filter=value.",
+            "unknown": "מסנן לא מוכר /{{command}}. השתמשו ב-/ כדי לבחור מסנן.",
+            "unfinishedQuote": "השלימו את הערך המצוטט עבור /{{command}}.",
+            "quoteWholeValue": "הקיפו את כל הערך של /{{command}} במירכאות כפולות.",
+            "missingValue": "הזינו ערך עבור /{{command}}: {{example}}.",
+            "colors": "השתמשו ב-W, U, B, R, G לצבעים, או ב-C לבדו עבור חסר צבע.",
+            "manaValue": "ערך המאנה (CMC) חייב להיות מספר אי-שלילי, כגון 0 או 2.5.",
+            "legality": "הזינו פורמט, ואופציונלית אחריו :legal, :not_legal, :restricted או :banned.",
+            "options": "{{label}}: השתמשו ב-{{options}}."
+        }
+    },
+    "mana": {
+        "white": "לבן",
+        "blue": "כחול",
+        "black": "שחור",
+        "red": "אדום",
+        "green": "ירוק",
+        "colorless": "חסר צבע",
+        "snow": "שלג",
+        "life": "2 חיים",
+        "tap": "סיבוב",
+        "untap": "ביטול סיבוב",
+        "energy": "אנרגיה",
+        "chaos": "כאוס",
+        "infinite": "מאנה אינסופית",
+        "phyrexian": "מאנה פיירקסית",
+        "generic": "{{value}} מאנה כללית"
+    }
+}

@@ -1,10 +1,10 @@
-<header class="site-header" [class.site-header--home]="isHome()">
+<header *transloco="let t" class="site-header" [class.site-header--home]="isHome()">
     <div class="header-container">
-        <a class="brand" routerLink="/" aria-label="Sol Binder home">
+        <a class="brand" routerLink="/" [attr.aria-label]="t('header.homeLabel')">
             <span class="brand-mark" aria-hidden="true">
                 <img src="icon2.png" alt="" />
             </span>
-            <span class="brand-name">Sol Binder</span>
+            <span class="brand-name">{{ t('header.brand') }}</span>
         </a>
 
         @if (!isHome()) {
@@ -14,7 +14,9 @@
                 (cardSelected)="selectCard($event)"
             />
         } @else {
-            <span class="header-caption">A Magic: The Gathering card archive</span>
+            <span class="header-caption">{{ t('header.caption') }}</span>
         }
+
+        <app-language-selector />
     </div>
 </header>

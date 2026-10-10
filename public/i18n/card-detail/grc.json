@@ -1,0 +1,49 @@
+{
+    "status": {
+        "loading": "Ἡ κάρτα φορτοῦται…"
+    },
+    "actions": {
+        "switchSide": "Μετάβαλε τὴν ὄψιν"
+    },
+    "printings": {
+        "heading": "Συλλογαὶ & γλῶσσαι ἐκτυπώσεων",
+        "empty": "Οὐδεμία ἐκτύπωσις διαθέσιμος."
+    },
+    "accessibility": {
+        "imageAndPrints": "Εἰκὼν κάρτας καὶ ἐκτυπώσεις",
+        "mana": "Τίμημα καὶ ἀξία μάνας",
+        "information": "Πληροφορίαι κάρτας",
+        "imageFromSet": "{{name}} ἐκ τῆς συλλογῆς {{set}}",
+        "missingImage": "Οὐδεμία εἰκὼν διαθέσιμος διὰ τὴν κάρταν {{name}}"
+    },
+    "fields": {
+        "printing": "Ἐκτύπωσις",
+        "manaCost": "Τίμημα μάνας",
+        "colors": "Χρώματα",
+        "keywords": "Λέξεις-κλεῖδες",
+        "powerToughness": "Δύναμις / Καρτερία",
+        "loyalty": "Πίστις",
+        "defense": "Ἄμυνα",
+        "reserved": "Κατάλογος ἐπιφυλαγμένων",
+        "set": "Συλλογή",
+        "collectorNumber": "Ἀριθμὸς συλλέκτου",
+        "artist": "Καλλιτέχνης",
+        "releaseDate": "Ἡμερομηνία ἐκδόσεως",
+        "rarity": "Σπανιότης",
+        "oracleId": "Oracle ID",
+        "manaValue": "Ἀξία μάνας: {{value}}"
+    },
+    "oracle": {
+        "heading": "Κείμενον",
+        "subtitle": "Κείμενον κανόνων τοῦ Χρηστηρίου",
+        "printed": "Ἐντετυπωμένον κείμενον",
+        "empty": "Οὐδὲν κείμενον Χρηστηρίου."
+    },
+    "metadata": {
+        "heading": "Κατάλογος"
+    },
+    "errors": {
+        "missingId": "Οὐδὲν oracle_id παρεσχέθη.",
+        "loadFailed": "Ἀδύνατον φορτῶσαι τὴν κάρταν ταύτην."
+    }
+}

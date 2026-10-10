@@ -1,0 +1,240 @@
+{
+    "header": {
+        "brand": "Sol Binder",
+        "homeLabel": "Domus Sol Binder",
+        "caption": "Tabularium chartarum Magic: The Gathering",
+        "language": "Lingua interfaciei"
+    },
+    "accessibility": {
+        "skipToContent": "Transili ad contentum",
+        "breadcrumb": "Semita navigationis"
+    },
+    "footer": {
+        "disclaimer": "© Sol Binder. Magic: The Gathering et res ei coniunctae sunt notae mercatoriae Wizards of the Coast LLC, filiae Hasbro, Inc. Hoc situs cum Wizards of the Coast non coniungitur, ab ea non probatur neque promovetur. Omnes textus Oraculi et regularum Lusitanice scripti ad informandum tantum et ad usum communitatis praebentur.",
+        "terms": "Condiciones usus",
+        "privacy": "Consilium secreti",
+        "about": "De tabulario"
+    },
+    "navigation": {
+        "searchSyntax": "Syntaxis quaestionis",
+        "cardSearch": "Quaestio chartarum"
+    },
+    "common": {
+        "unavailable": "Non praesto",
+        "close": "Claude",
+        "yes": "Ita",
+        "no": "Non"
+    },
+    "search": {
+        "label": "Quaere chartam",
+        "placeholder": "Nomen chartae vel / ad filtrum addendum",
+        "addFilter": "Adde filtrum quaestionis",
+        "scan": "Perscrutare chartam",
+        "scanLabel": "Perscrutare chartam camera",
+        "help": {
+            "beforeSlash": "Quaere nomine. Scribe",
+            "beforeExample": "ad filtra addenda, verbi gratia"
+        },
+        "filters": {
+            "type": {
+                "label": "Genus",
+                "placeholder": "v. g. Legendary Creature"
+            },
+            "keyword": {
+                "label": "Verbum clavis",
+                "placeholder": "v. g. Flying"
+            },
+            "colors": {
+                "label": "Colores",
+                "placeholder": "v. g. W,U or C",
+                "hint": "W, U, B, R, G; C pro carente coloris. Utere G,B pro ambobus coloribus; filtrum itera pro altero colore."
+            },
+            "colorIdentity": {
+                "label": "Identitas coloris",
+                "placeholder": "v. g. B,G or C",
+                "hint": "W, U, B, R, G; C pro carente coloris. Utere G,B pro ambobus coloribus; filtrum itera pro altero colore."
+            },
+            "legality": {
+                "label": "Legalitas",
+                "placeholder": "v. g. commander or modern:banned",
+                "hint": "Forma sola significat legalem. Condicio facultativa: legal, not_legal, restricted, banned."
+            },
+            "rarity": {
+                "label": "Raritas",
+                "placeholder": "common, uncommon, rare, mythic, special or bonus"
+            },
+            "set": {
+                "label": "Collectio",
+                "placeholder": "Nomen vel codex collectionis"
+            },
+            "collection": {
+                "label": "Syllabus",
+                "placeholder": "Nomen collectionis, codex vel numerus collectoris",
+                "hint": "Congruit cum nomine vel codice collectionis aut cum numero collectoris exacto."
+            },
+            "cmc": {
+                "label": "Valor manae (CMC)",
+                "placeholder": "v. g. 0 or 2.5"
+            },
+            "layout": {
+                "label": "Dispositio",
+                "placeholder": "v. g. normal or transform"
+            },
+            "power": {
+                "label": "Potentia",
+                "placeholder": "v. g. 2 or *"
+            },
+            "toughness": {
+                "label": "Firmitas",
+                "placeholder": "v. g. 3 or *"
+            },
+            "loyalty": {
+                "label": "Fides",
+                "placeholder": "v. g. 4 or X"
+            }
+        },
+        "status": {
+            "noFilters": "Nulla filtra congruunt. Aliud nomen filtri tempta.",
+            "nameRequired": "Scribe nomen chartae ad quaerendum.",
+            "loading": "Chartae quaeruntur…",
+            "empty": "Nullae chartae inventae sunt.",
+            "failed": "Chartas quaerere non potuit. Iterum tempta.",
+            "filterCount": "{{count}} filtra. Perge scribere ad ea angustanda, vel utere sagittis et Enter ad eligendum.",
+            "resultCount": "{{count}} eventa. Utere sagittis ad chartam eligendam."
+        },
+        "filtersLabel": "Filtra quaestionis",
+        "resultsLabel": "Eventa quaestionis chartarum"
+    },
+    "scanner": {
+        "title": "Perscrutare chartam",
+        "device": {
+            "label": "Camera",
+            "number": "Camera {{number}}"
+        },
+        "previewLabel": "Visio cameræ viva",
+        "waitingAccess": "Aditus cameræ exspectatur…",
+        "captureAlt": "Charta tua capta, directa et circumcisa",
+        "messages": {
+            "borderLocked": "Margo chartae firmatus…",
+            "detected": "Charta deprehensa. Immotam tene…",
+            "confirming": "Charta inventa. Margo confirmatur…",
+            "retryScanner": "Perscrutator exspectatur. Sponte iterabitur…",
+            "corners": "Omnes quattuor angulos in fundo discolore visibiles tene.",
+            "tilt": "Chartam leviter ad cameram inclina.",
+            "steady": "Chartam firmam tene…",
+            "captureFailed": "Imaginem cameræ in hoc navigatro capere non potuit.",
+            "stopped": "Camera respondere desiit. Claude hanc fenestram et perscrutatorem iterum aperi.",
+            "waitingCamera": "Camera exspectatur… Perscrutatio sponte continuabitur.",
+            "retryVisible": "Totam chartam visibilem tene. Sponte iterum perscrutatur…",
+            "borderMoved": "Margo chartae motus est vel incompletus erat. Immotam tene et omnes quattuor angulos visibiles serva…",
+            "languageUnavailable": "Recognitio textus pro hac lingua non praesto est.",
+            "readingText": "Textus chartae legitur…",
+            "unclear": "Textus obscurus erat. Chartam firmam tene et fulgorem minue; sponte iterum perscrutatur…",
+            "searching": "Charta quaeritur…",
+            "searchUnavailable": "Quaestio ad tempus non praesto est. Sponte iterabitur…",
+            "unidentified": "Charta nondum cognita est. Alia imago sponte legitur…",
+            "noMatch": "Nondum congruentia utilis. Alia imago sponte legitur…",
+            "interrupted": "Lectio interrupta est. Sponte iterum perscrutatur…",
+            "switching": "Camera mutatur…",
+            "noTrack": "Camera electa nullam semitam videoris praebuit.",
+            "position": "Totam chartam intra cameram colloca.",
+            "switchFailed": "Ad cameram electam mutare non potuit.",
+            "unavailable": "Aditus cameræ non praesto est. Utere navigatro adiuvato per HTTPS vel localhost.",
+            "starting": "Camera incipitur…",
+            "selecting": "Optima camera eligitur…",
+            "accessDenied": "Aditus cameræ negatus est. Aditum cameræ in optionibus navigatri permitte, deinde hanc fenestram iterum aperi.",
+            "notFound": "Nulla camera inventa est. Cameram coniunge et hanc fenestram iterum aperi.",
+            "busy": "Camera incipi non potuit. Alias applicationes ea utentes claude et hanc fenestram iterum aperi.",
+            "incompatible": "Camera modum videoris congruentem praebere non potuit. Claude hanc fenestram et iterum tempta.",
+            "showFailed": "Cameram ostendere non potuit. Claude hanc fenestram et iterum tempta.",
+            "lowSimilarity": "Nondum congruentia utilis. Alia imago sponte legitur…"
+        },
+        "guidance": "Omnes quattuor angulos visibiles tene. Perscrutatio sponte fit.",
+        "ocr": {
+            "manual": "Scribe nomen manu pro hac lingua.",
+            "cancelled": "Perscrutatio revocata est.",
+            "loadFailed": "Recognitionem textus onerare vel agere non potuit. Iterum tempta.",
+            "unavailable": "OCR pro hac lingua non praesto est.",
+            "initializeFailed": "Recognitionem textus initiare non potuit.",
+            "detailed": "Recognitio accurata temptatur…",
+            "reading": "Charta legitur…",
+            "timeout": "Recognitio textus nimis diu duravit. Iterum tempta.",
+            "loading": "Recognitio textus linguae {{language}} oneratur…",
+            "modelFailed": "Recognitionem textus linguae {{language}} onerare non potuit. Nexum tuum inspice et iterum tempta.",
+            "readingName": "Nomen chartae legitur ({{pass}}/{{total}})… {{percent}}%",
+            "passComplete": "Charta legitur… {{count}} transitus perfectus",
+            "passesComplete": "Charta legitur… {{count}} transitus perfecti"
+        }
+    },
+    "formatLegality": {
+        "heading": "Legalitas formarum",
+        "subtitle": "Formae officiales",
+        "empty": "Nullae informationes de legalitate praesto sunt.",
+        "status": {
+            "legal": "Legalis",
+            "restricted": "Restricta (1×)",
+            "banned": "Interdicta",
+            "not_legal": "Non legalis",
+            "unknown": "Ignota",
+            "unknownFormat": "Forma ignota"
+        }
+    },
+    "metadata": {
+        "title": "Sol Binder — Quaestio chartarum Magic"
+    },
+    "cardLanguages": {
+        "en": "Anglica",
+        "es": "Hispanica",
+        "fr": "Gallica",
+        "de": "Germanica",
+        "it": "Italica",
+        "pt": "Lusitana",
+        "ja": "Iaponica",
+        "ko": "Coreana",
+        "ru": "Russica",
+        "zhs": "Sinica, simplificata",
+        "zht": "Sinica, traditicia",
+        "ar": "Arabica",
+        "he": "Hebraica",
+        "la": "Latina",
+        "grc": "Graeca antiqua",
+        "sa": "Sanscritica",
+        "phyrexianManual": "Phyrexiana (nomen manuale)",
+        "ph": "Phyrexiana",
+        "und": "Lingua ignota",
+        "other": "Lingua: {{code}}",
+        "selector": "Lingua impressionis",
+        "singular": "Lingua:",
+        "plural": "Linguae:"
+    },
+    "validation": {
+        "search": {
+            "syntax": "Elige filtrum et scribe illud ut /filter=value.",
+            "unknown": "Filtrum ignotum /{{command}}. Utere / ad filtrum eligendum.",
+            "unfinishedQuote": "Valorem citatum pro /{{command}} perfice.",
+            "quoteWholeValue": "Totum valorem /{{command}} in duplicibus citationibus include.",
+            "missingValue": "Scribe valorem pro /{{command}}: {{example}}.",
+            "colors": "Utere W, U, B, R, G pro coloribus, vel C solum pro carente coloris.",
+            "manaValue": "Valor manae (CMC) numerus non negativus esse debet, ut 0 vel 2.5.",
+            "legality": "Scribe formam, facultative sequente :legal, :not_legal, :restricted vel :banned.",
+            "options": "{{label}}: utere {{options}}."
+        }
+    },
+    "mana": {
+        "white": "alba",
+        "blue": "caerulea",
+        "black": "nigra",
+        "red": "rubra",
+        "green": "viridis",
+        "colorless": "carens coloris",
+        "snow": "nivalis",
+        "life": "2 vitae",
+        "tap": "Inclina",
+        "untap": "Erige",
+        "energy": "Energia",
+        "chaos": "Chaos",
+        "infinite": "Mana infinita",
+        "phyrexian": "Mana Phyrexiana",
+        "generic": "{{value}} manae generalis"
+    }
+}

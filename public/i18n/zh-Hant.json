@@ -1,0 +1,240 @@
+{
+    "header": {
+        "brand": "Sol Binder",
+        "homeLabel": "Sol Binder 首頁",
+        "caption": "魔法風雲會卡牌檔案庫",
+        "language": "介面語言"
+    },
+    "accessibility": {
+        "skipToContent": "跳至主要內容",
+        "breadcrumb": "導覽路徑"
+    },
+    "footer": {
+        "disclaimer": "© Sol Binder。Magic: The Gathering 及其相關資產均為 Hasbro, Inc. 旗下子公司 Wizards of the Coast LLC 的商標。本網站與 Wizards of the Coast 無關聯，亦未獲得其認可或推廣。所有葡萄牙語 Oracle 與規則文字僅供資訊參考及社群查閱之用。",
+        "terms": "使用條款",
+        "privacy": "隱私權政策",
+        "about": "關於檔案庫"
+    },
+    "navigation": {
+        "searchSyntax": "搜尋語法",
+        "cardSearch": "卡牌搜尋"
+    },
+    "common": {
+        "unavailable": "不可用",
+        "close": "關閉",
+        "yes": "是",
+        "no": "否"
+    },
+    "search": {
+        "label": "搜尋卡牌",
+        "placeholder": "卡牌名稱，或輸入 / 加入篩選條件",
+        "addFilter": "加入搜尋篩選條件",
+        "scan": "掃描卡牌",
+        "scanLabel": "使用相機掃描卡牌",
+        "help": {
+            "beforeSlash": "依牌名搜尋。輸入",
+            "beforeExample": "以加入篩選條件，例如"
+        },
+        "filters": {
+            "type": {
+                "label": "類別",
+                "placeholder": "例如 Legendary Creature"
+            },
+            "keyword": {
+                "label": "關鍵字",
+                "placeholder": "例如 Flying"
+            },
+            "colors": {
+                "label": "顏色",
+                "placeholder": "例如 W,U 或 C",
+                "hint": "W、U、B、R、G；C 代表無色。兩種顏色均要用 G,B；任一顏色則重複輸入該篩選條件。"
+            },
+            "colorIdentity": {
+                "label": "身分色",
+                "placeholder": "例如 B,G 或 C",
+                "hint": "W、U、B、R、G；C 代表無色。兩種顏色均要用 G,B；任一顏色則重複輸入該篩選條件。"
+            },
+            "legality": {
+                "label": "賽制合法性",
+                "placeholder": "例如 commander 或 modern:banned",
+                "hint": "單獨填寫賽制即表示合法。可選狀態：legal、not_legal、restricted、banned。"
+            },
+            "rarity": {
+                "label": "稀有度",
+                "placeholder": "common, uncommon, rare, mythic, special 或 bonus"
+            },
+            "set": {
+                "label": "系列",
+                "placeholder": "系列名稱或代碼"
+            },
+            "collection": {
+                "label": "收藏資訊",
+                "placeholder": "系列名稱、代碼或收集編號",
+                "hint": "比對系列名稱/代碼或精確的收集編號。"
+            },
+            "cmc": {
+                "label": "魔法力值 (CMC)",
+                "placeholder": "例如 0 或 2.5"
+            },
+            "layout": {
+                "label": "版面配置",
+                "placeholder": "例如 normal 或 transform"
+            },
+            "power": {
+                "label": "力量",
+                "placeholder": "例如 2 或 *"
+            },
+            "toughness": {
+                "label": "防禦力",
+                "placeholder": "例如 3 或 *"
+            },
+            "loyalty": {
+                "label": "忠誠度",
+                "placeholder": "例如 4 或 X"
+            }
+        },
+        "status": {
+            "noFilters": "沒有相符的篩選條件。請嘗試其他篩選條件名稱。",
+            "nameRequired": "請輸入卡牌名稱以進行搜尋。",
+            "loading": "正在搜尋卡牌…",
+            "empty": "未找到相符卡牌。",
+            "failed": "無法搜尋卡牌，請重試。",
+            "filterCount": "共 {{count}} 個篩選條件。繼續輸入以縮小範圍，或使用方向鍵與 Enter 進行選取。",
+            "resultCount": "找到 {{count}} 個結果。使用方向鍵選取卡牌。"
+        },
+        "filtersLabel": "搜尋篩選條件",
+        "resultsLabel": "卡牌搜尋結果"
+    },
+    "scanner": {
+        "title": "掃描卡牌",
+        "device": {
+            "label": "相機",
+            "number": "相機 {{number}}"
+        },
+        "previewLabel": "即時相機預覽",
+        "waitingAccess": "正在等待相機權限…",
+        "captureAlt": "已擷取、校正並裁剪的卡牌圖像",
+        "messages": {
+            "borderLocked": "已鎖定卡牌邊框…",
+            "detected": "偵測到卡牌，請保持靜止…",
+            "confirming": "發現卡牌，正在確認邊框…",
+            "retryScanner": "等待掃描器就緒，正在自動重試…",
+            "corners": "請在反差背景下使卡牌的四個角全部可見。",
+            "tilt": "將卡牌朝相機方向略微傾斜。",
+            "steady": "請平穩拿持卡牌…",
+            "captureFailed": "此瀏覽器無法擷取相機畫面幀。",
+            "stopped": "相機停止回應。請關閉此視窗並重新開啟掃描器。",
+            "waitingCamera": "等待相機就緒… 掃描將自動繼續。",
+            "retryVisible": "請確保整張卡牌完全可見。正在自動重新掃描…",
+            "borderMoved": "卡牌邊框發生晃動或不完整。請拿穩並確保四個角均可見…",
+            "languageUnavailable": "該語言暫不支援文字辨識。",
+            "readingText": "正在讀取卡牌文字…",
+            "unclear": "文字模糊不清。請拿穩卡牌並減少反光；正在自動重新掃描…",
+            "searching": "正在搜尋卡牌…",
+            "searchUnavailable": "搜尋服務暫時不可用，正在自動重試…",
+            "unidentified": "尚未識別出卡牌，正在自動讀取另一幀…",
+            "noMatch": "暫無可用比對結果，正在自動讀取另一幀…",
+            "interrupted": "讀取被中斷，正在自動重新掃描…",
+            "switching": "正在切換相機…",
+            "noTrack": "所選相機未提供視訊軌道。",
+            "position": "請將整張卡牌置於鏡頭視野內。",
+            "switchFailed": "無法切換至所選相機。",
+            "unavailable": "相機存取不可用。請在 HTTPS 或 localhost 下使用受支援的瀏覽器。",
+            "starting": "正在啟動相機…",
+            "selecting": "正在選擇最佳相機…",
+            "accessDenied": "相機權限被拒絕。請在瀏覽器設定中允許相機存取後重新開啟。",
+            "notFound": "未找到相機。請連接相機後重新開啟。",
+            "busy": "無法啟動相機。請關閉占用相機的其他應用程式後重新開啟。",
+            "incompatible": "相機無法提供相容的視訊模式。請關閉此視窗後重試。",
+            "showFailed": "無法顯示相機畫面。請關閉此視窗後重試。",
+            "lowSimilarity": "暫無可用比對結果，正在自動讀取另一幀…"
+        },
+        "guidance": "請使卡牌四個角保持可見，掃描將自動進行。",
+        "ocr": {
+            "manual": "此語言請手動輸入牌名。",
+            "cancelled": "掃描已取消。",
+            "loadFailed": "無法載入或執行文字辨識，請重試。",
+            "unavailable": "此語言不可用 OCR 辨識。",
+            "initializeFailed": "無法初始化文字辨識引擎。",
+            "detailed": "正在嘗試深度辨識…",
+            "reading": "正在讀取卡牌…",
+            "timeout": "文字辨識超時，請重試。",
+            "loading": "正在載入 {{language}} 文字辨識…",
+            "modelFailed": "無法載入 {{language}} 文字辨識模型。請檢查網路連線後重試。",
+            "readingName": "正在讀取卡牌名稱（{{pass}}/{{total}}）… {{percent}}%",
+            "passComplete": "正在讀取卡牌… 已完成 {{count}} 輪",
+            "passesComplete": "正在讀取卡牌… 已完成 {{count}} 輪"
+        }
+    },
+    "formatLegality": {
+        "heading": "賽制合法性",
+        "subtitle": "官方賽制",
+        "empty": "暫無合法性資訊。",
+        "status": {
+            "legal": "合法",
+            "restricted": "限用 (1×)",
+            "banned": "禁滿",
+            "not_legal": "不合法",
+            "unknown": "未知",
+            "unknownFormat": "未知賽制"
+        }
+    },
+    "metadata": {
+        "title": "Sol Binder — 魔法風雲會卡牌搜尋"
+    },
+    "cardLanguages": {
+        "en": "英語",
+        "es": "西班牙語",
+        "fr": "法語",
+        "de": "德語",
+        "it": "義大利語",
+        "pt": "葡萄牙語",
+        "ja": "日語",
+        "ko": "韓語",
+        "ru": "俄語",
+        "zhs": "簡體中文",
+        "zht": "繁體中文",
+        "ar": "阿拉伯語",
+        "he": "希伯來語",
+        "la": "拉丁語",
+        "grc": "古希臘語",
+        "sa": "梵語",
+        "phyrexianManual": "非瑞克西亞語（手動輸入）",
+        "ph": "非瑞克西亞語",
+        "und": "未知語言",
+        "other": "語言：{{code}}",
+        "selector": "印刷語言",
+        "singular": "語言：",
+        "plural": "語言："
+    },
+    "validation": {
+        "search": {
+            "syntax": "請選擇篩選條件並以 /filter=value 形式輸入。",
+            "unknown": "未知篩選條件 /{{command}}。輸入 / 可選擇篩選條件。",
+            "unfinishedQuote": "請閉合 /{{command}} 的引號取值。",
+            "quoteWholeValue": "請以雙引號包覆 /{{command}} 的整個取值。",
+            "missingValue": "請輸入 /{{command}} 的取值：{{example}}。",
+            "colors": "顏色請使用 W、U、B、R、G，無色單獨使用 C。",
+            "manaValue": "魔法力值 (CMC) 必須為非負數，如 0 或 2.5。",
+            "legality": "請輸入賽制，可附加 :legal、:not_legal、:restricted 或 :banned。",
+            "options": "{{label}}：請使用 {{options}}。"
+        }
+    },
+    "mana": {
+        "white": "白",
+        "blue": "藍",
+        "black": "黑",
+        "red": "紅",
+        "green": "綠",
+        "colorless": "無色",
+        "snow": "雪境",
+        "life": "2 點生命",
+        "tap": "橫置",
+        "untap": "重置",
+        "energy": "能量",
+        "chaos": "混沌",
+        "infinite": "無限魔法力",
+        "phyrexian": "非瑞克西亞魔法力",
+        "generic": "{{value}} 點無色魔法力"
+    }
+}

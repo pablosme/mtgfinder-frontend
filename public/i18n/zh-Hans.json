@@ -1,0 +1,240 @@
+{
+    "header": {
+        "brand": "Sol Binder",
+        "homeLabel": "Sol Binder 首页",
+        "caption": "万智牌卡牌档案库",
+        "language": "界面语言"
+    },
+    "accessibility": {
+        "skipToContent": "跳至主要内容",
+        "breadcrumb": "面包屑导航"
+    },
+    "footer": {
+        "disclaimer": "© Sol Binder。Magic: The Gathering 及其相关资产均为 Hasbro, Inc. 旗下子公司 Wizards of the Coast LLC 的商标。本网站与 Wizards of the Coast 无关联，亦未获得其认可或推广。所有葡萄牙语 Oracle 与规则文本仅供信息参考及社区查阅之用。",
+        "terms": "使用条款",
+        "privacy": "隐私政策",
+        "about": "关于档案库"
+    },
+    "navigation": {
+        "searchSyntax": "搜索语法",
+        "cardSearch": "卡牌搜索"
+    },
+    "common": {
+        "unavailable": "不可用",
+        "close": "关闭",
+        "yes": "是",
+        "no": "否"
+    },
+    "search": {
+        "label": "搜索卡牌",
+        "placeholder": "卡牌名称，或输入 / 添加过滤器",
+        "addFilter": "添加搜索过滤器",
+        "scan": "扫描卡牌",
+        "scanLabel": "使用摄像头扫描卡牌",
+        "help": {
+            "beforeSlash": "按牌名搜索。输入",
+            "beforeExample": "以添加过滤器，例如"
+        },
+        "filters": {
+            "type": {
+                "label": "类别",
+                "placeholder": "例如 Legendary Creature"
+            },
+            "keyword": {
+                "label": "关键词",
+                "placeholder": "例如 Flying"
+            },
+            "colors": {
+                "label": "颜色",
+                "placeholder": "例如 W,U 或 C",
+                "hint": "W、U、B、R、G；C 代表无色。两种颜色均要用 G,B；任一颜色则重复输入该过滤器。"
+            },
+            "colorIdentity": {
+                "label": "标识色",
+                "placeholder": "例如 B,G 或 C",
+                "hint": "W、U、B、R、G；C 代表无色。两种颜色均要用 G,B；任一颜色则重复输入该过滤器。"
+            },
+            "legality": {
+                "label": "赛制合法性",
+                "placeholder": "例如 commander 或 modern:banned",
+                "hint": "单独填写赛制即表示合法。可选状态：legal、not_legal、restricted、banned。"
+            },
+            "rarity": {
+                "label": "稀有度",
+                "placeholder": "common, uncommon, rare, mythic, special 或 bonus"
+            },
+            "set": {
+                "label": "系列",
+                "placeholder": "系列名称或代码"
+            },
+            "collection": {
+                "label": "收集信息",
+                "placeholder": "系列名称、代码或收集编号",
+                "hint": "匹配系列名称/代码或精确的收集编号。"
+            },
+            "cmc": {
+                "label": "法术力值 (CMC)",
+                "placeholder": "例如 0 或 2.5"
+            },
+            "layout": {
+                "label": "版面布局",
+                "placeholder": "例如 normal 或 transform"
+            },
+            "power": {
+                "label": "力量",
+                "placeholder": "例如 2 或 *"
+            },
+            "toughness": {
+                "label": "防御力",
+                "placeholder": "例如 3 或 *"
+            },
+            "loyalty": {
+                "label": "忠诚度",
+                "placeholder": "例如 4 或 X"
+            }
+        },
+        "status": {
+            "noFilters": "没有匹配的过滤器。请尝试其他过滤器名称。",
+            "nameRequired": "请输入卡牌名称以进行搜索。",
+            "loading": "正在搜索卡牌…",
+            "empty": "未找到匹配卡牌。",
+            "failed": "无法搜索卡牌，请重试。",
+            "filterCount": "共 {{count}} 个过滤器。继续输入以缩小范围，或使用方向键和 Enter 进行选择。",
+            "resultCount": "找到 {{count}} 个结果。使用方向键选择卡牌。"
+        },
+        "filtersLabel": "搜索过滤器",
+        "resultsLabel": "卡牌搜索结果"
+    },
+    "scanner": {
+        "title": "扫描卡牌",
+        "device": {
+            "label": "摄像头",
+            "number": "摄像头 {{number}}"
+        },
+        "previewLabel": "实时摄像头预览",
+        "waitingAccess": "正在等待摄像头权限…",
+        "captureAlt": "已捕获、校正并裁剪的卡牌图像",
+        "messages": {
+            "borderLocked": "已锁定卡牌边框…",
+            "detected": "检测到卡牌，请保持静止…",
+            "confirming": "发现卡牌，正在确认边框…",
+            "retryScanner": "等待扫描器就绪，正在自动重试…",
+            "corners": "请在反差背景下使卡牌的四个角全部可见。",
+            "tilt": "将卡牌朝摄像头方向略微倾斜。",
+            "steady": "请平稳拿持卡牌…",
+            "captureFailed": "此浏览器无法捕获摄像头画面帧。",
+            "stopped": "摄像头停止响应。请关闭此窗口并重新打开扫描器。",
+            "waitingCamera": "等待摄像头就绪… 扫描将自动继续。",
+            "retryVisible": "请确保整张卡牌完全可见。正在自动重新扫描…",
+            "borderMoved": "卡牌边框发生晃动或不完整。请拿稳并确保四个角均可见…",
+            "languageUnavailable": "该语言暂不支持文本识别。",
+            "readingText": "正在读取卡牌文本…",
+            "unclear": "文本模糊不清。请拿稳卡牌并减少反光；正在自动重新扫描…",
+            "searching": "正在搜索卡牌…",
+            "searchUnavailable": "搜索服务暂时不可用，正在自动重试…",
+            "unidentified": "尚未识别出卡牌，正在自动读取另一帧…",
+            "noMatch": "暂无可用匹配结果，正在自动读取另一帧…",
+            "interrupted": "读取被中断，正在自动重新扫描…",
+            "switching": "正在切换摄像头…",
+            "noTrack": "所选摄像头未提供视频轨道。",
+            "position": "请将整张卡牌置于镜头视野内。",
+            "switchFailed": "无法切换到所选摄像头。",
+            "unavailable": "摄像头访问不可用。请在 HTTPS 或 localhost 下使用受支持的浏览器。",
+            "starting": "正在启动摄像头…",
+            "selecting": "正在选择最佳摄像头…",
+            "accessDenied": "摄像头权限被拒绝。请在浏览器设置中允许摄像头访问后重新打开。",
+            "notFound": "未找到摄像头。请连接摄像头后重新打开。",
+            "busy": "无法启动摄像头。请关闭占用摄像头的其他应用程序后重新打开。",
+            "incompatible": "摄像头无法提供兼容的视频模式。请关闭此窗口后重试。",
+            "showFailed": "无法显示摄像头画面。请关闭此窗口后重试。",
+            "lowSimilarity": "暂无可用匹配结果，正在自动读取另一帧…"
+        },
+        "guidance": "请使卡牌四个角保持可见，扫描将自动进行。",
+        "ocr": {
+            "manual": "此语言请手动输入牌名。",
+            "cancelled": "扫描已取消。",
+            "loadFailed": "无法加载或运行文本识别，请重试。",
+            "unavailable": "此语言不可用 OCR 识别。",
+            "initializeFailed": "无法初始化文本识别引擎。",
+            "detailed": "正在尝试深度识别…",
+            "reading": "正在读取卡牌…",
+            "timeout": "文本识别超时，请重试。",
+            "loading": "正在加载 {{language}} 文本识别…",
+            "modelFailed": "无法加载 {{language}} 文本识别模型。请检查网络连接后重试。",
+            "readingName": "正在读取卡牌名称（{{pass}}/{{total}}）… {{percent}}%",
+            "passComplete": "正在读取卡牌… 已完成 {{count}} 轮",
+            "passesComplete": "正在读取卡牌… 已完成 {{count}} 轮"
+        }
+    },
+    "formatLegality": {
+        "heading": "赛制合法性",
+        "subtitle": "官方赛制",
+        "empty": "暂无合法性信息。",
+        "status": {
+            "legal": "合法",
+            "restricted": "限用 (1×)",
+            "banned": "禁满",
+            "not_legal": "不合法",
+            "unknown": "未知",
+            "unknownFormat": "未知赛制"
+        }
+    },
+    "metadata": {
+        "title": "Sol Binder — 万智牌卡牌搜索"
+    },
+    "cardLanguages": {
+        "en": "英语",
+        "es": "西班牙语",
+        "fr": "法语",
+        "de": "德语",
+        "it": "意大利语",
+        "pt": "葡萄牙语",
+        "ja": "日语",
+        "ko": "韩语",
+        "ru": "俄语",
+        "zhs": "简体中文",
+        "zht": "繁体中文",
+        "ar": "阿拉伯语",
+        "he": "希伯来语",
+        "la": "拉丁语",
+        "grc": "古希腊语",
+        "sa": "梵语",
+        "phyrexianManual": "非瑞克西亚语（手动输入）",
+        "ph": "非瑞克西亚语",
+        "und": "未知语言",
+        "other": "语言：{{code}}",
+        "selector": "印刷语言",
+        "singular": "语言：",
+        "plural": "语言："
+    },
+    "validation": {
+        "search": {
+            "syntax": "请选择过滤器并以 /filter=value 形式输入。",
+            "unknown": "未知过滤器 /{{command}}。输入 / 可选择过滤器。",
+            "unfinishedQuote": "请闭合 /{{command}} 的引号取值。",
+            "quoteWholeValue": "请用双引号包裹 /{{command}} 的整个取值。",
+            "missingValue": "请输入 /{{command}} 的取值：{{example}}。",
+            "colors": "颜色请使用 W、U、B、R、G，无色单独使用 C。",
+            "manaValue": "法术力值 (CMC) 必须为非负数，如 0 或 2.5。",
+            "legality": "请输入赛制，可附加 :legal、:not_legal、:restricted 或 :banned。",
+            "options": "{{label}}：请使用 {{options}}。"
+        }
+    },
+    "mana": {
+        "white": "白",
+        "blue": "蓝",
+        "black": "黑",
+        "red": "红",
+        "green": "绿",
+        "colorless": "无色",
+        "snow": "雪境",
+        "life": "2 点生命",
+        "tap": "横置",
+        "untap": "重置",
+        "energy": "能量",
+        "chaos": "混沌",
+        "infinite": "无限法术力",
+        "phyrexian": "非瑞克西亚法术力",
+        "generic": "{{value}} 点无色法术力"
+    }
+}

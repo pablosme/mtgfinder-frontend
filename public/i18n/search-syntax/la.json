@@ -1,0 +1,221 @@
+{
+    "intro": {
+        "backToSearch": "Redi ad quaestionem chartarum",
+        "eyebrow": "Dux quaestionis",
+        "title": "Syntaxis quaestionis",
+        "description": "Incipe a nomine chartae. Adde nonnulla mandata ad quaestionem angustandam secundum colorem, genus, impressionem, formam et cetera."
+    },
+    "contents": {
+        "label": "In hac pagina",
+        "gettingStarted": "Initium",
+        "writingCommands": "Mandata scribere",
+        "commandCount": "Omnia {{count}} mandata",
+        "combiningFilters": "Filtra coniungere",
+        "troubleshooting": "Solutio errorum"
+    },
+    "quickStart": {
+        "eyebrow": "01 / Initium celere",
+        "title": "A nomine ad quaestionem definitam",
+        "nameText": "textus nominis est.",
+        "typeFilter": "filtrum generis addit, et",
+        "colorFilter": "filtrum coloris rubri addit.",
+        "steps": {
+            "name": {
+                "title": "Scribe nomen chartae vel partem eius.",
+                "body": "Eventa apparent dum scribis post brevem moram. Nomen necessarium est, etiam filtris utenti."
+            },
+            "command": {
+                "title": "Adde mandatum.",
+                "typeBefore": "Scribe",
+                "afterKey": "vel utere bullam oblongam in capsa quaestionis. Elige filtrum, deinde scribe valorem eius post",
+                "end": "."
+            },
+            "result": {
+                "title": "Aperi eventum.",
+                "clickBefore": "Preme chartam, vel utere",
+                "and": "et",
+                "highlightAfter": "ad eam illuminandam et",
+                "openAfter": "ad singula eius aperienda."
+            }
+        },
+        "noteBefore": "Capsa quaestionis in summa pagina dum legis uti potes. Sagittae et Enter etiam in menu filtrorum operantur. Preme",
+        "noteAfter": "ad suggestiones claudendas."
+    },
+    "basics": {
+        "eyebrow": "02 / Elementa",
+        "title": "Mandata scribe ut /filter=value",
+        "separate": {
+            "term": "Mandata spatiis separa",
+            "before": "Quodque mandatum coniunctum serva:",
+            "after": ". Nulla spatia circa signum aequalitatis adde. Mandata ante nomen vel post poni possunt; textus extra mandata fit quaestio nominis chartae."
+        },
+        "quote": {
+            "term": "Valores spatia continentes cita",
+            "before": "Duplices citationes circa totum valorem utere:",
+            "or": "vel",
+            "after": ". Simplices citationes verba non coniungunt. Duplicem citationem claude antequam aliud mandatum addas."
+        },
+        "special": {
+            "term": "Notas speciales intra valores citatos serva",
+            "before": "Intra valorem duplici citatione inclusum, scribe",
+            "middle": "pro duplici citatione litterali et",
+            "after": "pro obliqua inversa litterali."
+        },
+        "names": {
+            "term": "Nominibus mandatorum adiuvatis utere",
+            "before": "Nomina mandatorum maiusculis minusculisque non distinguuntur:",
+            "and": "et",
+            "afterPair": "idem filtrum utuntur.",
+            "aliasesAfter": "sunt cognomina. Lineas infimas in nominibus ut hoc serva:"
+        },
+        "split": {
+            "term": "Nomina chartarum divisarum integra serva",
+            "before": "Duplex obliqua in",
+            "after": "pars nominis est. Filtrum non incipit."
+        }
+    },
+    "reference": {
+        "eyebrow": "03 / Index mandatorum",
+        "title": "Omnia filtra adiuvata",
+        "description": "Haec fragmenta mandatorum nomini chartae adde. Elige mandatum infra ut ad exempla et regulas valorum eius transeas.",
+        "indexLabel": "Mandata quaestionis",
+        "alsoAccepts": "Etiam accipit",
+        "acceptedValues": "Valores accepti:",
+        "examplesLabel": "Exempla mandati"
+    },
+    "combining": {
+        "eyebrow": "04 / Omnia coniungere",
+        "title": "Mandata coniunge et itera",
+        "description": "Adde diversa mandata ad plures proprietates in eadem quaestione angustandas. Mandatum itera ad plures valores praebendos; valor posterior priorem non delet.",
+        "angel": "Quaere nomen Angel cum genere creaturae, volatu et valore manae 4.",
+        "lotus": "Quaere nomen Lotus cum codice collectionis et numero collectoris.",
+        "elfBefore": "Praebe viridem vel nigrum ut alternativas. Pro ambobus coloribus in uno filtro, utere",
+        "elfAfter": "potius.",
+        "dragon": "Praebe duos valores raritatis dum nomen Dragon quaeris.",
+        "note": "Filtra tecum manent dum inter capsas quaestionis domus et capitis transis. Dele mandatum ad filtrum removendum, vel omnia mandata remove ut ad quaestionem nominis solius redeas."
+    },
+    "troubleshooting": {
+        "eyebrow": "05 / Quando quaestio emendanda est",
+        "title": "Solutio errorum",
+        "missingName": {
+            "term": "“Scribe nomen chartae ad quaerendum.”",
+            "before": "Filtra sola quaestionem non incipiunt. Adde textum nominis, ut",
+            "end": "."
+        },
+        "unknownFilter": {
+            "term": "Filtrum ignotum vel valor deest",
+            "typeBefore": "Scribe",
+            "useBefore": "ad mandatum adiuvatum eligendum. Utere",
+            "after": ", cum obliqua, signo aequalitatis et valore non vacuo. Errores syntaxis quaestionem suspendunt donec emendentur."
+        },
+        "unfinishedQuote": {
+            "term": "Valor citatus imperfectus est",
+            "before": "Inspice ut totus valor duplicibus citationibus includatur. Verbi gratia, scribe",
+            "end": "."
+        },
+        "rejectedValue": {
+            "term": "Color, raritas, condicio formae vel valor manae reicitur",
+            "useBefore": "Utere",
+            "blue": "pro caeruleo,",
+            "mythic": "pro mythica rara,",
+            "underscore": "cum linea infima, et numero non negativo ut",
+            "after": ". Indicem mandatorum pro singulis inspice."
+        },
+        "noResults": {
+            "term": "Nullae chartae inventae",
+            "body": "Nomen inspice, filtra singillatim remove, et mandata ex quaestione priore relicta quaere. Syntaxis recta tamen nullas congruentias dare potest. Exempla syntaxim illustrant nec eventa spondent."
+        },
+        "searchFailed": {
+            "term": "“Chartas quaerere non potuit. Iterum tempta.”",
+            "body": "Petitio quaestionis perfici non potuit. Iterum tempta; hic nuntius separatus est ab errore syntaxis vel ab indice eventorum vacuo."
+        },
+        "backToSearch": "Redi ad quaestionem chartarum"
+    },
+    "commands": {
+        "type": {
+            "description": "Filtra secundum genus chartae, supergenus vel subgenus, ut creature, legendary vel Dragon.",
+            "notes": {
+                "quote": "Locutionem spatia continentem intra duplices citationes pone."
+            }
+        },
+        "keyword": {
+            "description": "Quaere facultatem verbi clavis, ut flying, trample vel first strike.",
+            "notes": {
+                "abilityName": "Hic nomen facultatis utere, non sententiam ex textu regularum."
+            }
+        },
+        "colors": {
+            "description": "Filtra secundum colores chartae quinque litteris colorum Magic utens.",
+            "notes": {
+                "letters": "W = albus, U = caeruleus, B = niger, R = ruber, G = viridis. C solum utere pro carente coloris.",
+                "format": "G,B et GB aequivalent. Litterae minusculae accipiuntur. Pro spatiis, valorem cita: /color=\"G, B\".",
+                "combine": "Utere /color=G,B pro ambobus coloribus; itera /color=G /color=B pro altero colore. C cum alio colore ne coniungas."
+            }
+        },
+        "color_identity": {
+            "description": "Filtra secundum identitatem coloris, quae colores ultra proprium chartae includere potest, ut illos in textu regularum.",
+            "notes": {
+                "notation": "Eandem notationem W, U, B, R, G et C ac colores utitur.",
+                "combine": "Litteras in uno valore coniunge pro ambobus coloribus, vel mandatum itera pro alternativis."
+            }
+        },
+        "legality": {
+            "description": "Designa formam, facultative sequente condicione legalitatis post duo puncta.",
+            "notes": {
+                "default": "Forma sine condicione legalem significat: /legality=commander et /legality=commander:legal aequivalent.",
+                "statuses": "Condiciones adiuvatae: legal, not_legal, restricted et banned. Lineam infimam in not_legal serva.",
+                "formats": "Utere identificatore formae ut standard, modern, pioneer, legacy, vintage vel commander. Haec exempla filtra designant, non legalitatem chartae particularis."
+            }
+        },
+        "rarity": {
+            "description": "Filtra secundum raritatem impressionis. Utere uno ex valoribus adiuvatis infra enumeratis.",
+            "notes": {
+                "mythic": "Utere mythic pro mythica rara. Mandatum itera ad plures raritates praebendas."
+            }
+        },
+        "set": {
+            "description": "Impressiones ex collectione nomine vel codice eius reperi.",
+            "notes": {
+                "quote": "Nomina collectionum spatia continentia cita."
+            }
+        },
+        "collection": {
+            "description": "Congrue cum nomine collectionis, codice collectionis vel numero collectoris exacto.",
+            "notes": {
+                "printings": "Hoc mandatum informationes impressionum quaerit; ad chartas a te possessas non refertur.",
+                "multipleSets": "Numerus collectoris in pluribus collectionibus occurrere potest. Adde /set= ut collectionem quoque designes."
+            }
+        },
+        "cmc": {
+            "description": "Filtra secundum valorem manae, qui etiam pretium manae conversum vel CMC dicitur.",
+            "notes": {
+                "number": "Utere numero non negativo et puncto pro decimalibus.",
+                "operators": "Operatores comparationis et intervalla hic non accipiuntur. Utere /cmc=3, non /cmc=>3 vel /cmc=2-4."
+            }
+        },
+        "layout": {
+            "description": "Filtra secundum dispositionem chartae, ut charta normalis vel charta transformans.",
+            "notes": {
+                "identifier": "Identificatore dispositionis ut valore utere."
+            }
+        },
+        "power": {
+            "description": "Filtra secundum valorem potentiae impressum.",
+            "notes": {
+                "asterisk": "Asteriscus valor proprietatis est, ut in quibusdam chartis impressus; non est signum generale pro quavis potentia."
+            }
+        },
+        "toughness": {
+            "description": "Filtra secundum valorem firmitatis impressum.",
+            "notes": {
+                "combine": "Coniunge /power= et /toughness= ad utramque proprietatem designandam."
+            }
+        },
+        "loyalty": {
+            "description": "Filtra secundum valorem fidei initialis impressum planeswalkeris.",
+            "notes": {
+                "symbol": "Scribe valorem in charta ostensum, etiam valorem symbolicum ut X cum aptum est."
+            }
+        }
+    }
+}
