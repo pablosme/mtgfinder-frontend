@@ -17,6 +17,7 @@ import { CARD_LANGUAGES } from './card-languages';
 import { CardOcrResult, CardOcrService } from './card-ocr.service';
 import { OpenCvService } from './opencv.service';
 import type { CardScanResult } from '../interface/card-scan-result.interface';
+import type { PreferredCamera } from '../interface/preferred-camera.interface';
 import type { CardDetection } from '../interface/card-detection.interface';
 import { CardSearchService } from '../card-search.service';
 import { Router } from '@angular/router';
@@ -202,23 +203,57 @@ export class Camera {
         );
     }
 
-    private async findBestCameraDeviceId(): Promise<string | undefined> {
-        const storage = this.document.defaultView?.localStorage;
-
-        /*
-         * FAST PATH:
-         *
-         * Once we have already found the best camera on this device,
-         * do not benchmark anything again.
-         */
-        const rememberedDeviceId = storage?.getItem(this.preferredCameraStorageKey);
-
-        if (rememberedDeviceId) {
-            console.log('[Camera] Using remembered camera:', rememberedDeviceId);
-
-            return rememberedDeviceId;
+    private getPreferredCamera(): PreferredCamera | null {
+        try {
+            const raw = this.document.defaultView?.localStorage?.getItem(
+                this.preferredCameraStorageKey,
+            );
+            if (!raw) return null;
+            if (raw.startsWith('{')) {
+                const parsed = JSON.parse(raw) as PreferredCamera;
+                if (parsed.deviceId) return parsed;
+            }
+            return { deviceId: raw };
+        } catch {
+            return null;
         }
+    }
 
+    private savePreferredCamera(camera: PreferredCamera): void {
+        try {
+            this.document.defaultView?.localStorage?.setItem(
+                this.preferredCameraStorageKey,
+                JSON.stringify(camera),
+            );
+        } catch {
+            // Storage unavailable in private browsing or quota exceeded
+        }
+    }
+
+    private async resolvePreferredCameraDeviceId(
+        preferred: PreferredCamera,
+    ): Promise<string | undefined> {
+        if (!navigator.mediaDevices?.enumerateDevices) return undefined;
+        try {
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            const cameras = devices.filter((d) => d.kind === 'videoinput' && !!d.deviceId);
+            const exactMatch = cameras.find((c) => c.deviceId === preferred.deviceId);
+            if (exactMatch) return exactMatch.deviceId;
+
+            if (preferred.label) {
+                const labelMatch = cameras.find((c) => c.label && c.label === preferred.label);
+                if (labelMatch) return labelMatch.deviceId;
+            }
+            return undefined;
+        } catch {
+            return undefined;
+        }
+    }
+
+    private async detectAndSaveBestCamera(): Promise<{
+        deviceId?: string;
+        stream?: MediaStream;
+    }> {
         let permissionStream: MediaStream | null = null;
 
         try {
@@ -229,49 +264,22 @@ export class Camera {
 
             if (this.closed) {
                 permissionStream.getTracks().forEach((track) => track.stop());
-
-                return undefined;
+                return {};
             }
 
             const devices = await navigator.mediaDevices.enumerateDevices();
-
             const allCameras = devices.filter(
                 (device) => device.kind === 'videoinput' && !!device.deviceId,
             );
 
-            /*
-             * We only needed the first stream to obtain permission/labels.
-             * Release it before opening another physical camera.
-             */
-            permissionStream.getTracks().forEach((track) => track.stop());
-
-            permissionStream = null;
-
             if (!allCameras.length) {
-                return undefined;
+                return { stream: permissionStream };
             }
 
-            /*
-             * FIRST: explicitly remove front cameras.
-             *
-             * On your phone this should immediately eliminate:
-             *
-             * camera 1, facing front
-             * camera 3, facing front
-             */
             const nonFrontCameras = allCameras.filter(
                 (camera) => !this.isFrontCameraLabel(camera.label),
             );
 
-            /*
-             * If Android gave us explicit rear labels, only those cameras
-             * are allowed to participate.
-             *
-             * On your phone:
-             *
-             * camera 0, facing back
-             * camera 2, facing back
-             */
             const explicitRearCameras = nonFrontCameras.filter((camera) =>
                 this.isBackCameraLabel(camera.label),
             );
@@ -279,98 +287,76 @@ export class Camera {
             const candidates = explicitRearCameras.length ? explicitRearCameras : nonFrontCameras;
 
             if (!candidates.length) {
-                /*
-                 * Let facingMode: environment choose as a final fallback.
-                 */
-                return undefined;
+                return { stream: permissionStream };
             }
 
+            const activeTrack = permissionStream.getVideoTracks()[0];
+            const activeDeviceId = activeTrack?.getSettings?.().deviceId;
+            const activeCamera = candidates.find((c) => c.deviceId === activeDeviceId);
+
+            // If only one candidate rear camera, adopt permissionStream directly!
             if (candidates.length === 1) {
-                const deviceId = candidates[0].deviceId;
-
-                storage?.setItem(this.preferredCameraStorageKey, deviceId);
-
-                return deviceId;
+                const winner = candidates[0];
+                this.savePreferredCamera({ deviceId: winner.deviceId, label: winner.label });
+                return { deviceId: winner.deviceId, stream: permissionStream };
             }
 
-            let bestDeviceId: string | undefined;
+            // Multiple candidates: score the active stream first without restarting it
+            let bestCamera = activeCamera ?? candidates[0];
+            let bestScore = activeTrack ? this.scoreCamera(activeTrack) : Number.NEGATIVE_INFINITY;
 
-            let bestScore = Number.NEGATIVE_INFINITY;
+            // Stop permission stream before probing other physical cameras
+            permissionStream.getTracks().forEach((track) => track.stop());
+            permissionStream = null;
 
-            /*
-             * IMPORTANT:
-             *
-             * We DO NOT call maximizeCameraResolution() while benchmarking.
-             *
-             * requestCameraStream() already asks for a good mode, and applying
-             * another constraint negotiation to every candidate makes startup
-             * substantially slower.
-             */
-            for (const camera of candidates) {
-                if (this.closed) {
-                    return undefined;
-                }
+            // Probe other rear cameras (excluding the one we already evaluated)
+            const remainingCandidates = candidates.filter((c) => c.deviceId !== activeDeviceId);
+
+            for (const camera of remainingCandidates) {
+                if (this.closed) return {};
+
+                // Brief delay so hardware HAL releases previous camera
+                await new Promise((resolve) => setTimeout(resolve, 60));
 
                 let testStream: MediaStream | null = null;
-
                 try {
-                    testStream = await this.requestCameraStream(camera.deviceId);
-
+                    testStream = await this.requestCameraStream(camera.deviceId, true);
                     const track = testStream.getVideoTracks()[0];
+                    if (!track) continue;
 
-                    if (!track) {
-                        continue;
-                    }
-
-                    /*
-                     * Extra protection in case Android's label was ambiguous.
-                     */
-                    const settings = track.getSettings();
-
+                    const settings = track.getSettings?.() ?? {};
                     const facingMode = settings.facingMode?.toLocaleLowerCase();
-
                     if (
                         facingMode === 'user' ||
                         this.isFrontCameraLabel(`${camera.label} ${track.label}`)
                     ) {
-                        console.log('[Camera] Ignoring front camera:', camera.label);
-
                         continue;
                     }
 
                     const score = this.scoreCamera(track);
-
-                    console.log('[Camera candidate]', {
-                        label: camera.label,
-                        trackLabel: track.label,
-                        deviceId: camera.deviceId,
-                        score,
-                        settings,
-                        capabilities: track.getCapabilities(),
-                    });
-
                     if (score > bestScore) {
                         bestScore = score;
-
-                        bestDeviceId = camera.deviceId;
+                        bestCamera = camera;
                     }
                 } catch (error) {
-                    console.warn('[Camera candidate failed]', camera.label, error);
+                    console.warn('[Camera candidate probe failed]', camera.label, error);
                 } finally {
                     testStream?.getTracks().forEach((track) => track.stop());
                 }
             }
 
-            if (bestDeviceId) {
-                storage?.setItem(this.preferredCameraStorageKey, bestDeviceId);
+            this.savePreferredCamera({
+                deviceId: bestCamera.deviceId,
+                label: bestCamera.label,
+            });
+            console.log(
+                '[Camera] Best camera detected and saved:',
+                bestCamera,
+                'score:',
+                bestScore,
+            );
 
-                console.log('[Camera] Best camera selected:', {
-                    deviceId: bestDeviceId,
-                    score: bestScore,
-                });
-            }
-
-            return bestDeviceId;
+            return { deviceId: bestCamera.deviceId };
         } finally {
             permissionStream?.getTracks().forEach((track) => track.stop());
         }
@@ -750,7 +736,8 @@ export class Camera {
             return;
         }
 
-        this.document.defaultView?.localStorage.setItem(this.preferredCameraStorageKey, deviceId);
+        const camera = this.cameras().find((c) => c.deviceId === deviceId);
+        this.savePreferredCamera({ deviceId, label: camera?.label ?? '' });
 
         await this.switchCamera(deviceId);
     }
@@ -780,6 +767,16 @@ export class Camera {
             const currentDeviceId = settings.deviceId ?? '';
             if (currentDeviceId) {
                 this.selectedCameraId.set(currentDeviceId);
+                const currentCam = cameras.find((c) => c.deviceId === currentDeviceId);
+                if (currentCam) {
+                    const preferred = this.getPreferredCamera();
+                    if (!preferred || preferred.deviceId === currentDeviceId || !preferred.label) {
+                        this.savePreferredCamera({
+                            deviceId: currentDeviceId,
+                            label: currentCam.label,
+                        });
+                    }
+                }
             }
             let capabilities: MediaTrackCapabilities | undefined;
             try {
@@ -837,19 +834,14 @@ export class Camera {
                 stream.getTracks().forEach((currentTrack) => currentTrack.stop());
                 throw new Error('The selected camera did not provide a video track.');
             }
-            await this.maximizeCameraResolution(track);
-            if (this.closed) {
-                stream.getTracks().forEach((currentTrack) => currentTrack.stop());
-                return;
-            }
             this.stream = stream;
             video.removeAttribute('poster');
             video.srcObject = stream;
             await video.play();
-            await this.refreshCameraList(track);
             if (this.closed) return;
             this.loading.set(false);
             this.progress.set('Position the whole card inside the camera.');
+            void this.refreshCameraList(track);
             this.scheduleCardDetection();
         } catch (error: unknown) {
             this.sendTelemetry(
@@ -866,22 +858,43 @@ export class Camera {
             }
         }
     }
-    private async requestCameraStream(deviceId?: string): Promise<MediaStream> {
+    private async requestCameraStream(
+        deviceId?: string,
+        exactDevice = false,
+    ): Promise<MediaStream> {
         const video: MediaTrackConstraints = deviceId
-            ? {
-                  deviceId: {
-                      exact: deviceId,
-                  },
-                  width: {
-                      ideal: 3840,
-                  },
-                  height: {
-                      ideal: 2160,
-                  },
-                  frameRate: {
-                      ideal: 30,
-                  },
-              }
+            ? exactDevice
+                ? {
+                      deviceId: {
+                          exact: deviceId,
+                      },
+                      width: {
+                          ideal: 3840,
+                      },
+                      height: {
+                          ideal: 2160,
+                      },
+                      frameRate: {
+                          ideal: 30,
+                      },
+                  }
+                : {
+                      deviceId: {
+                          ideal: deviceId,
+                      },
+                      facingMode: {
+                          ideal: 'environment',
+                      },
+                      width: {
+                          ideal: 3840,
+                      },
+                      height: {
+                          ideal: 2160,
+                      },
+                      frameRate: {
+                          ideal: 30,
+                      },
+                  }
             : {
                   facingMode: {
                       ideal: 'environment',
@@ -905,10 +918,6 @@ export class Camera {
             /*
              * If the camera rejects our resolution preferences, retry using
              * only the selected device/facing mode.
-             *
-             * IMPORTANT: when a deviceId was selected, keep that exact device
-             * in the fallback. Otherwise we could accidentally score/open a
-             * different camera.
              */
             if (!(error instanceof DOMException) || error.name !== 'OverconstrainedError') {
                 throw error;
@@ -916,11 +925,20 @@ export class Camera {
             return navigator.mediaDevices.getUserMedia({
                 audio: false,
                 video: deviceId
-                    ? {
-                          deviceId: {
-                              exact: deviceId,
-                          },
-                      }
+                    ? exactDevice
+                        ? {
+                              deviceId: {
+                                  exact: deviceId,
+                              },
+                          }
+                        : {
+                              deviceId: {
+                                  ideal: deviceId,
+                              },
+                              facingMode: {
+                                  ideal: 'environment',
+                              },
+                          }
                     : {
                           facingMode: {
                               ideal: 'environment',
@@ -932,11 +950,14 @@ export class Camera {
     private async maximizeCameraResolution(track: MediaStreamTrack): Promise<void> {
         if (!track.getCapabilities) return;
         try {
-            const capabilities = track.getCapabilities();
-            const supported = navigator.mediaDevices.getSupportedConstraints();
+            const settings = track.getSettings?.() ?? {};
+            if ((settings.width ?? 0) >= 1280) return;
+            const capabilities = track.getCapabilities?.();
+            if (!capabilities) return;
             const width = capabilities.width?.max;
             const height = capabilities.height?.max;
             if (!width && !height) return;
+            if (width && settings.width && width <= settings.width) return;
             const constraints: MediaTrackConstraints = {};
             if (width) {
                 constraints.width = { ideal: width };
@@ -956,11 +977,11 @@ export class Camera {
         }
     }
     private scoreCamera(track: MediaStreamTrack): number {
-        const settings = track.getSettings() as MediaTrackSettings & {
+        const settings = (track.getSettings?.() ?? {}) as MediaTrackSettings & {
             resizeMode?: string;
         };
 
-        const capabilities = track.getCapabilities() as MediaTrackCapabilities & {
+        const capabilities = (track.getCapabilities?.() ?? {}) as MediaTrackCapabilities & {
             focusMode?: string[];
             focusDistance?: {
                 min: number;
@@ -1073,50 +1094,70 @@ export class Camera {
         }
         try {
             this.loading.set(true);
-            this.progress.set('Selecting the best camera…');
-            /*
-             * Evaluate every available physical camera and choose the one with the
-             * highest score.
-             */
-            const bestDeviceId = await this.findBestCameraDeviceId();
+            const preferred = this.getPreferredCamera();
+            let stream: MediaStream | null = null;
+
+            if (preferred) {
+                this.progress.set('Starting camera…');
+                try {
+                    stream = await this.requestCameraStream(preferred.deviceId);
+                } catch (error) {
+                    console.warn(
+                        '[Camera] Failed to open remembered camera directly, checking fallback:',
+                        error,
+                    );
+                    const resolvedId = await this.resolvePreferredCameraDeviceId(preferred);
+                    if (resolvedId && resolvedId !== preferred.deviceId) {
+                        try {
+                            stream = await this.requestCameraStream(resolvedId);
+                            this.savePreferredCamera({
+                                deviceId: resolvedId,
+                                label: preferred.label,
+                            });
+                        } catch {
+                            stream = null;
+                        }
+                    }
+                    if (!stream && !this.closed) {
+                        stream = await this.requestCameraStream();
+                    }
+                }
+            }
+
+            if (!stream) {
+                if (this.closed) return;
+                this.progress.set('Selecting the best camera…');
+                const detection = await this.detectAndSaveBestCamera();
+                if (this.closed) return;
+                stream = detection.stream ?? (await this.requestCameraStream(detection.deviceId));
+            }
+
             if (this.closed) {
+                stream?.getTracks().forEach((track) => track.stop());
                 return;
             }
-            /*
-             * Open the winning camera for the real scanner.
-             *
-             * If camera enumeration/scoring failed for some reason, fall back to
-             * the browser's normal environment-camera selection.
-             */
-            const stream = await this.requestCameraStream(bestDeviceId);
-            if (this.closed) {
-                stream.getTracks().forEach((track) => track.stop());
-                return;
-            }
-            const track = stream.getVideoTracks()[0];
-            if (track) {
-                await this.maximizeCameraResolution(track);
-            }
-            if (this.closed) {
-                stream.getTracks().forEach((currentTrack) => currentTrack.stop());
-                return;
-            }
+
             this.stream = stream;
             video.removeAttribute('poster');
             video.srcObject = stream;
             await video.play();
-            if (track) {
-                await this.refreshCameraList(track);
-            }
+
             if (this.closed) {
                 return;
             }
+
             this.loading.set(false);
             this.progress.set('Position the whole card inside the camera.');
             this.goodCardFrames = 0;
             this.lastDetection = null;
             this.lastDetectionAt = 0;
             this.missedCardFrames = 0;
+
+            const track = stream.getVideoTracks()[0];
+            if (track) {
+                void this.refreshCameraList(track);
+            }
+
             /*
              * Start Tesseract while the user is positioning the card so the first
              * OCR pass does not also pay worker/model startup latency.
