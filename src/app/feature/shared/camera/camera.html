@@ -1,6 +1,6 @@
 <header class="camera-header">
     <h2 mat-dialog-title>Scan a card</h2>
-    <button type="button" mat-dialog-close>Close</button>
+    <button class="ui-button" type="button" mat-dialog-close>Close</button>
 </header>
 
 <mat-dialog-content class="camera-content">
@@ -50,6 +50,8 @@
             <img [src]="card.normalizedImage" alt="Your captured card, straightened and cropped" />
         </div>
     }
+
+    <p class="scan-guidance">Center your card and keep it steady.</p>
 
     <p class="scan-status" role="status" aria-live="polite">
         {{ progress() || 'Keep all four corners visible. Scanning is automatic.' }}

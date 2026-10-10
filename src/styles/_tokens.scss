@@ -1,0 +1,124 @@
+// Common values verified in Stitch V2 screen 2c250a007ded4e1f94ced6aba7722cc3.
+// Status/focus/control colors extend the reference for accessible runtime states.
+:root {
+    --palette-parchment: #ede6dc;
+    --palette-paper: #f6f1ea;
+    --palette-ivory: #fdfbf7;
+    --palette-bone: #e5ddd1;
+    --palette-ink: #2a231c;
+    --palette-burgundy: #3f1513;
+    --palette-crimson: #5a2a27;
+    --palette-crimson-dark: #471e1c;
+    --palette-terracotta: #835244;
+    --palette-umber: #62564c;
+    --palette-outline: #89796b;
+    --palette-gold: #c59b27;
+    --palette-white: #fff;
+
+    --color-background: var(--palette-parchment);
+    --color-surface: var(--palette-ivory);
+    --color-surface-subtle: var(--palette-paper);
+    --color-surface-inset: var(--palette-bone);
+    --color-text: var(--palette-ink);
+    --color-heading: var(--palette-burgundy);
+    --color-text-muted: var(--palette-umber);
+    --color-text-accent: var(--palette-terracotta);
+    --color-primary: var(--palette-crimson);
+    --color-primary-hover: var(--palette-crimson-dark);
+    --color-on-primary: var(--palette-white);
+    --color-secondary: var(--palette-terracotta);
+    --color-accent: var(--palette-gold);
+    --color-border: rgb(165 151 139 / 28%);
+    --color-control-border: var(--palette-outline);
+    --color-hover: var(--palette-paper);
+    --color-selected: var(--palette-bone);
+    --color-focus: var(--palette-crimson);
+    --color-disabled: var(--palette-umber);
+    --color-disabled-surface: var(--palette-bone);
+    --color-success: #176044;
+    --color-success-surface: #e7f3eb;
+    --color-warning: #795a12;
+    --color-warning-surface: #fff3ce;
+    --color-error: #9d2424;
+    --color-error-surface: #fce9e6;
+    --color-info: #365d73;
+    --color-info-surface: #e8f0f5;
+    --color-preview: #150b00;
+    --color-preview-text: var(--palette-ivory);
+    --color-detection-pending: #e5bb50;
+    --color-detection-ready: #65d7a6;
+    --color-mana-ink: #171717;
+
+    --font-body: 'Inter Variable', Inter, Arial, sans-serif;
+    --font-heading: 'EB Garamond Variable', 'EB Garamond', Georgia, serif;
+    --font-mono: ui-monospace, monospace;
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 2rem;
+    --text-display: clamp(2.75rem, 5vw, 4.5rem);
+    --text-title: clamp(2rem, 3.5vw, 2.75rem);
+    --weight-regular: 400;
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 700;
+    --leading-tight: 1.15;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.7;
+    --tracking-tight: -0.02em;
+    --tracking-label: 0.06em;
+
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --space-20: 5rem;
+    --space-24: 6rem;
+    --page-gutter: clamp(var(--space-4), 4vw, var(--space-8));
+    --panel-padding: clamp(var(--space-4), 2.5vw, var(--space-6));
+    --container-page: 80rem;
+    --container-search: 48rem;
+    --container-reading: 40rem;
+    --container-card: 24.375rem;
+    --control-min: 2.75rem;
+    --control-size: 3rem;
+    --icon-sm: 1.125rem;
+    --icon-md: 1.5rem;
+    --icon-lg: 2rem;
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-panel: 1rem;
+    --radius-pill: 9999px;
+    --border-width: 1px;
+    --focus-width: 3px;
+    --focus-offset: 3px;
+    --shadow-sm: 0 2px 8px -2px rgb(60 42 33 / 5%), 0 1px 3px rgb(60 42 33 / 4%);
+    --shadow-panel: 0 8px 24px -4px rgb(60 42 33 / 7%), 0 2px 6px -1px rgb(60 42 33 / 4%);
+    --shadow-popover: 0 14px 34px -6px rgb(60 42 33 / 10%), 0 4px 12px -2px rgb(60 42 33 / 5%);
+    --shadow-card: 0 12px 36px -4px rgb(35 23 16 / 22%), 0 2px 6px rgb(35 23 16 / 12%);
+    --shadow-dialog: 0 24px 48px -8px rgb(90 42 39 / 28%);
+    --shadow-emblem: 0 8px 28px rgb(197 155 39 / 22%);
+    --motion-fast: 150ms;
+    --motion-normal: 250ms;
+    --motion-easing: ease;
+    --layer-raised: 1;
+    --layer-popover: 10;
+    --layer-skip-link: 1100;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --motion-fast: 0ms;
+        --motion-normal: 0ms;
+    }
+}

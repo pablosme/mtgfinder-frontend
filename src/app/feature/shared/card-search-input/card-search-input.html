@@ -2,6 +2,18 @@
     <label [for]="inputId()">Search for a card</label>
     <div class="search-row">
         <div class="search-field">
+            <svg
+                class="search-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                aria-hidden="true"
+                focusable="false"
+            >
+                <circle cx="10.5" cy="10.5" r="6.5" />
+                <path d="m16 16 4.5 4.5" />
+            </svg>
             <input
                 #searchInput
                 [id]="inputId()"
@@ -28,7 +40,7 @@
             />
 
             <button
-                class="filter-picker"
+                class="ui-button filter-picker"
                 type="button"
                 aria-label="Add a search filter"
                 [attr.aria-controls]="expanded() && pickingFilter() ? listId() : null"
@@ -84,8 +96,8 @@
                                     (pointerdown)="$event.preventDefault()"
                                     (click)="selectCard(card)"
                                 >
-                                    <div style="display: flex; flex-direction: column; width: 100%">
-                                        <div style="display: flex; justify-content: space-between">
+                                    <div class="suggestion-content">
+                                        <div class="suggestion-heading">
                                             <span class="suggestion-name">{{ card.name }}</span>
                                             @if (card.mana_cost) {
                                                 <app-mana-text
@@ -105,11 +117,11 @@
         </div>
 
         <button
-            class="camera-button"
+            class="ui-button camera-button"
             type="button"
-            aria-label="Open camera"
+            aria-label="Scan card with camera"
             aria-haspopup="dialog"
-            title="Open camera"
+            title="Scan card with camera"
             (click)="openCamera()"
         >
             <svg
@@ -125,10 +137,21 @@
                 />
                 <circle cx="12" cy="13" r="4" />
             </svg>
+            <span class="camera-label">Scan card</span>
         </button>
     </div>
 
-    <p class="search-status" [id]="inputId() + '-status'" role="status" aria-live="polite">
+    <p class="search-help" [id]="inputId() + '-help'">
+        Search by name. Type <kbd>/</kbd> to add filters, for example <code>/type=creature</code>.
+    </p>
+
+    <p
+        class="search-status"
+        [class.search-status--error]="error() || (parsedQuery().error && !pickingFilter())"
+        [id]="inputId() + '-status'"
+        role="status"
+        aria-live="polite"
+    >
         {{ status() }}
     </p>
 </div>

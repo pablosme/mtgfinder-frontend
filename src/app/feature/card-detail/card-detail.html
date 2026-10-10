@@ -3,7 +3,7 @@
 } @else if (error()) {
     <p class="detail-message detail-message--error" role="alert">{{ error() }}</p>
 } @else if (card(); as card) {
-    <main class="card-detail">
+    <article class="card-detail" aria-labelledby="card-title">
         <nav class="breadcrumbs" aria-label="Breadcrumb">
             <a routerLink="/">Card search</a>
             <span aria-hidden="true">›</span>
@@ -52,7 +52,7 @@
                             </span>
                             @if (canSwitchFaces()) {
                                 <button
-                                    class="switch-side"
+                                    class="ui-button switch-side"
                                     type="button"
                                     aria-label="Switch side"
                                     title="Switch side"
@@ -76,42 +76,41 @@
 
                 <div class="printings-space">
                     <section class="printings-panel" aria-labelledby="prints-heading">
-                        <h2 id="prints-heading">Prints</h2>
-                        @if (card.prints?.length) {
+                        <h2 id="prints-heading">Sets &amp; print languages</h2>
+                        @if (printSets().length) {
                             <ul class="print-list">
-                                @for (print of card.prints; track print.id) {
+                                @for (set of printSets(); track set.key) {
                                     <li class="print-item">
                                         <button
                                             class="print-choice"
                                             type="button"
                                             [class.print-choice--selected]="
-                                                currentPrintId() === print.id
+                                                currentSet()?.key === set.key
                                             "
-                                            [attr.aria-pressed]="currentPrintId() === print.id"
-                                            (click)="selectPrint(print)"
+                                            [attr.aria-pressed]="currentSet()?.key === set.key"
+                                            (click)="selectSet(set)"
                                         >
-                                            @if (printImageUrl(print); as imageUrl) {
+                                            @if (set.image; as image) {
                                                 <img
-                                                    class="print-thumbnail"
-                                                    [src]="imageUrl"
-                                                    [alt]="card.name + ' — ' + print.set_name"
+                                                    class="print-choice-image"
+                                                    [src]="image"
+                                                    alt=""
+                                                    width="63"
+                                                    height="88"
+                                                    loading="lazy"
+                                                    decoding="async"
                                                 />
                                             }
                                             <span class="print-choice-details">
-                                                <span class="print-choice-name">{{
-                                                    print.set_name
-                                                }}</span>
-                                                <span
-                                                    >{{ print.set_code }} · #{{
-                                                        print.collector_number
-                                                    }}</span
-                                                >
-                                                <span
-                                                    >{{ print.rarity }}
-                                                    @if (print.released_at) {
-                                                        · {{ print.released_at }}
+                                                <strong class="print-choice-name">
+                                                    {{ set.name }}
+                                                    @if (set.code) {
+                                                        ({{ set.code }})
                                                     }
-                                                </span>
+                                                </strong>
+                                                <app-card-language-badges
+                                                    [languages]="set.languages"
+                                                />
                                             </span>
                                         </button>
                                     </li>
@@ -136,6 +135,43 @@
                             }
                             @if (card.type_line) {
                                 <p class="type-line">{{ card.type_line }}</p>
+                            }
+                            @if (currentSet(); as set) {
+                                <div class="print-selectors">
+                                    <app-card-language-badges
+                                        [languages]="set.languages"
+                                        [selectable]="true"
+                                        [selectedLanguage]="currentLanguage()"
+                                        (languageSelected)="selectLanguage($event)"
+                                    />
+                                    @if (languagePrints().length > 1) {
+                                        <div
+                                            class="printing-options"
+                                            role="group"
+                                            aria-labelledby="printing-label"
+                                        >
+                                            <span class="field-label" id="printing-label"
+                                                >Printing</span
+                                            >
+                                            @for (print of languagePrints(); track print.id) {
+                                                <button
+                                                    class="ui-button ui-choice-pill"
+                                                    type="button"
+                                                    [attr.aria-pressed]="
+                                                        print.id === currentPrintId()
+                                                    "
+                                                    (click)="selectPrint(print.id)"
+                                                >
+                                                    #{{ print.collector_number }} ·
+                                                    {{ print.rarity }}
+                                                    @if (print.artist) {
+                                                        · {{ print.artist }}
+                                                    }
+                                                </button>
+                                            }
+                                        </div>
+                                    }
+                                </div>
                             }
                         </div>
 
@@ -332,29 +368,8 @@
                     </dl>
                 </section>
 
-                <section class="legality-panel" aria-labelledby="legality-heading">
-                    <div class="section-heading">
-                        <h2 id="legality-heading">Format legality</h2>
-                        <span>Official formats</span>
-                    </div>
-                    @if (card.legalities; as legalities) {
-                        <ul class="legality-grid">
-                            @for (legality of legalities | keyvalue; track legality.key) {
-                                <li>
-                                    <span>{{ legality.key }}</span>
-                                    <strong>
-                                        {{
-                                            legality.value === 'legal' ? 'Legal' : 'Not Legal'
-                                        }}</strong
-                                    >
-                                </li>
-                            }
-                        </ul>
-                    } @else {
-                        <p>No legality information is available.</p>
-                    }
-                </section>
+                <app-card-format-legalities [legalities]="card.legalities" />
             </section>
         </div>
-    </main>
+    </article>
 }

@@ -1,0 +1,30 @@
+<span class="language-label">{{ selectable() ? 'Language:' : 'Languages:' }}</span>
+@for (language of badges(); track language.code) {
+    @if (selectable()) {
+        <button
+            class="ui-button ui-choice-pill"
+            type="button"
+            [attr.aria-label]="language.label"
+            [attr.aria-pressed]="selectedLanguage() === language.code"
+            [title]="language.label"
+            (click)="languageSelected.emit(language.code)"
+        >
+            @if (language.flagCode) {
+                <span [class]="'fi fi-' + language.flagCode" aria-hidden="true"></span>
+            }
+            <span class="language-code" aria-hidden="true">{{ language.code }}</span>
+        </button>
+    } @else {
+        <span
+            class="language-badge"
+            role="img"
+            [attr.aria-label]="language.label"
+            [title]="language.label"
+        >
+            @if (language.flagCode) {
+                <span [class]="'fi fi-' + language.flagCode" aria-hidden="true"></span>
+            }
+            <span class="language-code" aria-hidden="true">{{ language.code }}</span>
+        </span>
+    }
+}

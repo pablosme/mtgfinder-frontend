@@ -1,29 +1,151 @@
 @use '@angular/material' as mat;
+@use '@fontsource-variable/inter/wght.css' as inter;
+@use '@fontsource-variable/eb-garamond/wght.css' as garamond;
+@use '@fontsource-variable/eb-garamond/wght-italic.css' as garamond-italic;
+// Only the rectangular flags used by card-language badges are bundled.
+@use 'flag-icons/sass/flag-icons' with (
+    $flag-icons-use-square: false,
+    $flag-icons-included-countries: (
+        'gb',
+        'es',
+        'fr',
+        'de',
+        'it',
+        'br',
+        'jp',
+        'kr',
+        'ru',
+        'cn',
+        'tw',
+        'il',
+    )
+);
+@use './styles/tokens';
+@use './styles/patterns' as ui;
 
-html,
-body {
+html {
     @include mat.theme(
         (
-            color: mat.$azure-palette,
-            typography: Arial,
+            typography: (
+                plain-family: var(--font-body),
+                brand-family: var(--font-heading),
+            ),
             density: 0,
         )
     );
-
-    margin: 0;
-    padding: 0;
-    height: 100%;
+    @include mat.theme-overrides(
+        (
+            primary: var(--color-primary),
+            on-primary: var(--color-on-primary),
+            surface: var(--color-surface),
+            on-surface: var(--color-text),
+            on-surface-variant: var(--color-text-muted),
+            surface-container-high: var(--color-surface-subtle),
+            outline: var(--color-control-border),
+            outline-variant: var(--color-border),
+            error: var(--color-error),
+        )
+    );
+    @include mat.dialog-overrides(
+        (
+            container-color: var(--color-surface-subtle),
+            container-shape: var(--radius-panel),
+            container-elevation-shadow: var(--shadow-dialog),
+            subhead-color: var(--color-heading),
+            subhead-font: var(--font-heading),
+            subhead-size: var(--text-2xl),
+            subhead-weight: var(--weight-semibold),
+            supporting-text-color: var(--color-text-muted),
+            supporting-text-font: var(--font-body),
+            supporting-text-size: var(--text-sm),
+        )
+    );
+    color-scheme: light;
     box-sizing: border-box;
+    background: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    line-height: var(--leading-normal);
 }
 
 *,
-*:before,
-*:after {
+*::before,
+*::after {
     box-sizing: inherit;
 }
+body {
+    margin: 0;
+}
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+button,
+a,
+input,
+select,
+textarea {
+    -webkit-tap-highlight-color: transparent;
+}
+button,
+a {
+    touch-action: manipulation;
+}
+input::placeholder {
+    color: var(--color-text-muted);
+    opacity: 1;
+}
+::selection {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+}
+:focus-visible {
+    outline: var(--focus-width) solid var(--color-focus);
+    outline-offset: var(--focus-offset);
+}
 
-app-root {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+.skip-link {
+    position: fixed;
+    top: var(--space-3);
+    left: var(--space-3);
+    z-index: var(--layer-skip-link);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    transform: translateY(-200%);
+    &:focus {
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto;
+    }
+}
+
+// Shared by search actions, scanner close, and alternate-face controls.
+.ui-button {
+    @include ui.button;
+}
+
+// Shared modifier for the language and printing choice buttons.
+.ui-choice-pill {
+    min-width: 0;
+    max-width: 100%;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    color: var(--color-heading);
+    overflow-wrap: anywhere;
+
+    &[aria-pressed='true'] {
+        border-color: var(--color-primary);
+        background: var(--color-selected);
+        box-shadow: inset 0 0 0 var(--border-width) var(--color-primary);
+    }
 }

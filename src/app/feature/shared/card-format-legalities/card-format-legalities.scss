@@ -1,0 +1,111 @@
+@use '../../../../styles/patterns' as ui;
+
+:host {
+    display: block;
+    min-width: 0;
+}
+.legality-panel {
+    @include ui.panel;
+    padding: var(--panel-padding);
+}
+.legality-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+
+    h2 {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        margin: 0;
+        color: var(--color-heading);
+        font: var(--weight-semibold) var(--text-xl) / var(--leading-normal) var(--font-heading);
+    }
+    svg {
+        flex-shrink: 0;
+        width: var(--icon-sm);
+        height: var(--icon-sm);
+    }
+    > span {
+        @include ui.label;
+    }
+}
+.legality-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.legality-pill {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    max-width: 100%;
+    padding: var(--space-2) var(--space-3);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-subtle);
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    line-height: var(--leading-normal);
+    overflow-wrap: anywhere;
+}
+.format-name {
+    min-width: 0;
+    font-weight: var(--weight-medium);
+}
+.status-label {
+    min-width: 0;
+}
+.status-dot {
+    flex: 0 0 var(--space-2);
+    height: var(--space-2);
+    border-radius: var(--radius-pill);
+    background: currentColor;
+}
+.legality-pill--legal,
+.legality-pill--restricted {
+    border-color: currentColor;
+    box-shadow: var(--shadow-sm);
+    .format-name,
+    .status-label {
+        font-weight: var(--weight-semibold);
+    }
+}
+.legality-pill--legal {
+    background: var(--color-success-surface);
+    color: var(--color-success);
+}
+.legality-pill--restricted {
+    background: var(--color-warning-surface);
+    color: var(--color-warning);
+    .status-dot {
+        background: var(--color-accent);
+    }
+    .status-label {
+        text-transform: uppercase;
+        letter-spacing: var(--tracking-label);
+    }
+}
+.legality-pill--banned {
+    transition: background var(--motion-fast) var(--motion-easing);
+    .status-label {
+        color: var(--color-error);
+        font-weight: var(--weight-semibold);
+    }
+    &:hover {
+        background: var(--color-error-surface);
+    }
+}
+.empty-legality {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+}

@@ -1,0 +1,250 @@
+<article class="syntax-page" aria-labelledby="syntax-title">
+    <header class="guide-intro">
+        <a class="back-link" routerLink="/">← Back to card search</a>
+        <p class="eyebrow">The search field guide</p>
+        <h1 id="syntax-title">Search syntax</h1>
+        <p class="intro-text">
+            Start with a card name. Add a few commands to narrow your search by color, type,
+            printing, format and more.
+        </p>
+    </header>
+
+    <div class="guide-layout">
+        <nav class="guide-nav" aria-label="On this page">
+            <p>On this page</p>
+            <a routerLink="." fragment="getting-started">Getting started</a>
+            <a routerLink="." fragment="writing-commands">Writing commands</a>
+            <a routerLink="." fragment="command-reference">All {{ commands.length }} commands</a>
+            <a routerLink="." fragment="combining-filters">Combining filters</a>
+            <a routerLink="." fragment="search-troubleshooting">Troubleshooting</a>
+        </nav>
+
+        <div class="guide-content">
+            <section class="guide-panel" id="getting-started" aria-labelledby="start-heading">
+                <p class="eyebrow">01 / Quick start</p>
+                <h2 id="start-heading">From a name to a focused search</h2>
+                <code class="query-example">Dragon /type=creature /color=R</code>
+                <p>
+                    <strong>Dragon</strong> is the name text. <code>/type=creature</code> adds a
+                    type filter, and <code>/color=R</code> adds a red color filter.
+                </p>
+                <ol class="steps">
+                    <li>
+                        <strong>Enter a card name or part of one.</strong> Results appear as you
+                        type after a short pause. A name is required, even when using filters.
+                    </li>
+                    <li>
+                        <strong>Add a command.</strong> Type <kbd>/</kbd> or use the slash button in
+                        the search box. Choose a filter, then enter its value after <code>=</code>.
+                    </li>
+                    <li>
+                        <strong>Open a result.</strong> Click a card, or use <kbd>↑</kbd> and
+                        <kbd>↓</kbd> to highlight it and <kbd>Enter</kbd> to open its details.
+                    </li>
+                </ol>
+                <p class="guide-note">
+                    You can use the search box at the top of this page while reading. The arrow keys
+                    and Enter also work in the filter menu. Press <kbd>Esc</kbd> to close
+                    suggestions.
+                </p>
+            </section>
+
+            <section class="guide-panel" id="writing-commands" aria-labelledby="writing-heading">
+                <p class="eyebrow">02 / The basics</p>
+                <h2 id="writing-heading">Write commands as /filter=value</h2>
+                <dl class="explanation-list">
+                    <div>
+                        <dt>Separate commands with spaces</dt>
+                        <dd>
+                            Keep each command together: <code>/rarity=rare</code>. Do not add spaces
+                            around the equals sign. Commands can go before or after the name; text
+                            outside the commands becomes the card-name search.
+                        </dd>
+                    </div>
+                    <div>
+                        <dt>Quote values that contain spaces</dt>
+                        <dd>
+                            Use double quotes around the entire value:
+                            <code>/type="Legendary Creature"</code> or
+                            <code>/set="Limited Edition Alpha"</code>. Single quotes do not group
+                            words. Close the double quote before adding another command.
+                        </dd>
+                    </div>
+                    <div>
+                        <dt>Keep special characters inside quoted values</dt>
+                        <dd>
+                            Inside a double-quoted value, write <code>\"</code> for a literal double
+                            quote and <code>\\</code> for a literal backslash.
+                        </dd>
+                    </div>
+                    <div>
+                        <dt>Use the supported command names</dt>
+                        <dd>
+                            Command names are case-insensitive: <code>/TYPE=creature</code> and
+                            <code>/type=creature</code> use the same filter.
+                            <code>/color=</code> and <code>/colors=</code> are aliases. Keep
+                            underscores in names such as <code>/color_identity=</code>.
+                        </dd>
+                    </div>
+                    <div>
+                        <dt>Keep split-card names intact</dt>
+                        <dd>
+                            The double slash in <code>Fire // Ice</code> is part of the name. It
+                            does not start a filter.
+                        </dd>
+                    </div>
+                </dl>
+            </section>
+
+            <section class="guide-panel" id="command-reference" aria-labelledby="commands-heading">
+                <p class="eyebrow">03 / Command reference</p>
+                <h2 id="commands-heading">Every supported filter</h2>
+                <p>
+                    Add these command snippets to a card name. Choose a command below to jump to its
+                    examples and value rules.
+                </p>
+                <nav class="command-index" aria-label="Search commands">
+                    @for (command of commands; track command.field.key) {
+                        <a routerLink="." [fragment]="'command-' + command.field.key">
+                            /{{ command.field.alias ?? command.field.key }}
+                        </a>
+                    }
+                </nav>
+
+                @for (command of commands; track command.field.key) {
+                    <section
+                        class="command-card"
+                        [id]="'command-' + command.field.key"
+                        [attr.aria-labelledby]="'command-heading-' + command.field.key"
+                    >
+                        <div class="command-heading">
+                            <h3 [id]="'command-heading-' + command.field.key">
+                                {{ command.field.label }}
+                            </h3>
+                            <code>/{{ command.field.alias ?? command.field.key }}=value</code>
+                        </div>
+                        <p>{{ command.description }}</p>
+                        @if (command.field.alias) {
+                            <p class="alias-note">
+                                Also accepts <code>/{{ command.field.key }}=value</code>.
+                            </p>
+                        }
+                        @if (command.field.options; as options) {
+                            <p class="option-list">
+                                <strong>Accepted values:</strong>
+                                @for (option of options; track option) {
+                                    <code>{{ option }}</code>
+                                }
+                            </p>
+                        }
+                        <ul class="command-examples" aria-label="Command examples">
+                            @for (example of command.examples; track example) {
+                                <li>
+                                    <code>{{ example }}</code>
+                                </li>
+                            }
+                        </ul>
+                        <ul class="command-notes">
+                            @for (note of command.notes; track note) {
+                                <li>{{ note }}</li>
+                            }
+                        </ul>
+                    </section>
+                }
+            </section>
+
+            <section class="guide-panel" id="combining-filters" aria-labelledby="combining-heading">
+                <p class="eyebrow">04 / Put it together</p>
+                <h2 id="combining-heading">Combine and repeat commands</h2>
+                <p>
+                    Add different commands to narrow several properties in the same search. Repeat a
+                    command to supply multiple values; the later value does not erase the earlier
+                    one.
+                </p>
+                <dl class="explanation-list">
+                    <div>
+                        <dt><code>Angel /type=creature /keyword=flying /cmc=4</code></dt>
+                        <dd>Search the name Angel with creature type, flying and mana value 4.</dd>
+                    </div>
+                    <div>
+                        <dt><code>Lotus /set=lea /collection=232</code></dt>
+                        <dd>Search the name Lotus with a set code and collector number.</dd>
+                    </div>
+                    <div>
+                        <dt><code>Elf /color=G /color=B</code></dt>
+                        <dd>
+                            Supply green or black as alternatives. For both colors in one filter,
+                            use <code>Elf /color=G,B</code> instead.
+                        </dd>
+                    </div>
+                    <div>
+                        <dt><code>Dragon /rarity=rare /rarity=mythic</code></dt>
+                        <dd>Supply two rarity values while searching the name Dragon.</dd>
+                    </div>
+                </dl>
+                <p class="guide-note">
+                    Filters stay with you when moving between the home and header search boxes.
+                    Delete a command to remove that filter, or remove all commands to return to a
+                    name-only search.
+                </p>
+            </section>
+
+            <section
+                class="guide-panel"
+                id="search-troubleshooting"
+                aria-labelledby="trouble-heading"
+            >
+                <p class="eyebrow">05 / When a search needs a fix</p>
+                <h2 id="trouble-heading">Troubleshooting</h2>
+                <dl class="explanation-list">
+                    <div>
+                        <dt>“Enter a card name to search.”</dt>
+                        <dd>
+                            Filters alone do not start a search. Add name text, such as
+                            <code>Dragon /color=R</code>.
+                        </dd>
+                    </div>
+                    <div>
+                        <dt>Unknown filter or missing value</dt>
+                        <dd>
+                            Type <kbd>/</kbd> to pick a supported command. Use
+                            <code>/type=creature</code>, with the slash, equals sign and a nonempty
+                            value. Syntax errors pause searching until corrected.
+                        </dd>
+                    </div>
+                    <div>
+                        <dt>A quoted value is unfinished</dt>
+                        <dd>
+                            Check that the whole value is enclosed in double quotes. For example,
+                            write <code>/keyword="first strike"</code>.
+                        </dd>
+                    </div>
+                    <div>
+                        <dt>A color, rarity, format status or mana value is rejected</dt>
+                        <dd>
+                            Use <code>U</code> for blue, <code>mythic</code> for mythic rare,
+                            <code>not_legal</code> with an underscore, and a nonnegative number such
+                            as <code>/cmc=3</code>. Check the command reference for details.
+                        </dd>
+                    </div>
+                    <div>
+                        <dt>No cards found</dt>
+                        <dd>
+                            Check the name, remove filters one at a time, and look for commands left
+                            over from a previous search. Valid syntax can still produce no matches.
+                            The examples illustrate syntax and do not guarantee results.
+                        </dd>
+                    </div>
+                    <div>
+                        <dt>“Unable to search cards. Please try again.”</dt>
+                        <dd>
+                            The search request could not be completed. Try again; this message is
+                            separate from a syntax error or an empty result list.
+                        </dd>
+                    </div>
+                </dl>
+                <a class="ui-button return-button" routerLink="/">Back to card search</a>
+            </section>
+        </div>
+    </div>
+</article>

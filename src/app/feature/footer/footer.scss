@@ -1,129 +1,61 @@
-// Variáveis extraídas do seu design system
-$font-headline: 'EB Garamond', serif;
-$font-body: 'Inter', sans-serif;
-
-// Cores Modo Claro
-$bg-footer: #f7ecdf; // surface-container
-$border-color: #a5978b; // parchment-border
-$text-primary: #3f1513; // primary
-$text-variant: #524342; // on-surface-variant
-
-// Cores Modo Escuro
-$dark-bg-footer: #f1e7da; // surface-container-high
-$dark-border-color: #d7c2c0; // outline-variant
-$dark-text-primary: #fdb4ae; // inverse-primary
-$dark-text-variant: #d7c2c0; // outline-variant
-$dark-text-hover: #ffdad7; // primary-fixed
+@use '../../../styles/breakpoints' as bp;
 
 .footer-wrapper {
     width: 100%;
-    background-color: $bg-footer;
-    border-top: 1px solid $border-color;
     margin-top: auto;
-    transition:
-        background-color 0.3s ease,
-        border-color 0.3s ease;
-
-    // Suporte a Dark Mode (caso o Angular adicione a classe 'dark' no body ou html)
-    :host-context(.dark) &,
-    .dark & {
-        background-color: $dark-bg-footer;
-        border-color: $dark-border-color;
-    }
+    border-top: var(--border-width) solid var(--color-border);
+    background: var(--color-surface-inset);
 }
-
 .footer-container {
-    width: 100%;
-    max-width: 1280px; // max-w-7xl
-    margin: 0 auto;
-    padding: 2rem 1rem; // py-8 px-margin-mobile
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     align-items: center;
-    gap: 1rem;
-    text-align: center;
-
-    // Breakpoint 'md' (768px)
-    @media (min-width: 768px) {
-        padding-left: 2.5rem; // px-margin
-        padding-right: 2.5rem;
-        flex-direction: row;
-        text-align: left;
-    }
+    justify-content: space-between;
+    gap: var(--space-8);
+    width: min(100%, var(--container-page));
+    margin-inline: auto;
+    padding: var(--space-6) var(--page-gutter);
 }
-
 .footer-brand {
-    max-width: 768px; // max-w-3xl
+    max-width: var(--container-reading);
 }
-
 .footer-title {
-    font-family: $font-headline;
-    font-size: 20px; // headline-sm
-    line-height: 28px;
-    font-weight: 600; // semibold
-    color: $text-primary;
-    margin-bottom: 0.5rem;
-
-    :host-context(.dark) &,
-    .dark & {
-        color: $dark-text-primary;
-    }
+    margin-bottom: var(--space-2);
+    color: var(--color-heading);
+    font: var(--weight-semibold) var(--text-xl) / var(--leading-tight) var(--font-heading);
 }
-
 .footer-disclaimer {
-    font-family: $font-body;
-    font-size: 12px; // body-sm
-    line-height: 1.625; // leading-relaxed aproximado
-    font-weight: 400;
-    color: $text-variant;
-
-    :host-context(.dark) &,
-    .dark & {
-        color: $dark-text-variant;
-    }
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    line-height: var(--leading-relaxed);
 }
-
 .footer-links {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
-    gap: 0.5rem 1.5rem; // gap-y-2 gap-x-6
-    flex-shrink: 0;
-
-    @media (min-width: 768px) {
-        justify-content: flex-end;
-    }
+    justify-content: flex-end;
+    gap: var(--space-2) var(--space-5);
 }
-
 .footer-link {
-    font-family: $font-body;
-    font-size: 11px; // label-sm
-    line-height: 14px;
-    letter-spacing: 0.06em;
-    font-weight: 500;
-    color: $text-variant;
+    display: inline-flex;
+    min-height: var(--control-min);
+    align-items: center;
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    text-underline-offset: var(--space-1);
     text-decoration: none;
-    transition:
-        color 0.15s ease,
-        opacity 0.15s ease;
-
     &:hover {
-        color: $text-primary;
+        color: var(--color-primary);
         text-decoration: underline;
     }
-
-    &:active {
-        opacity: 0.75;
+}
+@media (max-width: bp.$tablet) {
+    .footer-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-3);
     }
-
-    :host-context(.dark) &,
-    .dark & {
-        color: $dark-text-variant;
-
-        &:hover {
-            color: $dark-text-hover;
-        }
+    .footer-links {
+        justify-content: flex-start;
     }
 }

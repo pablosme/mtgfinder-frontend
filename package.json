@@ -42,6 +42,7 @@
         "@tesseract.js-data/san": "1.0.0",
         "@tesseract.js-data/spa": "1.0.0",
         "express": "^5.1.0",
+        "flag-icons": "^7.5.0",
         "mana-font": "^1.18.0",
         "rxjs": "~7.8.0",
         "tesseract.js": "7.0.0",

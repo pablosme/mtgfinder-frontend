@@ -1,0 +1,36 @@
+<section class="legality-panel" aria-labelledby="legality-heading">
+    <div class="legality-heading">
+        <h2 id="legality-heading">
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+            >
+                <path d="M12 3 4 6v6c0 4 4 7 8 9 4-2 8-5 8-9V6l-8-3Z" />
+                <path d="m8 12 3 3 5-6" />
+            </svg>
+            Format legality
+        </h2>
+        <span>Official formats</span>
+    </div>
+    @if (formats().length) {
+        <ul class="legality-list">
+            @for (legality of formats(); track legality.key) {
+                <li [class]="'legality-pill legality-pill--' + legality.status">
+                    @if (legality.status === 'legal' || legality.status === 'restricted') {
+                        <span class="status-dot" aria-hidden="true"></span>
+                    }
+                    <span class="format-name">{{ legality.format }}</span>
+                    <span class="status-label">{{ legality.statusLabel }}</span>
+                </li>
+            }
+        </ul>
+    } @else {
+        <p class="empty-legality">No legality information is available.</p>
+    }
+</section>

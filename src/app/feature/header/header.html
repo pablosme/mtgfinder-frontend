@@ -1,13 +1,20 @@
-<header class="site-header">
-    <a class="brand" routerLink="/" aria-label="MTG Finder home">
-        <h1><span class="ms ms-planeswalker" aria-hidden="true"></span> MTG Finder</h1>
-    </a>
+<header class="site-header" [class.site-header--home]="isHome()">
+    <div class="header-container">
+        <a class="brand" routerLink="/" aria-label="Sol Binder home">
+            <span class="brand-mark" aria-hidden="true">
+                <img src="icon2.png" alt="" />
+            </span>
+            <span class="brand-name">Sol Binder</span>
+        </a>
 
-    @if (!isHome()) {
-        <app-card-search-input
-            class="header-search"
-            inputId="header-card-search"
-            (cardSelected)="selectCard($event)"
-        />
-    }
+        @if (!isHome()) {
+            <app-card-search-input
+                class="header-search"
+                inputId="header-card-search"
+                (cardSelected)="selectCard($event)"
+            />
+        } @else {
+            <span class="header-caption">A Magic: The Gathering card archive</span>
+        }
+    </div>
 </header>

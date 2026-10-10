@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { provideRouter, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 
 import { routes } from './app.routes';
@@ -10,7 +10,11 @@ export const appConfig: ApplicationConfig = {
     providers: [
         provideBrowserGlobalErrorListeners(),
         provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
-        provideRouter(routes, withComponentInputBinding()),
+        provideRouter(
+            routes,
+            withComponentInputBinding(),
+            withInMemoryScrolling({ anchorScrolling: 'enabled' }),
+        ),
         provideClientHydration(withEventReplay()),
     ],
 };

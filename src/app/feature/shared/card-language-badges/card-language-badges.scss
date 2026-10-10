@@ -1,0 +1,38 @@
+:host {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-1);
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+}
+
+.language-label {
+    margin-right: var(--space-1);
+}
+.language-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1) var(--space-2);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-subtle);
+    color: var(--color-heading);
+}
+.language-code {
+    text-transform: uppercase;
+}
+.fi {
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+}
+
+:host(.language-selector) {
+    gap: var(--space-2);
+
+    .language-label {
+        flex-basis: 100%;
+        font-weight: var(--weight-medium);
+    }
+}

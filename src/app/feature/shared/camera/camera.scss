@@ -4,52 +4,43 @@
     height: 100%;
     min-height: 0;
 }
-
-[hidden] {
-    display: none !important;
-}
-
 .camera-header {
     display: flex;
     flex: 0 0 auto;
     align-items: center;
     justify-content: space-between;
-    gap: 0.75rem;
-    padding: 0.5rem 0.75rem;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--panel-padding);
+    border-bottom: var(--border-width) solid var(--color-border);
 }
-
 .camera-header [mat-dialog-title] {
     margin: 0;
     padding: 0;
-    font-size: 1.125rem;
-    line-height: 1.5;
-
-    &::before {
-        display: none;
-    }
 }
-
 :host .camera-content {
     display: flex;
     flex: 1 1 0;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: var(--space-3);
     min-height: 0;
     max-height: none;
-    padding: 0 0.75rem 0.5rem;
+    padding: var(--space-4) var(--panel-padding);
 }
-
 .preview,
 .scan-result {
     position: relative;
     flex: 1 1 0;
     min-height: 0;
     overflow: hidden;
-    border-radius: 0.5rem;
-    background: #111827;
-    color: #fff;
+    border: var(--border-width) solid var(--color-control-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-preview);
+    color: var(--color-preview-text);
+    box-shadow: var(--shadow-sm);
 }
-
+.preview[hidden] {
+    display: none;
+}
 video,
 .scan-result img {
     position: absolute;
@@ -59,28 +50,39 @@ video,
     height: 100%;
     object-fit: contain;
 }
-
+.scan-guidance {
+    flex: 0 0 auto;
+    margin: 0;
+    text-align: center;
+    color: var(--color-heading);
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+}
 .scan-status {
     flex: 0 0 auto;
-    max-height: 3.75rem;
+    max-height: var(--space-20);
     overflow-y: auto;
     margin: 0;
-    font-size: 0.8125rem;
-    line-height: 1.25rem;
+    padding: var(--space-3) var(--space-4);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    text-align: center;
 }
-
 .preview-message {
     position: absolute;
     inset: 0;
     display: grid;
     place-content: center;
-    margin: 0;
-    padding: 1rem;
-    background: #111827;
-    text-align: center;
     overflow-y: auto;
+    margin: 0;
+    padding: var(--space-4);
+    background: var(--color-preview);
+    text-align: center;
+    color: var(--color-preview-text);
 }
-
 .card-outline {
     position: absolute;
     inset: 0;
@@ -88,80 +90,13 @@ video,
     height: 100%;
     pointer-events: none;
     fill: none;
-    stroke: #fbbf24;
+    stroke: var(--color-detection-pending);
     stroke-width: 3;
     stroke-linejoin: round;
-
     &.ready {
-        stroke: #34d399;
+        stroke: var(--color-detection-ready);
     }
-
     polygon {
         vector-effect: non-scaling-stroke;
-    }
-}
-
-button {
-    min-height: 2.75rem;
-    padding: 0.375rem 0.75rem;
-    border: 1px solid #9ca3af;
-    border-radius: 0.35rem;
-    background: #f3f4f6;
-    color: #111827;
-    font: inherit;
-    font-size: 0.875rem;
-    cursor: pointer;
-}
-
-button:focus-visible {
-    outline: 3px solid #2563eb;
-    outline-offset: 2px;
-}
-
-button.focus-area {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-    padding: 0;
-    border: 0;
-    border-radius: inherit;
-    background: transparent;
-    cursor: crosshair;
-    touch-action: manipulation;
-
-    &.busy {
-        cursor: wait;
-    }
-
-    &:focus-visible {
-        outline-color: #fff;
-        outline-offset: -4px;
-    }
-}
-
-.focus-target {
-    position: absolute;
-    width: 3rem;
-    height: 3rem;
-    transform: translate(-50%, -50%);
-    border: 2px solid #fbbf24;
-    border-radius: 50%;
-    box-shadow: 0 0 0 1px #111827;
-    pointer-events: none;
-}
-
-.focus-hint {
-    font-weight: 600;
-}
-
-@media (max-width: 480px) {
-    .camera-header {
-        padding-inline: 0.5rem;
-    }
-
-    :host .camera-content {
-        padding-inline: 0.5rem;
     }
 }

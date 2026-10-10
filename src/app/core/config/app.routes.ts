@@ -10,4 +10,11 @@ export const routes: Routes = [
         loadComponent: () =>
             import('../../feature/card-detail/card-detail').then((module) => module.CardDetail),
     },
+    {
+        path: 'search-syntax',
+        loadComponent: () =>
+            import('../../feature/search-syntax/search-syntax').then(
+                (module) => module.SearchSyntax,
+            ),
+    },
 ];

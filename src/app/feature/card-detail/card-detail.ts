@@ -1,4 +1,3 @@
-import { KeyValuePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -7,16 +6,49 @@ import { catchError, distinctUntilChanged, finalize, map, of, switchMap } from '
 import { CardSearchService } from '../shared/card-search.service';
 import { ManaText } from '../shared/mana-text/mana-text';
 import { CardFace, CardPrint, OracleCard } from '../shared/interface/card-search.interface';
+import type { CardPrintSet } from '../shared/interface/card-print-set.interface';
+import { CardLanguageBadges } from '../shared/card-language-badges/card-language-badges';
+import { CardFormatLegalities } from '../shared/card-format-legalities/card-format-legalities';
 
 @Component({
     selector: 'app-card-detail',
-    imports: [KeyValuePipe, ManaText, RouterLink],
+    imports: [ManaText, RouterLink, CardLanguageBadges, CardFormatLegalities],
     templateUrl: './card-detail.html',
     styleUrl: './card-detail.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardDetail {
     readonly card = signal<OracleCard | null>(null);
+    readonly printSets = computed<CardPrintSet[]>(() => {
+        const sets = new Map<string, CardPrintSet>();
+
+        for (const print of this.card()?.prints ?? []) {
+            const id = print.set_id?.trim() || null;
+            const code = print.set_code.trim();
+            // Never merge unrelated sets just because their IDs are missing.
+            const key = id ? `id:${id}` : code ? `code:${code}` : `print:${print.id}`;
+            let set = sets.get(key);
+            if (!set) {
+                set = {
+                    key,
+                    id,
+                    code,
+                    name: print.set_name,
+                    image: null,
+                    languages: [],
+                    prints: [],
+                };
+                sets.set(key, set);
+            }
+
+            set.prints.push(print);
+            set.image ??= this.printImageUrl(print);
+            const language = print.lang.trim().toLowerCase() || 'und';
+            if (!set.languages.includes(language)) set.languages.push(language);
+        }
+
+        return [...sets.values()];
+    });
     readonly loading = signal(false);
     readonly error = signal('');
     readonly currentPrintId = signal<string | null>(null);
@@ -25,6 +57,20 @@ export class CardDetail {
             (this.card()?.prints ?? []).find((print) => print.id === this.currentPrintId()) ?? null
         );
     });
+    readonly currentSet = computed<CardPrintSet | null>(
+        () =>
+            this.printSets().find((set) =>
+                set.prints.some((print) => print.id === this.currentPrintId()),
+            ) ?? null,
+    );
+    readonly currentLanguage = computed(
+        () => this.currentPrint()?.lang.trim().toLowerCase() || 'und',
+    );
+    readonly languagePrints = computed<CardPrint[]>(() =>
+        (this.currentSet()?.prints ?? []).filter(
+            (print) => (print.lang.trim().toLowerCase() || 'und') === this.currentLanguage(),
+        ),
+    );
     readonly faces = computed(() =>
         [...(this.currentPrint()?.faces ?? [])].sort((a, b) => a.face_index - b.face_index),
     );
@@ -83,7 +129,47 @@ export class CardDetail {
             });
     }
 
-    selectPrint(print: CardPrint): void {
+    selectSet(set: CardPrintSet): void {
+        if (set.key === this.currentSet()?.key) return;
+
+        const print =
+            set.prints.find(
+                (candidate) =>
+                    (candidate.lang.trim().toLowerCase() || 'und') === this.currentLanguage(),
+            ) ??
+            set.prints.find((candidate) => candidate.id === this.card()?.fallback_print_id) ??
+            set.prints.find((candidate) => candidate.lang.trim().toLowerCase() === 'en') ??
+            set.prints[0];
+
+        if (print) this.selectPrint(print.id);
+    }
+
+    selectLanguage(language: string): void {
+        if (language === this.currentLanguage()) return;
+
+        const current = this.currentPrint();
+        const prints = (this.currentSet()?.prints ?? []).filter(
+            (print) => (print.lang.trim().toLowerCase() || 'und') === language,
+        );
+        // Prefer the same collector/art variant when it exists in the chosen language.
+        const print =
+            prints.find(
+                (candidate) =>
+                    candidate.collector_number === current?.collector_number &&
+                    candidate.illustration_id === current?.illustration_id,
+            ) ??
+            prints.find((candidate) => candidate.collector_number === current?.collector_number) ??
+            prints.find((candidate) => candidate.id === this.card()?.fallback_print_id) ??
+            prints[0];
+
+        if (print) this.selectPrint(print.id);
+    }
+
+    selectPrint(printId: string): void {
+        if (printId === this.currentPrintId()) return;
+        const print = this.card()?.prints?.find((candidate) => candidate.id === printId);
+        if (!print) return;
+
         this.currentPrintId.set(print.id);
         this.currentFaceIndex.set(0);
     }
