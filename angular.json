@@ -87,6 +87,17 @@
                             "extractLicenses": false,
                             "sourceMap": true
                         },
+                        "online": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/app/core/environment/environment.ts",
+                                    "with": "src/app/core/environment/environment-online.ts"
+                                }
+                            ],
+                            "optimization": false,
+                            "extractLicenses": false,
+                            "sourceMap": true
+                        },
                         "development": {
                             "optimization": false,
                             "extractLicenses": false,
@@ -100,6 +111,10 @@
                     "configurations": {
                         "local": {
                             "buildTarget": "mtgfinder-frontend:build:local",
+                            "allowedHosts": ["*"]
+                        },
+                        "online": {
+                            "buildTarget": "mtgfinder-frontend:build:online",
                             "allowedHosts": ["*"]
                         },
                         "production": {

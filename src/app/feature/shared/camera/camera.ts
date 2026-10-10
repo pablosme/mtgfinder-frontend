@@ -46,13 +46,13 @@ export class Camera {
     private lastDetectionAt = 0;
     private missedCardFrames = 0;
     private retryAfter = 0;
-    // Require three consecutive stable border detections to prevent false locks on transient shapes
-    private readonly requiredGoodFrames = 3;
+    // Require two consecutive stable border detections (~240ms) to confirm lock without sluggishness
+    private readonly requiredGoodFrames = 2;
     private readonly detectionIntervalMs = 120;
-    private readonly maxCornerMovementRatio = 0.025;
-    private readonly minCaptureDetectionScore = 0.6;
-    private readonly minCaptureAreaRatio = 0.08;
-    private readonly minCapturePerspectiveRatio = 0.55;
+    private readonly maxCornerMovementRatio = 0.04;
+    private readonly minCaptureDetectionScore = 0.45;
+    private readonly minCaptureAreaRatio = 0.05;
+    private readonly minCapturePerspectiveRatio = 0.4;
     private readonly minCardAspectRatio = 0.62;
     private readonly maxCardAspectRatio = 0.8;
     private readonly captureBurstFrames = 3;
@@ -581,6 +581,38 @@ export class Camera {
                 }
             }
 
+            if (!best && this.lastDetection?.corners?.length === 4) {
+                const fallbackFrame = this.captureVideoFrame(video);
+                const scaleX =
+                    fallbackFrame.width / (this.lastDetection.sourceWidth || fallbackFrame.width);
+                const scaleY =
+                    fallbackFrame.height /
+                    (this.lastDetection.sourceHeight || fallbackFrame.height);
+                const fallbackCorners = this.lastDetection.corners.map((p) => ({
+                    x: p.x * scaleX,
+                    y: p.y * scaleY,
+                }));
+                const fallbackDetection: CardDetection = {
+                    ...this.lastDetection,
+                    corners: fallbackCorners,
+                    sourceWidth: fallbackFrame.width,
+                    sourceHeight: fallbackFrame.height,
+                };
+                try {
+                    const card = normalizeCard(cv, fallbackFrame, fallbackDetection);
+                    const quality = evaluateCardCaptureQuality(cv, card);
+                    best = {
+                        frame: fallbackFrame,
+                        card,
+                        detectionScore: this.lastDetection.score ?? 0.5,
+                        sharpness: quality.sharpness,
+                    };
+                } catch {
+                    fallbackFrame.width = 0;
+                    fallbackFrame.height = 0;
+                }
+            }
+
             if (!best) {
                 retryMessage =
                     'The card border moved or was incomplete. Hold it still and keep all four corners visible…';
@@ -719,6 +751,15 @@ export class Camera {
             }
         }
         return [...lines.values()].join('\n');
+    }
+    async manualCapture(): Promise<void> {
+        if (this.closed || this.processing() || this.loading()) return;
+        const detection = this.previewDetection() || this.lastDetection;
+        if (!detection?.corners || detection.corners.length !== 4) return;
+        this.lastDetection = detection;
+        this.goodCardFrames = this.requiredGoodFrames;
+        this.cancelCardDetection();
+        await this.captureCard();
     }
     useCard(): void {
         const result = this.result();

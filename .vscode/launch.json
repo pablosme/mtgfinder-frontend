@@ -3,16 +3,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "ng serve",
+            "name": "Start Local",
             "type": "node-terminal",
             "request": "launch",
             "command": "npm start"
         },
         {
-            "name": "ng test",
+            "name": "Start Online",
             "type": "node-terminal",
             "request": "launch",
-            "command": "npm test"
+            "command": "npm run startOnline"
         }
     ]
 }

@@ -38,6 +38,10 @@
     color: var(--color-preview-text);
     box-shadow: var(--shadow-sm);
 }
+.preview {
+    cursor: pointer;
+    touch-action: manipulation;
+}
 .preview[hidden] {
     display: none;
 }

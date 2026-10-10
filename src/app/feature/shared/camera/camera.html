@@ -21,7 +21,12 @@
         </label>
     }
 
-    <div class="preview" [hidden]="result() !== null" [attr.aria-busy]="loading() || processing()">
+    <div
+        class="preview"
+        [hidden]="result() !== null"
+        [attr.aria-busy]="loading() || processing()"
+        (click)="manualCapture()"
+    >
         <video #video autoplay muted playsinline aria-label="Live camera preview"></video>
 
         @if (outlinePoints() && !loading() && !error()) {

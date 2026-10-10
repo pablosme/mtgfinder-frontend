@@ -9,7 +9,7 @@ const NORMALIZED_CARD_HEIGHT = 1040;
  * Detection ensures that only full card-shaped quadrilaterals with proper
  * card proportions are matched, rejecting small internal boxes, art frames, or random squares.
  */
-const MIN_PERSPECTIVE_RATIO = 0.55;
+const MIN_PERSPECTIVE_RATIO = 0.4;
 /*
  * A standard MTG/poker card is 63 x 88 mm (aspect ratio ~0.7159).
  */
@@ -17,11 +17,11 @@ const CARD_ASPECT_RATIO = 63 / 88;
 const MIN_CARD_RATIO = 0.62;
 const MAX_CARD_RATIO = 0.8;
 /*
- * A genuine card must occupy at least 8% of the camera frame.
- * This completely filters out small background squares, icons, or internal card elements.
+ * A genuine card must occupy at least 5% of the camera frame.
+ * This filters out small background squares and icons while remaining easy to trigger.
  */
-const MIN_CARD_AREA_RATIO = 0.08;
-const MIN_READY_SCORE = 0.6;
+const MIN_CARD_AREA_RATIO = 0.05;
+const MIN_READY_SCORE = 0.45;
 /*
  * A larger closing kernel helps reconnect card borders that are interrupted by
  * glare, shadows, rounded corners, sleeves, or a low-resolution preview frame.
@@ -260,9 +260,9 @@ export function evaluateCardFrame(cv: typeof OpenCv, image: HTMLCanvasElement): 
                         }
                         const ratioDistance = Math.abs(metrics.aspectRatio - CARD_ASPECT_RATIO);
                         // Quadratic falloff from ideal 63:88 card ratio
-                        const aspectScore = Math.max(0, 1 - Math.pow(ratioDistance / 0.055, 2));
-                        const areaScore = Math.min(1, areaRatio / 0.45);
-                        const perspectiveScore = Math.min(1, metrics.perspectiveRatio / 0.85);
+                        const aspectScore = Math.max(0, 1 - Math.pow(ratioDistance / 0.085, 2));
+                        const areaScore = Math.min(1, areaRatio / 0.35);
+                        const perspectiveScore = Math.min(1, metrics.perspectiveRatio / 0.75);
                         const candidateScore =
                             areaScore * 0.45 + aspectScore * 0.45 + perspectiveScore * 0.1;
 
