@@ -35,8 +35,9 @@ export class CardSearchService {
     searchByPrompt(
         prompt: string,
         filters: CardSearchFilters = this.filters(),
+        limit?: number,
     ): Observable<CardSearchResponse> {
-        return this.search(`${this.cardsUrl}/vector`, 'prompt', prompt, filters);
+        return this.search(`${this.cardsUrl}/vector`, 'prompt', prompt, filters, limit);
     }
 
     private search(
@@ -44,9 +45,13 @@ export class CardSearchService {
         parameter: 'name' | 'prompt',
         value: string,
         filters: CardSearchFilters,
+        limit?: number,
     ): Observable<CardSearchResponse> {
         let params = new HttpParams().set(parameter, value);
-        for (const [key, values] of Object.entries(filters)) {
+        if (limit !== undefined) {
+            params = params.set('limit', limit.toString());
+        }
+        for (const [key, values] of Object.entries(filters ?? {})) {
             for (const value of values ?? []) {
                 const normalized = value.trim();
                 if (normalized) params = params.append(key, normalized);

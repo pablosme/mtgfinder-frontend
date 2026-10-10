@@ -46,14 +46,15 @@ export class Camera {
     private lastDetectionAt = 0;
     private missedCardFrames = 0;
     private retryAfter = 0;
-    // Require two consecutive stable border detections. At the current 120 ms
-    // interval this adds only about one extra frame of confirmation.
-    private readonly requiredGoodFrames = 2;
+    // Require three consecutive stable border detections to prevent false locks on transient shapes
+    private readonly requiredGoodFrames = 3;
     private readonly detectionIntervalMs = 120;
     private readonly maxCornerMovementRatio = 0.025;
-    private readonly minCaptureDetectionScore = 0.48;
-    private readonly minCaptureAreaRatio = 0.025;
-    private readonly minCapturePerspectiveRatio = 0.32;
+    private readonly minCaptureDetectionScore = 0.6;
+    private readonly minCaptureAreaRatio = 0.08;
+    private readonly minCapturePerspectiveRatio = 0.55;
+    private readonly minCardAspectRatio = 0.62;
+    private readonly maxCardAspectRatio = 0.8;
     private readonly captureBurstFrames = 3;
     private readonly captureBurstIntervalMs = 70;
     private readonly preferredCameraStorageKey = 'mtg-best-camera-device-id-v2';
@@ -362,12 +363,15 @@ export class Camera {
         }
     }
     private isCaptureReadyDetection(detection: CardDetection): boolean {
+        const aspectRatio = detection.aspectRatio ?? 0;
         return (
             detection.detected === true &&
             detection.corners?.length === 4 &&
             (detection.score ?? 0) >= this.minCaptureDetectionScore &&
             (detection.areaRatio ?? 0) >= this.minCaptureAreaRatio &&
-            (detection.perspectiveRatio ?? 0) >= this.minCapturePerspectiveRatio
+            (detection.perspectiveRatio ?? 0) >= this.minCapturePerspectiveRatio &&
+            aspectRatio >= this.minCardAspectRatio &&
+            aspectRatio <= this.maxCardAspectRatio
         );
     }
 
@@ -639,9 +643,10 @@ export class Camera {
 
             const cards = await firstValueFrom(
                 this.cardSearch
-                    .searchByPrompt(rawText)
+                    .searchByPrompt(rawText, {}, 1)
                     .pipe(timeout({ first: 45000 }), takeUntilDestroyed(this.destroyRef)),
-            ).catch(() => {
+            ).catch((err: unknown) => {
+                console.error('[Camera] Search error:', err);
                 retryMessage = 'Search is temporarily unavailable. Retrying automatically…';
                 retryDelayMs = 3000;
                 return null;

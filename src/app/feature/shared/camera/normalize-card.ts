@@ -6,33 +6,66 @@ import type { CardCaptureQuality } from '../interface/card-capture-quality.inter
 const NORMALIZED_CARD_WIDTH = 744;
 const NORMALIZED_CARD_HEIGHT = 1040;
 /*
- * Detection should be forgiving enough that the user does not need to hold the
- * card at one very specific angle. Perspective correction exists specifically
- * to straighten a tilted card afterwards.
+ * Detection ensures that only full card-shaped quadrilaterals with proper
+ * card proportions are matched, rejecting small internal boxes, art frames, or random squares.
  */
-const MIN_PERSPECTIVE_RATIO = 0.32;
+const MIN_PERSPECTIVE_RATIO = 0.55;
 /*
- * A standard MTG/poker card is 63 x 88 mm.
- *
- * These limits are intentionally wider than the physical ratio because a card
- * viewed at an angle will not preserve its exact apparent aspect ratio before
- * rectification.
+ * A standard MTG/poker card is 63 x 88 mm (aspect ratio ~0.7159).
  */
 const CARD_ASPECT_RATIO = 63 / 88;
-const MIN_CARD_RATIO = 0.54;
-const MAX_CARD_RATIO = 0.86;
+const MIN_CARD_RATIO = 0.62;
+const MAX_CARD_RATIO = 0.8;
 /*
- * Do not force the user to fill a large portion of the camera preview. The
- * candidate scoring below still strongly favors the largest card-like outline,
- * which keeps internal title/art/rules rectangles from normally winning.
+ * A genuine card must occupy at least 8% of the camera frame.
+ * This completely filters out small background squares, icons, or internal card elements.
  */
-const MIN_CARD_AREA_RATIO = 0.025;
-const MIN_READY_SCORE = 0.48;
+const MIN_CARD_AREA_RATIO = 0.08;
+const MIN_READY_SCORE = 0.6;
 /*
  * A larger closing kernel helps reconnect card borders that are interrupted by
  * glare, shadows, rounded corners, sleeves, or a low-resolution preview frame.
  */
 const EDGE_KERNEL_SIZE = 5;
+
+/** Ray-casting test to determine if a point lies inside a polygon. */
+function pointInPolygon(point: CardPoint, vs: readonly CardPoint[]): boolean {
+    let inside = false;
+    for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+        const xi = vs[i].x;
+        const yi = vs[i].y;
+        const xj = vs[j].x;
+        const yj = vs[j].y;
+        const intersect =
+            yi > point.y !== yj > point.y &&
+            point.x < ((xj - xi) * (point.y - yi)) / (yj - yi) + xi;
+        if (intersect) inside = !inside;
+    }
+    return inside;
+}
+
+/** Check that all 4 interior angles are roughly perpendicular (between 65 and 115 deg). */
+function isCardQuadrilateral(corners: readonly CardPoint[]): boolean {
+    if (corners.length !== 4) return false;
+    for (let i = 0; i < 4; i++) {
+        const prev = corners[(i + 3) % 4];
+        const curr = corners[i];
+        const next = corners[(i + 1) % 4];
+        const v1x = prev.x - curr.x;
+        const v1y = prev.y - curr.y;
+        const v2x = next.x - curr.x;
+        const v2y = next.y - curr.y;
+        const dot = v1x * v2x + v1y * v2y;
+        const mag1 = Math.hypot(v1x, v1y);
+        const mag2 = Math.hypot(v2x, v2y);
+        if (mag1 === 0 || mag2 === 0) return false;
+        const cosTheta = Math.abs(dot / (mag1 * mag2));
+        if (cosTheta > 0.4) {
+            return false;
+        }
+    }
+    return true;
+}
 /**
  * Detect the best card-shaped quadrilateral in a frame.
  *
@@ -77,15 +110,18 @@ export function evaluateCardFrame(cv: typeof OpenCv, image: HTMLCanvasElement): 
         const kernel = cv.Mat.ones(EDGE_KERNEL_SIZE, EDGE_KERNEL_SIZE, cv.CV_8U);
         resources.push(kernel);
         const frameArea = frame.width * frame.height;
-        let best:
-            | {
-                  area: number;
-                  corners: CardPoint[];
-                  aspectRatio: number;
-                  perspectiveRatio: number;
-                  candidateScore: number;
-              }
-            | undefined;
+        interface CardCandidate {
+            area: number;
+            areaRatio: number;
+            corners: CardPoint[];
+            center: CardPoint;
+            aspectRatio: number;
+            perspectiveRatio: number;
+            candidateScore: number;
+        }
+
+        const candidates: CardCandidate[] = [];
+
         /*
          * Try several representations of the same frame.
          *
@@ -142,8 +178,8 @@ export function evaluateCardFrame(cv: typeof OpenCv, image: HTMLCanvasElement): 
              * on real cards a sleeve, shadow, glare or interrupted rounded corner
              * can make the actual card outline stop being an "external" contour.
              *
-             * We inspect all contours and let the card-specific scoring choose
-             * the best candidate instead.
+             * We inspect all contours and filter out inner contained rectangles
+             * during candidate post-processing.
              */
             cv.findContours(working, contours, hierarchy, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
             for (let index = 0; index < contours.size(); index++) {
@@ -196,19 +232,25 @@ export function evaluateCardFrame(cv: typeof OpenCv, image: HTMLCanvasElement): 
                             continue;
                         }
                         let corners = orderCorners(points);
+                        // Ensure corners form roughly perpendicular angles (not diamond or extreme trapezoid)
+                        if (!isCardQuadrilateral(corners)) {
+                            continue;
+                        }
                         let metrics = cardGeometry(corners);
-                        /*
-                         * normalizeCard() expects portrait ordering:
-                         * top-left, top-right, bottom-right, bottom-left.
-                         */
-                        if (metrics.width > metrics.height) {
-                            corners = [corners[1], corners[2], corners[3], corners[0]];
-                            metrics = cardGeometry(corners);
+                        if (metrics.perspectiveRatio < MIN_PERSPECTIVE_RATIO) {
+                            continue;
                         }
                         /*
-                         * Do not demand the exact physical aspect ratio before
-                         * perspective correction. We only reject shapes that are
-                         * clearly not card-like.
+                         * The card must be oriented upright (portrait: height > width).
+                         * Reject any landscape orientation (width >= height) so internal
+                         * horizontal shapes like the art box or rules frame are never selected.
+                         */
+                        if (metrics.width >= metrics.height) {
+                            continue;
+                        }
+                        /*
+                         * Reject any shape outside true card proportion bounds.
+                         * This immediately eliminates random squares, text lines, and long bars.
                          */
                         if (
                             metrics.aspectRatio < MIN_CARD_RATIO ||
@@ -217,35 +259,27 @@ export function evaluateCardFrame(cv: typeof OpenCv, image: HTMLCanvasElement): 
                             continue;
                         }
                         const ratioDistance = Math.abs(metrics.aspectRatio - CARD_ASPECT_RATIO);
-                        const aspectScore = Math.max(0, 1 - ratioDistance / 0.2);
-                        /*
-                         * The full card should normally be one of the largest
-                         * card-shaped quadrilaterals in view. This is our main
-                         * defense against an internal art/rules/title rectangle.
-                         */
-                        const areaScore = Math.min(1, areaRatio / 0.28);
-                        /*
-                         * Perspective contributes to ranking, but only lightly.
-                         * A strongly tilted card should still be accepted because
-                         * warpPerspective() will rectify it afterwards.
-                         */
-                        const perspectiveScore = Math.min(1, metrics.perspectiveRatio / 0.8);
+                        // Quadratic falloff from ideal 63:88 card ratio
+                        const aspectScore = Math.max(0, 1 - Math.pow(ratioDistance / 0.055, 2));
+                        const areaScore = Math.min(1, areaRatio / 0.45);
+                        const perspectiveScore = Math.min(1, metrics.perspectiveRatio / 0.85);
                         const candidateScore =
-                            areaScore * 0.6 + aspectScore * 0.3 + perspectiveScore * 0.1;
-                        if (
-                            !best ||
-                            candidateScore > best.candidateScore ||
-                            (Math.abs(candidateScore - best.candidateScore) < 0.025 &&
-                                area > best.area)
-                        ) {
-                            best = {
-                                area,
-                                corners,
-                                aspectRatio: metrics.aspectRatio,
-                                perspectiveRatio: metrics.perspectiveRatio,
-                                candidateScore,
-                            };
-                        }
+                            areaScore * 0.45 + aspectScore * 0.45 + perspectiveScore * 0.1;
+
+                        const center = {
+                            x: (corners[0].x + corners[1].x + corners[2].x + corners[3].x) / 4,
+                            y: (corners[0].y + corners[1].y + corners[2].y + corners[3].y) / 4,
+                        };
+
+                        candidates.push({
+                            area,
+                            areaRatio,
+                            corners,
+                            center,
+                            aspectRatio: metrics.aspectRatio,
+                            perspectiveRatio: metrics.perspectiveRatio,
+                            candidateScore,
+                        });
                         /*
                          * Once this contour produced a valid four-corner shape,
                          * larger approximation tolerances are unnecessary.
@@ -257,6 +291,29 @@ export function evaluateCardFrame(cv: typeof OpenCv, image: HTMLCanvasElement): 
                 }
             }
         }
+
+        // Filter out candidates that are contained inside another larger candidate (e.g. art box, text frame)
+        const outerCandidates = candidates.filter((candidate) => {
+            return !candidates.some(
+                (other) =>
+                    other !== candidate &&
+                    other.area > candidate.area * 1.25 &&
+                    pointInPolygon(candidate.center, other.corners),
+            );
+        });
+
+        let best: CardCandidate | undefined;
+        for (const candidate of outerCandidates) {
+            if (
+                !best ||
+                candidate.candidateScore > best.candidateScore ||
+                (Math.abs(candidate.candidateScore - best.candidateScore) < 0.04 &&
+                    candidate.area > best.area)
+            ) {
+                best = candidate;
+            }
+        }
+
         if (!best) {
             return {
                 detected: false,
@@ -266,26 +323,17 @@ export function evaluateCardFrame(cv: typeof OpenCv, image: HTMLCanvasElement): 
                 sourceHeight: frame.height,
             };
         }
-        const areaRatio = best.area / frameArea;
-        /*
-         * Only reject extreme perspective. The old 0.5 threshold made the user
-         * hunt for a narrow range of angles even though perspective correction
-         * can handle much more distortion.
-         */
+
         const goodPerspective = best.perspectiveRatio >= MIN_PERSPECTIVE_RATIO;
-        const areaScore = Math.min(1, areaRatio / 0.28);
-        const perspectiveScore = Math.min(1, best.perspectiveRatio / 0.8);
-        const ratioDistance = Math.abs(best.aspectRatio - CARD_ASPECT_RATIO);
-        const aspectScore = Math.max(0, 1 - ratioDistance / 0.2);
-        const score = areaScore * 0.55 + aspectScore * 0.3 + perspectiveScore * 0.15;
-        const ready = goodPerspective && score >= MIN_READY_SCORE;
+        const goodRatio = best.aspectRatio >= MIN_CARD_RATIO && best.aspectRatio <= MAX_CARD_RATIO;
+        const ready = goodPerspective && goodRatio && best.candidateScore >= MIN_READY_SCORE;
 
         return {
             detected: ready,
             reason: !goodPerspective ? 'perspective' : ready ? 'ready' : 'outline',
-            score,
+            score: best.candidateScore,
             corners: best.corners,
-            areaRatio,
+            areaRatio: best.areaRatio,
             perspectiveRatio: best.perspectiveRatio,
             aspectRatio: best.aspectRatio,
             sourceWidth: frame.width,
@@ -330,10 +378,11 @@ export function normalizeCard(
                 y: y * scaleY,
             })),
         );
-        let geometry = cardGeometry(corners);
-        if (geometry.width > geometry.height) {
-            corners = [corners[1], corners[2], corners[3], corners[0]];
-            geometry = cardGeometry(corners);
+        const geometry = cardGeometry(corners);
+        if (geometry.width >= geometry.height) {
+            throw new Error(
+                'The card must be oriented upright. Keep all four outer corners visible.',
+            );
         }
         const cardAreaRatio = polygonArea(corners) / (frame.width * frame.height);
         /*
@@ -343,7 +392,7 @@ export function normalizeCard(
          * geometry test twice: once during detection and again immediately before
          * normalization. That made normal scanning unnecessarily fragile.
          */
-        if (geometry.aspectRatio < 0.5 || geometry.aspectRatio > 0.9 || cardAreaRatio < 0.015) {
+        if (geometry.aspectRatio < 0.6 || geometry.aspectRatio > 0.81 || cardAreaRatio < 0.06) {
             throw new Error(
                 'The complete card outline could not be normalized. Keep all four outer corners visible.',
             );
@@ -509,7 +558,7 @@ function cardGeometry(corners: CardPoint[]): {
     const leftHeight = Math.hypot(topLeft.x - bottomLeft.x, topLeft.y - bottomLeft.y);
     const width = (topWidth + bottomWidth) / 2;
     const height = (leftHeight + rightHeight) / 2;
-    const aspectRatio = Math.min(width, height) / Math.max(width, height);
+    const aspectRatio = height > 0 ? width / height : 0;
     const widthPerspective = Math.min(topWidth, bottomWidth) / Math.max(topWidth, bottomWidth);
     const heightPerspective = Math.min(leftHeight, rightHeight) / Math.max(leftHeight, rightHeight);
     return {
